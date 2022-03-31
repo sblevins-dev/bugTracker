@@ -1,0 +1,24 @@
+.bugs-wrapper {
+    padding: 20px;
+}
+
+.bug-container {
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.bug-container .bug-date-wrapper, .bug-author-wrapper, .bug-status-wrapper {
+    width: 140px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.bug-container .bug-desc-wrapper .bug-desc {
+    border: 1px solid black;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 10px;
+}
