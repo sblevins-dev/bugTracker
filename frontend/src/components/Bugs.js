@@ -1,10 +1,14 @@
+import { useEffect } from "react";
 import "../css/bugs.css";
 
 export const Bugs = ({ data }) => {
+
+    useEffect(() => {
+        
+    }, [data])
   return (
     <div className="bugs-wrapper">
-      {console.log(data)}
-      {data.map((bug) => (
+      {data.length > 0 && !data.includes('nothing') ? data.map((bug) => (
         <div id={bug.id} className="bug-container">
           <div className="bug-date-wrapper">
             <label>Date: </label>
@@ -23,7 +27,9 @@ export const Bugs = ({ data }) => {
             <div className="bug-desc">{bug.description}</div>
           </div>
         </div>
-      ))}
+      )) : (
+          <div>Nothing to display</div>
+      )}
     </div>
   );
 };
