@@ -2,32 +2,13 @@ import { useEffect, useState } from "react";
 import { Bugs } from "./Bugs";
 import "../css/home.css";
 
-export const Home = () => {
+export const Home = ({bugs}) => {
   const [keyword, setKeyword] = useState("");
-  const [bugs, setBugs] = useState([]);
+  
   const [filteredBugs, setFilteredBugs] = useState([]);
   const [status, setStatus] = useState("");
 
-  const list = [
-    {
-      id: 1,
-      name: "John Smith",
-      status: "open",
-      description: "Test bug 1",
-      date: "03-30-2022",
-    },
-    {
-      id: 2,
-      name: "John Doe",
-      status: "closed",
-      description: "Test bug 2",
-      date: "12-30-2021",
-    },
-  ];
-
-  useEffect(() => {
-    setBugs(list);
-  }, []);
+  
 
   const handleKeywordChange = (e) => {
     setKeyword(e.target.value);
@@ -47,12 +28,13 @@ export const Home = () => {
               (bug.description.toLowerCase().includes(keyword.toLowerCase()) ||
                 bug.name.toLowerCase().includes(keyword.toLowerCase()) &&
               (status !== "all"  &&
-              bug.status === status)) ||
-              (bug.description.toLowerCase().includes(keyword.toLowerCase()) ||
-                bug.name.toLowerCase().includes(keyword.toLowerCase()))
+              bug.status === status)) || (
+                bug.description.toLowerCase().includes(keyword.toLowerCase()) ||
+                bug.name.toLowerCase().includes(keyword.toLowerCase())
+              )
             );
           })
-        : list;
+        : bugs;
     if (tempBugs.length === 0) {
       tempBugs = ["nothing"];
     }

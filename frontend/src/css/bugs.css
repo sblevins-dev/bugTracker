@@ -7,6 +7,16 @@
     border: 1px solid black;
     border-radius: 10px;
     margin-bottom: 10px;
+    position: relative;
+}
+
+.bug-container .edit {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding-right: 10px;
+    padding-top: 5px;
+    cursor: pointer;
 }
 
 .bug-container .bug-date-wrapper, .bug-author-wrapper, .bug-status-wrapper {

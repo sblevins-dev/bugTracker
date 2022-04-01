@@ -1,0 +1,29 @@
+.edit-page-wrapper {
+    height: 100%;
+    border: 1px solid black;
+    padding: 10px;
+}
+
+.edit-bug-wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.edit-bug-wrapper [type="date"] {
+    width: 150px;
+}
+
+.edit-bug-wrapper .status {
+    margin-top: 10px;
+}
+
+.edit-bug-wrapper [type="text"] {
+    margin-top: 10px;
+}
+
+.edit-bug-wrapper textarea {
+    height: 200px;
+    padding: 5px;
+}
