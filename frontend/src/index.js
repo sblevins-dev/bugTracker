@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import { configureStore, combineReducers, getDefaultMiddleware } from "@reduxjs/toolkit";
 import "./index.css";
 import App from "./App";
 
@@ -12,7 +12,7 @@ import userReducer from "./Controllers/Redux/userSlice";
 
 const reducer = combineReducers({
   auth: authReducer,
-  bug: bugReducer,
+  bugs: bugReducer,
   user: userReducer,
 });
 
@@ -21,10 +21,8 @@ const store = configureStore({
 });
 
 ReactDOM.render(
-  <React.StrictMode>
     <Provider store={store}>
       <App />
-    </Provider>
-  </React.StrictMode>,
+    </Provider>,
   document.getElementById("root")
 );
