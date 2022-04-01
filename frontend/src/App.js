@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux'
 import { Nav } from './components/Nav';
 import { Login } from './components/Login';
 import { Home } from './components/Home';
@@ -7,6 +8,10 @@ import { Edit } from './components/Edit';
 import './App.css';
 
 function App() {
+  // define whether logged in
+  const {auth} = useSelector(state => state);
+
+  //original
   const [bugs, setBugs] = useState([]);
 
   const list = [
@@ -33,7 +38,7 @@ function App() {
     <Router>
       <Nav />
       <Routes>
-        <Route path='/' element={<Home bugs={bugs} />} />
+        <Route path='/' element={!auth.loggedIn ? <Login /> : <Home bugs={bugs} />} />
         <Route path='/edit' element={<Edit bugs={bugs} />} />
       </Routes>
     </Router>
