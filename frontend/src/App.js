@@ -12,10 +12,18 @@ function App() {
   // define whether logged in
   const {auth} = useSelector(state => state);
 
+  const [navShown, setNavShown] = useState(false);
+
+  const handleClick = () => {
+    setNavShown(!navShown)
+    console.log(navShown)
+  }
+
   return (
     <div className='app'>
       <Router>
-      {auth.loggedIn && <Nav />}
+      {auth.loggedIn && <Nav navShown={navShown} />}
+      {auth.loggedIn && <div className='hamburger' onClick={handleClick}>Ham</div>}
       <Routes>
         <Route path='/' element={!auth.loggedIn ? <Login /> : <Home />} />
         <Route path='/edit' element={<Edit />} />

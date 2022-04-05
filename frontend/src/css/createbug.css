@@ -1,6 +1,7 @@
 .create-page-wrapper {
+    left: 0;
     min-height: calc(100vh - 80px);
-    padding: 20px 20px 20px 50px;
+    padding: 20px 20px 20px 70px;
     font-size: 2rem;
     width: 100%;
 }
