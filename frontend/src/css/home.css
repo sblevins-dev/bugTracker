@@ -2,6 +2,8 @@
     min-height: calc(100vh-80px);
     display: flex;
     flex-direction: column;
+    width: 100%;
+    padding-left: 50px;
 }
 
 .home-wrapper .search-wrapper {

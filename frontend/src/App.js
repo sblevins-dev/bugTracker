@@ -13,14 +13,17 @@ function App() {
   const {auth} = useSelector(state => state);
 
   return (
-    <Router>
-      <Nav />
+    <div className='app'>
+      <Router>
+      {auth.loggedIn && <Nav />}
       <Routes>
         <Route path='/' element={!auth.loggedIn ? <Login /> : <Home />} />
         <Route path='/edit' element={<Edit />} />
         <Route path='/createBug' element={<CreateBug />} />
       </Routes>
     </Router>
+    </div>
+    
   );
 }
 

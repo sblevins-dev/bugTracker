@@ -2,6 +2,8 @@
     min-height: calc(100vh - 80px);
     padding: 20px;
     font-size: 2rem;
+    width: 100%;
+    padding-left: 50px;
 }
 
 .edit-page-wrapper .btns-wrapper {

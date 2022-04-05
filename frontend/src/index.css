@@ -6,4 +6,6 @@
 
 html, body, #root {
   height: 100%;
+  --primary-color: #2A3C5D;
+  --secondary-color: #bacced;
 }
