@@ -3,3 +3,8 @@
     min-width: 100vw;
     overflow: hidden;
 }
+
+.hamburger {
+    padding-left: 10px;
+    height: 100%;
+}

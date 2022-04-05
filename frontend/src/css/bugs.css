@@ -4,10 +4,45 @@
 
 .bug-container {
     padding: 10px;
-    border: 1px solid black;
-    border-radius: 10px;
-    margin-bottom: 10px;
+    color: var(--primary-color);
+    border-bottom: 2px solid rgb(151, 151, 151);
+    margin-bottom: 5px;
     position: relative;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    cursor: pointer;
+}
+
+.bug-container:hover {
+    box-shadow: 5px 5px 5px rgb(184, 184, 184),
+        10px 10px 10px 5px  rgb(218, 218, 218);
+}
+
+.bugs-wrapper .header {
+    display: flex;
+    justify-content: space-evenly;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.bugs-wrapper .header .bug-name {
+    width: 300px;
+    text-align: left;
+}
+
+.bugs-wrapper .header .bug-created {
+    width: 100px;
+}
+
+.bugs-wrapper .header .bug-creator {
+    width: 150px;
+    text-align: center;
+}
+
+.bugs-wrapper .header .bug-status {
+    width: 100px;
 }
 
 .bug-container .edit {
@@ -19,10 +54,33 @@
     cursor: pointer;
 }
 
+.bug-container .bug-name-wrapper {
+    width: 300px;
+    text-align: left;
+}
+
+.bug-container .bug-date-wrapper, .bug-date {
+    width: 100px;
+}
+
+.bug-container .bug-author-wrapper, .bug-author {
+    width: 150px;
+    text-align: center;
+}
+
+.bug-container .bug-status-wrapper div {
+    color: white;
+    width: 50px;
+    text-align: center;
+    padding: 5px;
+    border-radius: 10px;
+}
+
 .bug-container .bug-date-wrapper, .bug-author-wrapper, .bug-status-wrapper {
-    width: 140px;
+    width: 100px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin-bottom: 10px;
 }
 
