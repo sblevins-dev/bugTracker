@@ -7,6 +7,8 @@ export const Nav = () => {
         <div className="logo">Logo</div>
         <div className="nav-links">
             <NavLink to='/'>Home</NavLink>
+            <NavLink to="/viewBugs">View Bugs</NavLink>
+            <NavLink to="/createBug">Create bug</NavLink>
         </div>
     </div>
   )
