@@ -11,34 +11,11 @@ function App() {
   // define whether logged in
   const {auth} = useSelector(state => state);
 
-  //original
-  const [bugs, setBugs] = useState([]);
-
-  const list = [
-    {
-      id: 1,
-      name: "John Smith",
-      status: "open",
-      description: "Test bug 1",
-      date: "03-30-2022",
-    },
-    {
-      id: 2,
-      name: "John Doe",
-      status: "closed",
-      description: "Test bug 2",
-      date: "12-30-2021",
-    },
-  ];
-
-  useEffect(() => {
-    setBugs(list);
-  }, []);
   return (
     <Router>
       <Nav />
       <Routes>
-        <Route path='/' element={!auth.loggedIn ? <Login /> : <Home bugs={bugs} />} />
+        <Route path='/' element={!auth.loggedIn ? <Login /> : <Home />} />
         <Route path='/edit' element={<Edit />} />
       </Routes>
     </Router>
