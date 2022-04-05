@@ -39,7 +39,7 @@ function App() {
       <Nav />
       <Routes>
         <Route path='/' element={!auth.loggedIn ? <Login /> : <Home bugs={bugs} />} />
-        <Route path='/edit' element={<Edit bugs={bugs} />} />
+        <Route path='/edit' element={<Edit />} />
       </Routes>
     </Router>
   );

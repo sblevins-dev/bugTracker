@@ -1,35 +1,52 @@
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import { getBugs } from '../Controllers/Redux/bugSlice';
 import { Bugs } from "./Bugs";
 import "../css/home.css";
 
-export const Home = ({bugs}) => {
+export const Home = () => {
+
+  // Redux
+  const dispatch = useDispatch();
+  const { bugs } = useSelector(state => state);
+
+  // set keyword for search
   const [keyword, setKeyword] = useState("");
   
+  // set bug list to filtered list
   const [filteredBugs, setFilteredBugs] = useState([]);
+
+  // set status for search
   const [status, setStatus] = useState("");
 
-  
+  // call when bugs length is less than 1
+  useEffect(() => {
+    dispatch(getBugs());
+  }, [bugs.length < 1]);
 
+  // set keyword search term
   const handleKeywordChange = (e) => {
     setKeyword(e.target.value);
   };
 
+  // handle radio buttons for search
   const handleRadioSelection = (e) => {
     setStatus(e.target.value);
-    console.log(status)
   };
 
+  // filter bug list by search terms
   const filterBugs = (temp) => {
     let tempBugs;
     tempBugs =
       keyword !== ""
         ? temp.filter((bug) => {
             return (
-              (bug.description.toLowerCase().includes(keyword.toLowerCase()) ||
-                bug.name.toLowerCase().includes(keyword.toLowerCase()) &&
+              (bug.details.toLowerCase().includes(keyword.toLowerCase()) ||
+                bug.name.toLowerCase().includes(keyword.toLowerCase()) ||
+                 bug.author.toLowerCase().includes(keyword.toLowerCase()) &&
               (status !== "all"  &&
               bug.status === status)) || (
-                bug.description.toLowerCase().includes(keyword.toLowerCase()) ||
+                bug.details.toLowerCase().includes(keyword.toLowerCase()) ||
                 bug.name.toLowerCase().includes(keyword.toLowerCase())
               )
             );
@@ -40,11 +57,10 @@ export const Home = ({bugs}) => {
     }
     return tempBugs;
   };
-
+  
   const handleSearch = (e) => {
     e.preventDefault();
-    let temp = bugs;
-    setFilteredBugs(filterBugs(temp));
+    setFilteredBugs(filterBugs(bugs));
   };
 
   return (
