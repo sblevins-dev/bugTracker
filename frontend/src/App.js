@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 import { Nav } from './components/Nav';
 import { Login } from './components/Login';
 import { Home } from './components/Home';
+import { BugView } from './components/BugView';
 import { CreateBug } from './components/CreateBug';
 import { Edit } from './components/Edit';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -30,6 +31,7 @@ function App() {
         <Route path='/' element={!auth.loggedIn ? <Login /> : <Home />} />
         <Route path='/edit' element={<Edit />} />
         <Route path='/createBug' element={<CreateBug />} />
+        <Route path='/bugView' element={<BugView />} />
       </Routes>
     </Router>
     </div>
