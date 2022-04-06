@@ -4,20 +4,21 @@
 
 .bug-container {
     padding: 10px;
-    color: var(--primary-color);
-    border-bottom: 2px solid rgb(151, 151, 151);
-    margin-bottom: 5px;
+    margin-bottom: 20px;
     position: relative;
     height: 180px;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
     cursor: pointer;
+    color: var(--secondary-color);
+    background-color: var(--third-color);
+    border-radius: 10px;
+    transition: all .2s ease-in-out;
 }
 
 .bug-container:hover {
-    box-shadow: 5px 5px 5px rgb(184, 184, 184),
-        10px 10px 10px 5px  rgb(218, 218, 218);
+    box-shadow: 1px 1px 10px 1px var(--fifth-color);
 }
 
 .bugs-wrapper .header {
@@ -25,6 +26,11 @@
     justify-content: space-evenly;
     text-align: center;
     margin-bottom: 30px;
+    padding: 10px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-bottom: 2px solid var(--third-color);
+    color: var(--secondary-color);
 }
 
 .bugs-wrapper .header .bug-name {
@@ -49,9 +55,16 @@
     position: absolute;
     top: 0;
     right: 0;
-    padding-right: 10px;
-    padding-top: 5px;
+    padding-right: 15px;
+    padding-top: 15px;
     cursor: pointer;
+    color: var(--fifth-color);
+    transition: all .2s ease-in-out;
+}
+
+.bug-container .edit:hover {
+    transform: scale(1.2);
+    color: var(--fourth-color)
 }
 
 .bug-container .bug-name-wrapper {
@@ -89,4 +102,8 @@
     padding: 10px;
     border-radius: 10px;
     margin-top: 10px;
+}
+
+.no-bugs {
+    color: var(--secondary-color);
 }

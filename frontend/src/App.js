@@ -6,6 +6,8 @@ import { Login } from './components/Login';
 import { Home } from './components/Home';
 import { CreateBug } from './components/CreateBug';
 import { Edit } from './components/Edit';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 import './App.css';
 
 function App() {
@@ -23,7 +25,7 @@ function App() {
     <div className='app'>
       <Router>
       {auth.loggedIn && <Nav navShown={navShown} />}
-      {auth.loggedIn && <div className='hamburger' onClick={handleClick}>Ham</div>}
+      {auth.loggedIn && <div className='hamburger' onClick={handleClick}><FontAwesomeIcon icon={faBars} size='2x' /></div>}
       <Routes>
         <Route path='/' element={!auth.loggedIn ? <Login /> : <Home />} />
         <Route path='/edit' element={<Edit />} />

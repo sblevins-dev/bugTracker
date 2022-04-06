@@ -4,13 +4,15 @@
     flex-direction: column;
     width: 100%;
     padding-left: 50px;
+    background-color: var(--primary-color);
 }
 
 .home-wrapper .search-wrapper {
+    color: var(--secondary-color);
     height: 300px;
     width: 500px;
     margin: 20px;
-    background-color: var(--secondary-color);
+    background-color: var(--third-color);
     padding: 10px;
     border-radius: 10px;
 }
@@ -57,4 +59,13 @@
     margin-top: 10px;
     padding: 5px;
     cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    color: var(--secondary-color);
+    background-color: var(--fifth-color);
+    transition: all .2s ease-in-out;
+}
+
+.home-wrapper .search-wrapper .form-wrapper button:hover {
+    background-color: var(--fourth-color);
 }

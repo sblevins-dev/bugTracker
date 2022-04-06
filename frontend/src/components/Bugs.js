@@ -13,7 +13,7 @@ export const Bugs = ({ data }) => {
       {data[0] !== "nothing" ? (
         data.map((bug) => <BugModal key={bug._id} bug={bug} />)
       ) : (
-        <div>No Bugs Found</div>
+        <div className="no-bugs">No Bugs Found</div>
       )}
     </div>
   );

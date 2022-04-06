@@ -6,11 +6,11 @@
 
 html, body, #root {
   height: 100%;
-  --primary-color: #4E6A8C;
-  --secondary-color: #C2E2FB;
-  --third-color: #859DBB;
-  --fourth-color: #6483A9;
-  --fith-color: #8C704E;
-  --sixth-color: #BBA385;
+  --primary-color: #1B1F28;
+  --secondary-color: #E8EAEB;
+  --third-color: #232830;
+  --fourth-color: #2979F2;
+  --fifth-color: #6586B8;
+  --sixth-color: #2045AF;
   --seventh-color: #3C516B;
 }
