@@ -12,7 +12,6 @@ export const Nav = ({navShown}) => {
         <FontAwesomeIcon className='logo' icon={faBug} size='2x' />
         <div className="nav-links">
             <NavLink to='/'>Home</NavLink>
-            <NavLink to="/viewBugs">View Bugs</NavLink>
             <NavLink to="/createBug">Create bug</NavLink>
         </div>
     </div>

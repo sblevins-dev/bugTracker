@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { getBugs } from '../Controllers/Redux/bugSlice';
 import { Bugs } from "./Bugs";
+import { Statistics } from './Statistics';
 import "../css/home.css";
 
 export const Home = () => {
@@ -65,6 +66,7 @@ export const Home = () => {
 
   return (
     <div className="home-wrapper">
+      <Statistics bugs={bugs} />
       <div className="search-wrapper">
         <form className="form-wrapper">
           <div className="form-group">
