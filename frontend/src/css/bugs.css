@@ -18,7 +18,8 @@
 }
 
 .bug-container:hover {
-    box-shadow: 1px 1px 10px 1px var(--fifth-color);
+    box-shadow: 1px 1px 10px 1px var(--fifth-color),
+        2px 2px 20px 2px var(--fifth-color);
 }
 
 .bugs-wrapper .header {

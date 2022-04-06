@@ -1,6 +1,6 @@
 .statistics-wrapper {
     height: 250px;
-    width: 500px;
+    width: 100%;
     padding: 20px;
     display: flex;
     justify-content: space-evenly;
@@ -19,4 +19,11 @@
     font-size: 1.5rem;
     text-transform: uppercase;
     font-weight: bold;
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+}
+
+.statistics-wrapper .card:hover {
+    box-shadow: 1px 1px 10px 1px var(--fifth-color),
+        2px 2px 20px 2px var(--fifth-color);
 }

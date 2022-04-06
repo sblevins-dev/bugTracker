@@ -64,9 +64,21 @@ export const Home = () => {
     setFilteredBugs(filterBugs(bugs));
   };
 
+  const handleAll = () => {
+    setFilteredBugs(bugs)
+  }
+
+  const handleOpen = () => {
+    setFilteredBugs(bugs.filter(bug => bug.status === 'open'))
+  }
+
+  const handleClose = () => {
+    setFilteredBugs(bugs.filter(bug => bug.status === 'closed'))
+  }
+
   return (
     <div className="home-wrapper">
-      <Statistics bugs={bugs} />
+      <Statistics bugs={bugs} open={handleOpen} all={handleAll} close={handleClose} />
       <div className="search-wrapper">
         <form className="form-wrapper">
           <div className="form-group">
