@@ -69,7 +69,19 @@
 
 .bug-container .bug-name-wrapper {
     width: 300px;
+    height: 100%;
     text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 25px;
+}
+
+.bug-container .bug-name-wrapper .comments {
+    padding-top: 20px;
+    display: flex;
+    width: 40px;
+    justify-content: space-between;
 }
 
 .bug-container .bug-date-wrapper, .bug-date {
