@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { getBugs } from '../Controllers/Redux/bugSlice';
+import { fetchBugs } from "../Controllers/Redux/bugSlice";
 import { Bugs } from "./Bugs";
 import { Statistics } from './Statistics';
 import "../css/home.css";
@@ -22,7 +23,7 @@ export const Home = () => {
 
   // call when bugs length is less than 1
   useEffect(() => {
-    dispatch(getBugs());
+    dispatch(fetchBugs());
   }, [bugs.length < 1]);
 
   // set keyword search term
@@ -78,6 +79,7 @@ export const Home = () => {
 
   return (
     <div className="home-wrapper">
+      {console.log(bugs)}
       <Statistics bugs={bugs} open={handleOpen} all={handleAll} close={handleClose} />
       <div className="search-wrapper">
         <form className="form-wrapper">

@@ -1,9 +1,11 @@
 import { BugModal } from "./BugModal";
 import "../css/bugs.css";
 
-export const Bugs = ({ data }) => {
+export const Bugs = ({ bugs }) => {
+  console.log(bugs)
   return (
     <div className="bugs-wrapper">
+      {/* {data.map(bug => console.log(bug))} */}
       {/* <div className="header">
         <div className="bug-name">Bug</div>
         <div className="bug-created">Created</div>

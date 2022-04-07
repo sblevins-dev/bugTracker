@@ -1,11 +1,46 @@
 import bugModel from '../Models/bugModel';
 import axios from 'axios';
+import { getBugs } from './Redux/bugSlice';
 
-export const retrieveBugs = async () => {
-    const result = await axios.get('http://localhost:5000/bugs/')
-    const data = result;
-    console.log(result)
-}
+// export async function retrieveBugs() {
+//     const getData = async () => {
+//       const result = await axios.get('http://localhost:5000/bugs/') 
+//       return result.data
+//     }
+//     let data = await getData();
+//     return data
+// }
+
+// export function retrieveBugs() {
+//     let res = axios.get('http://localhost:5000/bugs/').then(data => data)
+//     return res
+// }
+
+// export const retrieveBugs = async (dispatch) => {
+//     let data = [];
+//     try {
+//         const response = await axios.get('http://localhost:5000/bugs').then(data => {return data});
+//         let info = response.data
+//         data.push(info)
+//         return data
+//         // return response.data
+//         // dispatch(getBugs(response.data));
+//     } catch (err) {
+//         throw new Error(err)
+//     }
+// }
+
+// export const retrieveBugs = () => {
+//     let data = [];
+//     try {
+//         let response = axios.get('http://localhost:5000/bugs')
+//         let info = response.data
+//         data.push(info)
+//         return data
+//     } catch (error) {
+//         console.log(error)
+//     }
+// }
 
 // export function retrieveBugs() {
 //     let data = [];
