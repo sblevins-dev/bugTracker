@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil, faComment } from "@fortawesome/free-solid-svg-icons";
 
 export const BugModal = ({bug}) => {
-  const { name, author, details, time, priority, status, comments } = bug;
+  const { name, author, details, createdAt, priority, status, comments } = bug;
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -34,7 +34,7 @@ export const BugModal = ({bug}) => {
         </div>
       </div>
       <div className="bug-date-wrapper">
-        <div className="bug-date">{time}</div>
+        <div className="bug-date">{createdAt}</div>
       </div>
       <div className="bug-author-wrapper">
         <div className="bug-author">{author}</div>

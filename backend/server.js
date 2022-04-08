@@ -7,7 +7,7 @@ dotenv.config();
 const cors = require('cors');
 const app = express();
 
-mongoose.connect(process.env.MONGO_URL, {useNewUrlParser: true, useUnifiedTopology: true}, err => {
+mongoose.connect(process.env.MONGO_DB, {useNewUrlParser: true, useUnifiedTopology: true}, err => {
     if (!err) return console.log('Connected to DB');
     console.log(err);
 })

@@ -1,12 +1,10 @@
 import { BugModal } from "./BugModal";
 import "../css/bugs.css";
 
-export const Bugs = ({ bugs }) => {
-  console.log(bugs)
+export const Bugs = ({ data }) => {
   return (
     <div className="bugs-wrapper">
-      {/* {data.map(bug => console.log(bug))} */}
-      {/* <div className="header">
+      <div className="header">
         <div className="bug-name">Bug</div>
         <div className="bug-created">Created</div>
         <div className="bug-creator">Creator</div>
@@ -16,7 +14,7 @@ export const Bugs = ({ bugs }) => {
         data.map((bug) => <BugModal key={bug._id} bug={bug} />)
       ) : (
         <div className="no-bugs">No Bugs Found</div>
-      )} */}
+      )}
     </div>
   );
 };

@@ -8,8 +8,10 @@ const slice = createSlice({
   initialState: [],
   reducers: {
     getBugs: (state, { payload }) => {
+      console.log(payload)
       state = payload
       console.log(state)
+      return state
     },
 
     createBug: (state, action) => {},
