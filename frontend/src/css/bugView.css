@@ -1,6 +1,112 @@
 .bugview-wrapper {
-    padding: 20px;
+    padding: 40px;
     background-color: var(--third-color);
     margin: 20px;
     width: 100%;
+    color: var(--secondary-color);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.first-sec {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 75%;
+}
+
+.bug-title {
+    font-size: 3rem;
+    padding-bottom: 20px;
+    width: 95%;
+    margin-right: 40px;
+    margin-bottom: 50px;
+    border-bottom: 1px solid gray;
+}
+
+.bug-details {
+    width: 100%;
+}
+
+.details-title {
+    font-size: 1.5rem;
+    padding-bottom: 10px;
+}
+
+.details {
+    width: 95%;
+    height: 200px;
+    border: 1px solid var(--secondary-color);
+    border-radius: 10px;
+    background-color: var(--primary-color);
+    padding: 20px;
+}
+
+.steps-wrapper {
+    width: 100%;
+}
+
+.steps-title {
+    font-size: 1.5rem;
+    align-self: left;
+    padding-top: 40px;
+}
+
+.steps-list {
+    list-style-type: upper-greek-type;
+    padding: 20px;
+}
+
+.steps-list li {
+    padding: 10px;
+}
+
+.comments-wrapper {
+    width: 95%;
+}
+
+.comments-wrapper h1 {
+    padding-bottom: 20px;
+}
+
+.comment-list {
+    list-style-type: none;
+}
+
+.comment-list li {
+    min-height: 100px;
+    border-top: 1px solid gray;
+    padding: 10px;
+}
+
+.comment-list:last-child {
+    border-bottom: 1px solid gray;
+}
+
+/* Sidebar */
+
+.second-sec {
+    display: flex;
+    width: 25%;
+    flex-direction: column;
+    align-items: left;
+    justify-content: left;
+    padding: 20px;
+    height: 100%;
+    max-width: 300px;
+    border-left: 1px solid gray;
+}
+
+.bug-author, .bug-assigned, .bug-status, .bug-priority {
+    padding-bottom: 40px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 2rem;
+}
+
+.author, .assigned, .status, .priority {
+    font-size: 1.5rem;
 }
