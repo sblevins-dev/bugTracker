@@ -3,6 +3,7 @@ const Bug = require("../../Models/bugModel");
 
 // Create bug
 route.post("/createBug", async (req, res) => {
+  console.log(req.body)
   if (!req.body) {
     res.status(400);
     throw new Error("Please add text to fields");

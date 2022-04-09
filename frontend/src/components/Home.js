@@ -79,7 +79,6 @@ export const Home = () => {
 
   return (
     <div className="home-wrapper">
-      {console.log(bugs)}
       <Statistics bugs={bugs} open={handleOpen} all={handleAll} close={handleClose} />
       <div className="search-wrapper">
         <form className="form-wrapper">

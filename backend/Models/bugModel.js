@@ -28,7 +28,6 @@ const bugSchema = mongoose.Schema(
     },
     author: {
       type: String,
-      required: true,
       ref: "User",
     },
     comments: {

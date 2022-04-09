@@ -11,8 +11,6 @@ export const BugModal = ({bug}) => {
 
   }, [bug])
 
-  console.log(bug)
-
   const handleClick = (e) => {
     e.preventDefault();
     navigate('/bugView', {

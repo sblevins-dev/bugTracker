@@ -19,7 +19,6 @@ function App() {
 
   const handleClick = () => {
     setNavShown(!navShown)
-    console.log(navShown)
   }
 
   return (

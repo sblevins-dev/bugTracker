@@ -8,19 +8,18 @@ const slice = createSlice({
   initialState: [],
   reducers: {
     getBugs: (state, { payload }) => {
-      console.log(payload)
       state = payload
-      console.log(state)
       return state
     },
 
-    createBug: (state, action) => {},
+    createBug: (state, action) => {
+    },
     updateBug: (state, actions) => {},
     markComplete: (state, action) => {},
   },
 });
 
-export function fetchBugs() {
+export function fetchBugs(data) {
   return async (dispatch) => {
     axios
       .get("http://localhost:5000/bugs")
@@ -31,6 +30,11 @@ export function fetchBugs() {
         console.log(err);
       });
   };
+}
+
+export function postBug(data) {
+  console.log(data)
+  return axios.post("http://localhost:5000/bugs/createBug", data)
 }
 
 export default slice.reducer;
