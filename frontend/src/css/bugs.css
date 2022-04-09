@@ -3,6 +3,7 @@
 }
 
 .bug-container {
+    width: 100%;
     padding: 10px;
     margin-bottom: 20px;
     position: relative;
@@ -17,12 +18,25 @@
     transition: all .2s ease-in-out;
 }
 
+.bug-container div {
+    width: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.bug-container .bug-container-author-wrapper div {
+    font-size: 1.5rem;
+}
+
 .bug-container:hover {
     box-shadow: 1px 1px 10px 1px var(--fifth-color),
         2px 2px 20px 2px var(--fifth-color);
 }
 
 .bugs-wrapper .header {
+    width: 100%;
     display: flex;
     justify-content: space-evenly;
     text-align: center;
@@ -34,22 +48,10 @@
     color: var(--secondary-color);
 }
 
-.bugs-wrapper .header .bug-name {
-    width: 300px;
-    text-align: left;
-}
-
-.bugs-wrapper .header .bug-created {
-    width: 100px;
-}
-
-.bugs-wrapper .header .bug-creator {
-    width: 150px;
+.bugs-wrapper .header div {
+    display: block;
     text-align: center;
-}
-
-.bugs-wrapper .header .bug-status {
-    width: 100px;
+    width: 25%;
 }
 
 .bug-container .edit {
@@ -68,53 +70,25 @@
     color: var(--fourth-color)
 }
 
-.bug-container .bug-name-wrapper {
-    width: 300px;
-    height: 100%;
-    text-align: left;
+.bug-container .bug-container-name-wrapper {
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding-top: 25px;
 }
 
-.bug-container .bug-name-wrapper .comments {
+.bug-container .bug-container-name-wrapper .comments {
     padding-top: 20px;
+    align-self: left;
     display: flex;
     width: 40px;
     justify-content: space-between;
 }
 
-.bug-container .bug-date-wrapper, .bug-date {
-    width: 100px;
-}
-
-.bug-container .bug-author-wrapper, .bug-author {
-    width: 150px;
-    text-align: center;
-}
-
-.bug-container .bug-status-wrapper div {
-    color: white;
-    width: 50px;
-    text-align: center;
-    padding: 5px;
+.bug-container .bug-container-status-wrapper div {
+    max-width: 60px;
+    padding: 7px;
     border-radius: 10px;
-}
-
-.bug-container .bug-date-wrapper, .bug-author-wrapper, .bug-status-wrapper {
-    width: 100px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
-.bug-container .bug-desc-wrapper .bug-desc {
-    border: 1px solid black;
-    padding: 10px;
-    border-radius: 10px;
-    margin-top: 10px;
 }
 
 .no-bugs {

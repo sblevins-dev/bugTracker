@@ -11,6 +11,8 @@ export const BugModal = ({bug}) => {
 
   }, [bug])
 
+  console.log(bug)
+
   const handleClick = (e) => {
     e.preventDefault();
     navigate('/bugView', {
@@ -26,20 +28,20 @@ export const BugModal = ({bug}) => {
       <Link to="/edit" state={bug}>
         <FontAwesomeIcon icon={faPencil} className="edit" />
       </Link>
-      <div className="bug-name-wrapper">
+      <div className="bug-container-name-wrapper">
         <h1>{name}</h1>
         <div className="comments">
           <FontAwesomeIcon icon={faComment} className="comment-icon" />
           <div>{comments.length}</div>
         </div>
       </div>
-      <div className="bug-date-wrapper">
+      <div className="bug-container-date-wrapper">
         <div className="bug-date">{createdAt}</div>
       </div>
-      <div className="bug-author-wrapper">
+      <div className="bug-container-author-wrapper">
         <div className="bug-author">{author}</div>
       </div>
-      <div className="bug-status-wrapper">
+      <div className="bug-container-status-wrapper">
         <div style={status === "open" ? {backgroundColor: "green"} : {backgroundColor: "red"}} >{status}</div>
       </div>
     </div>

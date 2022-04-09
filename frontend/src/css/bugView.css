@@ -118,7 +118,7 @@
     border-left: 1px solid gray;
 }
 
-.bug-author, .bug-assigned, .bug-status, .bug-priority {
+.second-sec  .bug-author, .bug-assigned, .bug-status, .bug-priority {
     padding-bottom: 40px;
     width: 100%;
     display: flex;
