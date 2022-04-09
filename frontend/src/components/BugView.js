@@ -11,7 +11,8 @@ export const BugView = (props) => {
     navigate("/");
   };
   return (
-    <div className="bugview-wrapper" onClick={handleClick}>
+    <div className="bugview-wrapper" >
+      <button className="back-btn" onClick={handleClick}>Back</button>
       <div className="first-sec">
         <h1 className="bug-title">{bug.name}</h1>
         <div className="bug-details">

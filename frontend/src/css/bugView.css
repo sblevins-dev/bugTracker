@@ -1,5 +1,5 @@
 .bugview-wrapper {
-    padding: 40px;
+    padding: 70px 40px 40px 40px;
     background-color: var(--third-color);
     margin: 20px;
     width: 100%;
@@ -7,6 +7,26 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    position: relative;
+}
+
+.bugview-wrapper .back-btn {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 5px;
+    font-size: .9rem;
+    border-radius: 5px;
+    background-color: var(--fifth-color);
+    border: none;
+    color: var(--secondary-color);
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.bugview-wrapper .back-btn:hover {
+    background-color: var(--fourth-color);
 }
 
 .first-sec {
