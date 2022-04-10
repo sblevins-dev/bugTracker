@@ -1,5 +1,11 @@
+.bugview-page-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
 .bugview-wrapper {
-    padding: 70px 40px 40px 40px;
+    padding: 70px 40px 60px 40px;
     background-color: var(--third-color);
     margin: 20px;
     width: 100%;
@@ -129,4 +135,30 @@
 
 .author, .assigned, .status, .priority {
     font-size: 1.5rem;
+}
+
+.comment-wrapper {
+    margin: 20px;
+    padding: 10px;
+    width: 100%;
+    color: var(--secondary-color);
+    height: 100%;
+}
+
+.comment-wrapper form {
+    display: flex;
+    flex-direction: column;
+}
+
+.comment-wrapper form label {
+    padding-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+.comment-box {
+    width: 500px;
+    height: 100px;
+    background-color: var(--third-color);
+    color: var(--secondary-color);
+    padding: 5px;
 }

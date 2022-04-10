@@ -94,6 +94,7 @@ export const Home = () => {
                 id="all"
                 name="status"
                 value="all"
+                defaultChecked
                 onChange={handleRadioSelection}
               ></input>
               <label htmlFor="all" className="first-select">All </label>

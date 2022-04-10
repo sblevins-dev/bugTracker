@@ -26,6 +26,21 @@ route.post("/createBug", async (req, res) => {
   res.status(200).json(bug);
 });
 
+// Add comment
+route.put("/leaveComment/:id", async (req, res) => {
+  const bug = await Bug.findById(req.params.id);
+
+  if (!bug) {
+    res.status(400);
+    throw new Error("Bug not found")
+  }
+
+  let updatedBug = await Bug.findByIdAndUpdate(req.params.id, {$push: {comments: req.body.comment}}, {new: true})
+
+  res.json(updatedBug)
+
+})
+
 // Update bug
 route
   .put("/updateBug/:id", async (req, res) => {
