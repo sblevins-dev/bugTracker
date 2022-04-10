@@ -27,8 +27,8 @@
     border: none;
     color: var(--secondary-color);
     cursor: pointer;
-    text-transform: uppercase;
     font-weight: bold;
+    transition: all .2s ease-in-out;
 }
 
 .bugview-wrapper .back-btn:hover {
@@ -161,4 +161,21 @@
     background-color: var(--third-color);
     color: var(--secondary-color);
     padding: 5px;
+}
+
+.comment-submit-btn {
+    width: 100px;
+    font-weight: bold;
+    margin-top: 10px;
+    padding: 5px;
+    cursor: pointer;
+    background-color: var(--fifth-color);
+    border: none;
+    border-radius: 5px;
+    color: var(--secondary-color);
+    transition: all .2s ease-in-out;
+}
+
+.comment-submit-btn:hover {
+    background-color: var(--fourth-color);
 }

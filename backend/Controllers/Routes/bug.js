@@ -11,8 +11,8 @@ route.post("/createBug", async (req, res) => {
     throw new Error("Please add text to fields");
   }
 
-  const { name, status, details, steps, assigned, author, comments } = req.body;
-
+  const { name, status, details, assigned, author, comments } = req.body;
+  const steps = Object.values(req.body.steps);
   const bug = await Bug.create({
     name,
     status,

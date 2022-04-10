@@ -84,7 +84,7 @@ export const BugView = (props) => {
         <form>
           <label>Leave a Comment:</label>
           <textarea className="comment-box" onChange={handleComment}></textarea>
-          <button type="submit" onClick={leaveComment}>Submit</button>
+          <button type="submit" className="comment-submit-btn" onClick={leaveComment}>Submit</button>
         </form>
       </div>
     </div>

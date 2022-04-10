@@ -11,35 +11,39 @@
   padding: 20px;
 }
 
-.create-page-wrapper button {
+.create-page-wrapper .create-bug-wrapper .btns-wrapper .cancel-btn {
   font-size: 1rem;
-  width: 80px;
+  width: 100px;
   text-align: center;
   background-color: red;
   padding: 5px;
   margin-bottom: 20px;
   border-radius: 5px;
+  border: none;
   color: white;
   cursor: pointer;
-  transition: all 0.1s ease-in-out;
+  transition: all .2s ease-in-out;
   font-weight: bold;
 }
 
-.create-page-wrapper button:hover {
-  transform: scale(1.03);
+.create-page-wrapper .create-bug-wrapper .btns-wrapper .cancel-btn:hover {
+  background-color: rgb(255, 77, 0);
 }
 
-.create-page-wrapper .save-btn {
+.create-page-wrapper .create-bug-wrapper .add-btn, .btns-wrapper .save-btn {
+  width: 100px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--secondary-color);
   margin-right: 20px;
+  padding: 5px;
+  border-radius: 5px;
   background-color: var(--fifth-color);
   border: none;
+  cursor: pointer;
+  transition: all .2s ease-in-out;
 }
-
-.create-page-wrapper .cancel-btn {
-  border: none;
-}
-
-.create-page-wrapper .save-btn:hover {
+.create-page-wrapper .create-bug-wrapper .add-btn:hover, .btns-wrapper .save-btn:hover {
   background-color: var(--fourth-color);
 }
 
@@ -52,6 +56,26 @@
   justify-content: space-evenly;
   background-color: var(--third-color);
   color: var(--secondary-color);
+  position: relative;
+}
+
+.create-page-wrapper .create-bug-wrapper .back-btn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 5px;
+  font-size: .9rem;
+  border-radius: 5px;
+  background-color: var(--fifth-color);
+  border: none;
+  color: var(--secondary-color);
+  cursor: pointer;
+  font-weight: bold;
+  transition: all .2s ease-in-out;
+}
+
+.create-page-wrapper .create-bug-wrapper .back-btn:hover {
+  background-color: var(--fourth-color);
 }
 
 .create-bug-wrapper [type="date"] {
