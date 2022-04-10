@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { createBug, postBug } from "../Controllers/Redux/bugSlice";
 import "../css/createbug.css";
 
-export const CreateBug = () => {
+export const CreateBug = ({user}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -13,7 +13,7 @@ export const CreateBug = () => {
     status: "open",
     steps: {},
     details: "",
-    author: "user",
+    author: user,
   });
   const [counter, setCounter] = useState(1);
 

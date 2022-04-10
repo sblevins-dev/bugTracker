@@ -1,23 +1,18 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 import { fetchBugs } from "../Controllers/Redux/bugSlice";
 import { Bugs } from "./Bugs";
-import { Statistics } from './Statistics';
+import { Statistics } from "./Statistics";
 import "../css/home.css";
-import { getAccountUser } from "../Controllers/Redux/authSlice";
 
 export const Home = () => {
-
   // Redux
   const dispatch = useDispatch();
-  const { bugs } = useSelector(state => state);
-  const {name} = useSelector(state => state)
-
-  console.log(name)
+  const { bugs } = useSelector((state) => state);
 
   // set keyword for search
   const [keyword, setKeyword] = useState("");
-  
+
   // set bug list to filtered list
   const [filteredBugs, setFilteredBugs] = useState([]);
 
@@ -28,10 +23,6 @@ export const Home = () => {
   useEffect(() => {
     dispatch(fetchBugs());
   }, [bugs.length < 1]);
-
-  useEffect(() => {
-    dispatch(getAccountUser())
-  }, [])
 
   // set keyword search term
   const handleKeywordChange = (e) => {
@@ -50,14 +41,13 @@ export const Home = () => {
       keyword !== ""
         ? temp.filter((bug) => {
             return (
-              (bug.details.toLowerCase().includes(keyword.toLowerCase()) ||
-                bug.name.toLowerCase().includes(keyword.toLowerCase()) ||
-                 bug.author.toLowerCase().includes(keyword.toLowerCase()) &&
-              (status !== "all"  &&
-              bug.status === status)) || (
-                bug.details.toLowerCase().includes(keyword.toLowerCase()) ||
-                bug.name.toLowerCase().includes(keyword.toLowerCase())
-              )
+              bug.details.toLowerCase().includes(keyword.toLowerCase()) ||
+              bug.name.toLowerCase().includes(keyword.toLowerCase()) ||
+              (bug.author.toLowerCase().includes(keyword.toLowerCase()) &&
+                status !== "all" &&
+                bug.status === status) ||
+              bug.details.toLowerCase().includes(keyword.toLowerCase()) ||
+              bug.name.toLowerCase().includes(keyword.toLowerCase())
             );
           })
         : bugs;
@@ -66,27 +56,32 @@ export const Home = () => {
     }
     return tempBugs;
   };
-  
+
   const handleSearch = (e) => {
     e.preventDefault();
     setFilteredBugs(filterBugs(bugs));
   };
 
   const handleAll = () => {
-    setFilteredBugs(bugs)
-  }
+    setFilteredBugs(bugs);
+  };
 
   const handleOpen = () => {
-    setFilteredBugs(bugs.filter(bug => bug.status === 'open'))
-  }
+    setFilteredBugs(bugs.filter((bug) => bug.status === "open"));
+  };
 
   const handleClose = () => {
-    setFilteredBugs(bugs.filter(bug => bug.status === 'closed'))
-  }
+    setFilteredBugs(bugs.filter((bug) => bug.status === "closed"));
+  };
 
   return (
     <div className="home-wrapper">
-      <Statistics bugs={bugs} open={handleOpen} all={handleAll} close={handleClose} />
+      <Statistics
+        bugs={bugs}
+        open={handleOpen}
+        all={handleAll}
+        close={handleClose}
+      />
       <div className="search-wrapper">
         <form className="form-wrapper">
           <div className="form-group">
@@ -104,7 +99,9 @@ export const Home = () => {
                 defaultChecked
                 onChange={handleRadioSelection}
               ></input>
-              <label htmlFor="all" className="first-select">All </label>
+              <label htmlFor="all" className="first-select">
+                All{" "}
+              </label>
               <input
                 type="radio"
                 id="open"
@@ -113,7 +110,7 @@ export const Home = () => {
                 onChange={handleRadioSelection}
               ></input>
               <label htmlFor="open" className="first-select">
-                Open 
+                Open
               </label>
               <input
                 type="radio"

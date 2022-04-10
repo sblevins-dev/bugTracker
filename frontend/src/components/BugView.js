@@ -5,19 +5,29 @@ import "../css/bugView.css";
 import { useDispatch, useSelector } from "react-redux";
 import { addComm, fetchBugs } from "../Controllers/Redux/bugSlice";
 
-export const BugView = (props) => {
+export const BugView = ({ user }) => {
+  // Get state from modal that was clicked
   const location = useLocation();
+  const { bug } = location.state;
+
+  // Use navigate to go to homepage
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  // Used to fetch bugs after a comment is added
   const [clicked, setClicked] = useState(false);
-  const { bug } = location.state;
+
+  // Makes sure to pick correct bug to view. Might be redundant
   const selectedBug = useSelector((state) =>
     state.bugs.filter((stateBug) => {
       return stateBug._id === bug._id;
     })
   );
+
+  // Set comment to leave
   const [comment, setComment] = useState("");
 
+  // Destructure bug
   const { name, status, details, steps, assigned, author, comments } =
     selectedBug[0];
 
@@ -25,10 +35,12 @@ export const BugView = (props) => {
     navigate("/");
   };
 
+  // Onchange to set comment
   const handleComment = (e) => {
     setComment(e.target.value);
   };
 
+  // Handle submit of comment
   const leaveComment = async (e) => {
     e.preventDefault();
     if (comment != "") {
@@ -36,6 +48,7 @@ export const BugView = (props) => {
     }
   };
 
+  // Fetch bugs after comment is sent for the bug to re-render
   useEffect(() => {
     dispatch(fetchBugs());
   }, [clicked]);

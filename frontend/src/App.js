@@ -14,6 +14,7 @@ import './App.css';
 function App() {
   // define whether logged in
   const {auth} = useSelector(state => state);
+  const user = useSelector(state => state.auth.user);
 
   const [navShown, setNavShown] = useState(false);
 
@@ -29,8 +30,8 @@ function App() {
       <Routes>
         <Route path='/' element={!auth.loggedIn ? <Login /> : <Home />} />
         <Route path='/edit' element={<Edit />} />
-        <Route path='/createBug' element={<CreateBug />} />
-        <Route path='/bugView' element={<BugView />} />
+        <Route path='/createBug' element={<CreateBug user={user} />} />
+        <Route path='/bugView' element={<BugView user={user} />} />
       </Routes>
     </Router>
     </div>
