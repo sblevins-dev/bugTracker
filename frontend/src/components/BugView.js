@@ -1,14 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import "../css/bugView.css";
+import { useDispatch, useSelector } from "react-redux";
+import { addComm } from "../Controllers/Redux/bugSlice";
 
 export const BugView = (props) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [comment, setComment] = useState('');
-
+  const dispatch = useDispatch();
+  const [clicked, setClicked] = useState(false)
   const { bug } = location.state;
+  const selectedBug = useSelector(state => state.bugs.filter(stateBug => {
+    return stateBug._id === bug._id
+  }))
+  const [comment, setComment] = useState('');
+  console.log(selectedBug)
+
+  
 
   const handleClick = () => {
     navigate("/");
@@ -20,17 +29,24 @@ export const BugView = (props) => {
 
   const leaveComment = async (e) => {
     e.preventDefault();
-    try {
-      axios.put(`http://localhost:5000/bugs/leaveComment/${bug._id}`, {comment}, {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    } catch (error) {
-      console.log(error) 
-    }
+    dispatch(addComm(comment, bug._id))
+    setClicked(!clicked)
+    // try {
+    //   axios.put(`http://localhost:5000/bugs/leaveComment/${bug._id}`, {comment}, {
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   }
+    // })
+    // } catch (error) {
+    //   console.log(error) 
+    // }
     
   }
+
+  useEffect(() => {
+    
+  }, [clicked])
+
   return (
     <div className="bugview-page-wrapper">
       <div className="bugview-wrapper">
@@ -55,7 +71,7 @@ export const BugView = (props) => {
           <div className="comments-wrapper">
             <h1>Comments</h1>
             <ul className="comment-list">
-              {bug.comments.map((comm, i) => (
+              {selectedBug[0].comments.map((comm, i) => (
                 <li key={i}>{comm}</li>
               ))}
             </ul>

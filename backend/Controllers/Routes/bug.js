@@ -35,7 +35,7 @@ route.put("/leaveComment/:id", async (req, res) => {
     throw new Error("Bug not found")
   }
 
-  let updatedBug = await Bug.findByIdAndUpdate(req.params.id, {$push: {comments: req.body.comment}}, {new: true})
+  let updatedBug = await Bug.findByIdAndUpdate(req.params.id, {$push: {comments: req.body.comm}}, {new: true})
 
   res.json(updatedBug)
 
