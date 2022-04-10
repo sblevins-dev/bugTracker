@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil, faComment } from "@fortawesome/free-solid-svg-icons";
@@ -6,6 +6,7 @@ import { faPencil, faComment } from "@fortawesome/free-solid-svg-icons";
 export const BugModal = ({bug}) => {
   const { name, author, details, createdAt, priority, status, comments } = bug;
   const navigate = useNavigate();
+  const ref = useRef();
 
   useEffect(() => {
 
@@ -13,18 +14,21 @@ export const BugModal = ({bug}) => {
 
   const handleClick = (e) => {
     e.preventDefault();
-    navigate('/bugView', {
+    if (!ref.current.contains(e.target)) {
+      navigate('/bugView', {
       state: {
         bug: bug
       }
     })
+    }
+    
   }
 
 
   return (
     <div className="bug-container" onClick={handleClick}>
-      <Link to="/edit" state={bug}>
-        <FontAwesomeIcon icon={faPencil} className="edit" />
+      <Link to="/edit" ref={ref} state={bug}>
+        <FontAwesomeIcon icon={faPencil} className="edit"/>
       </Link>
       <div className="bug-container-name-wrapper">
         <h1>{name}</h1>

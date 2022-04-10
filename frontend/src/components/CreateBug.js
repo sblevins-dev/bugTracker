@@ -27,7 +27,7 @@ export const CreateBug = () => {
     try {
       axios.post('http://localhost:5000/bugs/createBug', formData, {
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Content-Type': 'application/json'
       }
     })
     } catch (error) {
@@ -40,8 +40,6 @@ export const CreateBug = () => {
   return (
     <div className="create-page-wrapper">
       <form className="create-bug-wrapper">
-        <label>Date Created:</label>
-        <input type="date" name="date" />
         <label>Name:</label>
         <input type="text" name="name" onChange={setForm}/>
         <label>Steps Taken:</label>
