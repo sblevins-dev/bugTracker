@@ -4,6 +4,8 @@ import axios from "axios";
 import "../css/bugView.css";
 import { useDispatch, useSelector } from "react-redux";
 import { addComm, fetchBugs } from "../Controllers/Redux/bugSlice";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleDown, faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 
 export const BugView = ({ user }) => {
   // Get state from modal that was clicked
@@ -16,6 +18,9 @@ export const BugView = ({ user }) => {
 
   // Used to fetch bugs after a comment is added
   const [clicked, setClicked] = useState(false);
+
+  // Comment accordion
+  const [expanded, setExpanded] = useState(false);
 
   // Makes sure to pick correct bug to view. Might be redundant
   const selectedBug = useSelector((state) =>
@@ -44,7 +49,9 @@ export const BugView = ({ user }) => {
   const leaveComment = async (e) => {
     e.preventDefault();
     if (comment != "") {
-      dispatch(addComm(user, comment, bug._id)).then(() => setClicked(!clicked));
+      dispatch(addComm(user, comment, bug._id)).then(() =>
+        setClicked(!clicked)
+      );
     }
   };
 
@@ -75,8 +82,20 @@ export const BugView = ({ user }) => {
           </div>
 
           <div className="comments-wrapper">
-            <h1>Comments</h1>
-            <ul className="comment-list">
+            <div className="comment-dropdown">
+              <h1>Comments</h1>
+              <div>
+                {expanded ? 'Collapse' : 'Expand'}
+                <FontAwesomeIcon
+                  icon={expanded ? faAngleDown : faAngleLeft}
+                  className={expanded ? "arrow-expanded" : "arrow"}
+                  size="2x"
+                  onClick={() => setExpanded(!expanded)}
+                />
+              </div>
+            </div>
+
+            <ul className={expanded ? "comment-list expanded" : "comment-list"}>
               {comments.map((comm, i) => (
                 <li key={i} className="each-comm-wrapper">
                   <div className="comment-user">Author: {comm[0]}</div>
