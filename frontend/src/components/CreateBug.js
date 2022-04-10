@@ -71,7 +71,7 @@ export const CreateBug = ({user}) => {
     <div className="create-page-wrapper">
       <form className="create-bug-wrapper">
         <button className="back-btn" onClick={handleBack}>Back</button>
-        <label>Name:</label>
+        <label>Bug Name:</label>
         <input type="text" name="name" onChange={setForm} />
         <label>Steps:</label>
         {Array.from(Array(counter)).map((c, i) => {

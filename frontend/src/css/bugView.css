@@ -145,6 +145,17 @@
     height: 100%;
 }
 
+.each-comm-wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.comment-user {
+    font-size: .9rem;
+    padding-bottom: 5px;
+}
+
 .comment-wrapper form {
     display: flex;
     flex-direction: column;

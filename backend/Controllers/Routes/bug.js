@@ -1,8 +1,8 @@
 const route = require("express").Router();
 const Bug = require("../../Models/bugModel");
-const bodyParser = require('body-parser');
+const bodyParser = require("body-parser");
 
-const urlencodedParser = bodyParser.urlencoded({extended: false})
+const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 // Create bug
 route.post("/createBug", async (req, res) => {
@@ -28,18 +28,27 @@ route.post("/createBug", async (req, res) => {
 
 // Add comment
 route.put("/leaveComment/:id", async (req, res) => {
+  // Destructure from body
+  const { user, comm } = req.body;
+  // Put in array to push to comments
+  let arr = [user, comm];
+  // Find Bug
   const bug = await Bug.findById(req.params.id);
 
   if (!bug) {
     res.status(400);
-    throw new Error("Bug not found")
+    throw new Error("Bug not found");
   }
 
-  let updatedBug = await Bug.findByIdAndUpdate(req.params.id, {$push: {comments: req.body.comm}}, {new: true})
+  // Update bug
+  let updatedBug = await Bug.findByIdAndUpdate(
+    req.params.id,
+    { $push: { comments: { $each: [arr] } } },
+    { new: true }
+  );
 
-  res.json(updatedBug)
-
-})
+  res.json(updatedBug);
+});
 
 // Update bug
 route

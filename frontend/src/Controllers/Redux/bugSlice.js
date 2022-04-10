@@ -15,13 +15,12 @@ const slice = createSlice({
     createBug: (state, action) => {},
     addComment: (state, action) => {
       // [state] = action.payload
-      state.map(bug => {
+      state.map((bug) => {
         if (bug._id === action.payload._id) {
-          console.log('found')
-          bug = action.payload
+          bug = action.payload;
         }
-        return bug
-      })
+        return bug;
+      });
       return state;
     },
     updateBug: (state, actions) => {},
@@ -50,14 +49,14 @@ export function postBug(data) {
 }
 
 // Add a comment
-export function addComm(comm, id) {
+export function addComm(user, comm, id) {
   return async (dispatch) => {
     console.log(dispatch);
     // try {
     await axios
       .put(
         `http://localhost:5000/bugs/leaveComment/${id}`,
-        { comm },
+        { user, comm },
         {
           headers: {
             "Content-Type": "application/json",
@@ -75,4 +74,5 @@ export function addComm(comm, id) {
 }
 export default slice.reducer;
 
-export const { getBugs, createBug, addComment, updateBug, markComplete } = slice.actions;
+export const { getBugs, createBug, addComment, updateBug, markComplete } =
+  slice.actions;

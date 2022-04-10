@@ -44,7 +44,7 @@ export const BugView = ({ user }) => {
   const leaveComment = async (e) => {
     e.preventDefault();
     if (comment != "") {
-      dispatch(addComm(comment, bug._id)).then(() => setClicked(!clicked));
+      dispatch(addComm(user, comment, bug._id)).then(() => setClicked(!clicked));
     }
   };
 
@@ -78,7 +78,10 @@ export const BugView = ({ user }) => {
             <h1>Comments</h1>
             <ul className="comment-list">
               {comments.map((comm, i) => (
-                <li key={i}>{comm}</li>
+                <li key={i} className="each-comm-wrapper">
+                  <div className="comment-user">Author: {comm[0]}</div>
+                  <div className="comment">{comm[1]}</div>
+                </li>
               ))}
             </ul>
           </div>
