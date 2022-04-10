@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { getBugs } from '../Controllers/Redux/bugSlice';
 import { fetchBugs } from "../Controllers/Redux/bugSlice";
 import { Bugs } from "./Bugs";
 import { Statistics } from './Statistics';
 import "../css/home.css";
+import { getAccountUser } from "../Controllers/Redux/authSlice";
 
 export const Home = () => {
 
   // Redux
   const dispatch = useDispatch();
   const { bugs } = useSelector(state => state);
+  const {name} = useSelector(state => state)
+
+  console.log(name)
 
   // set keyword for search
   const [keyword, setKeyword] = useState("");
@@ -25,6 +28,10 @@ export const Home = () => {
   useEffect(() => {
     dispatch(fetchBugs());
   }, [bugs.length < 1]);
+
+  useEffect(() => {
+    dispatch(getAccountUser())
+  }, [])
 
   // set keyword search term
   const handleKeywordChange = (e) => {
