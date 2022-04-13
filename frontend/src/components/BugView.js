@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
 import "../css/bugView.css";
 import { useDispatch, useSelector } from "react-redux";
 import { addComm, fetchBugs } from "../Controllers/Redux/bugSlice";
@@ -36,6 +35,10 @@ export const BugView = ({ user }) => {
   const { name, status, details, steps, assigned, author, comments } =
     selectedBug[0];
 
+  // if (comments.length > 5) {
+  //   setExpanded(true)
+  // }
+
   const handleClick = () => {
     navigate("/");
   };
@@ -48,7 +51,7 @@ export const BugView = ({ user }) => {
   // Handle submit of comment
   const leaveComment = async (e) => {
     e.preventDefault();
-    if (comment != "") {
+    if (comment !== "") {
       dispatch(addComm(user, comment, bug._id)).then(() =>
         setClicked(!clicked)
       );
@@ -84,25 +87,36 @@ export const BugView = ({ user }) => {
           <div className="comments-wrapper">
             <div className="comment-dropdown">
               <h1>Comments</h1>
-              <div>
-                {expanded ? 'Collapse' : 'Expand'}
-                <FontAwesomeIcon
-                  icon={expanded ? faAngleDown : faAngleLeft}
-                  className={expanded ? "arrow-expanded" : "arrow"}
-                  size="2x"
-                  onClick={() => setExpanded(!expanded)}
-                />
-              </div>
+              {comments.length >= 4 && (
+                <div>
+                  <p>{expanded ? "Collapse" : "Expand"}</p>
+                  <FontAwesomeIcon
+                    icon={expanded ? faAngleDown : faAngleLeft}
+                    className={expanded ? "arrow-expanded" : "arrow"}
+                    size="2x"
+                    onClick={() => setExpanded(!expanded)}
+                  />
+                </div>
+              )}
             </div>
-
-            <ul className={expanded ? "comment-list expanded" : "comment-list"}>
-              {comments.map((comm, i) => (
-                <li key={i} className="each-comm-wrapper">
-                  <div className="comment-user">Author: {comm[0]}</div>
-                  <div className="comment">{comm[1]}</div>
-                </li>
-              ))}
-            </ul>
+            {comments.length > 0 ? (
+              <ul
+                className={
+                  expanded || comments.length < 4
+                    ? "comment-list expanded"
+                    : "comment-list"
+                }
+              >
+                {comments.map((comm, i) => (
+                  <li key={i} className="each-comm-wrapper">
+                    <div className="comment-user">Author: {comm[0]}</div>
+                    <div className="comment">{comm[1]}</div>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <div className="no-comments-message">No Comments To Display</div>
+            )}
           </div>
         </div>
         <div className="second-sec">
