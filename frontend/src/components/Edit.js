@@ -1,11 +1,19 @@
 import React from "react";
-import { useLocation, Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useLocation, Link, useNavigate } from "react-router-dom";
 import "../css/edit.css";
 
 export const Edit = (props) => {
+  const { auth } = useSelector(state => state);
   const location = useLocation();
+  const navigate = useNavigate();
   const bug = location.state;
   console.log(bug);
+
+  if (!auth.loggedIn) {
+    navigate('/')
+  }
+
 
   const handleEdit = (e) => {
     e.preventDefault();
@@ -14,8 +22,6 @@ export const Edit = (props) => {
   return (
     <div className="edit-page-wrapper">
       <form className="edit-bug-wrapper">
-        <label>Date Created:</label>
-        <input type="date" name="date" defaultValue="1979-06-04" />
         <label>Name:</label>
         <input type="text" name="name" defaultValue={bug.name} />
         <label>Status:</label>
@@ -27,7 +33,12 @@ export const Edit = (props) => {
           )}
         </div>
         <label>Steps Taken:</label>
-        <input type="text" defaultValue={bug.steps} />
+        {bug.steps.length > 0 ? (
+          bug.steps.map((step) => <input type="text" defaultValue={step} />)
+        ) : (
+          <div style={{fontSize: '1rem'}}>No Steps Taken</div>
+        )}
+
         <label>Details:</label>
         <textarea type="text" defaultValue={bug.details} />
         <div className="btns-wrapper">

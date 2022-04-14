@@ -28,6 +28,12 @@ export const BugView = ({ user }) => {
     })
   );
 
+  const { auth } = useSelector(state => state);
+
+  if (!auth.loggedIn) {
+    navigate('/')
+  }
+
   // Set comment to leave
   const [comment, setComment] = useState("");
 
