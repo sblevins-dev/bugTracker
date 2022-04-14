@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { signIn } from '../Controllers/Redux/authSlice';
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { loginFunc } from "../Controllers/authController";
 import "../css/login.css";
 
 export const Login = () => {
@@ -8,19 +8,21 @@ export const Login = () => {
 
   const [formInput, setFormInput] = useState({
     name: "",
-    password: ""
-  })
+    password: "",
+  });
 
+  // handle input to form
   const inputChange = (e) => {
     setFormInput({
       ...formInput,
-      [e.target.name]: e.target.value
-    })
-  }
+      [e.target.name]: e.target.value,
+    });
+  };
 
+  // dispatch to auth controller
   const handleLogin = (e) => {
     e.preventDefault();
-    dispatch(signIn(formInput));
+    dispatch(loginFunc(formInput));
   };
 
   return (
@@ -29,13 +31,27 @@ export const Login = () => {
         <h1>Login</h1>
         <div className="form-group">
           <label className="username">Username:</label>
-          <input type="text" name="name" placeholder="Name" onChange={inputChange} value={formInput.name} ></input>
+          <input
+            type="text"
+            name="name"
+            placeholder="Name"
+            onChange={inputChange}
+            value={formInput.name}
+          ></input>
         </div>
         <div className="form-group">
           <label className="password">Password:</label>
-          <input type="password" name="password" placeholder="Password" onChange={inputChange} value={formInput.password} ></input>
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            onChange={inputChange}
+            value={formInput.password}
+          ></input>
         </div>
-        <button type="submit" onClick={handleLogin}>Login</button>
+        <button type="submit" onClick={handleLogin}>
+          Login
+        </button>
       </form>
     </div>
   );
