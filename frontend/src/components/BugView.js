@@ -67,7 +67,7 @@ export const BugView = ({ user }) => {
   // Fetch bugs after comment is sent for the bug to re-render
   useEffect(() => {
     dispatch(fetchBugs());
-  }, [clicked]);
+  }, [clicked, dispatch]);
 
   return (
     <div className="bugview-page-wrapper">

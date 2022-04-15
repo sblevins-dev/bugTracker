@@ -19,10 +19,24 @@ export const Home = () => {
   // set status for search
   const [status, setStatus] = useState("");
 
+  let bugsListChecked;
+
+  const checkBugsList = () => {
+    if (bugsList && bugsList.length < 1) {
+      bugsListChecked = true
+    } else {
+      bugsListChecked = true
+    }
+
+    return bugsListChecked
+  }
+
+  checkBugsList();
+
   // call when bugs length is less than 1
   useEffect(() => {
     dispatch(fetchBugs());
-  }, [bugsList && bugsList.length < 1]);
+  }, [bugsListChecked, dispatch]);
 
   // set keyword search term
   const handleKeywordChange = (e) => {
