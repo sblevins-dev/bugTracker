@@ -1,10 +1,27 @@
-import bugModel from '../Models/bugModel';
-import axios from 'axios';
-import { getBugs } from './Redux/bugSlice';
+import axios from "axios";
+
+const getBugs = async () => {
+  const response = await axios.get("http://localhost:5000/bugs");
+
+  return response.data
+};
+
+const addBug = async (data) => {
+  const response = await axios.post("/bugs/createBug", data);
+
+  return response.data
+};
+
+const bugController = {
+  addBug,
+  getBugs
+};
+
+export default bugController;
 
 // export async function retrieveBugs() {
 //     const getData = async () => {
-//       const result = await axios.get('http://localhost:5000/bugs/') 
+//       const result = await axios.get('http://localhost:5000/bugs/')
 //       return result.data
 //     }
 //     let data = await getData();

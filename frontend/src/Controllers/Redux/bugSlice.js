@@ -1,52 +1,109 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { retrieveBugs } from "../bugController";
-import bugControl from "../bugController";
+import bugController from "../bugController";
 import axios from "axios";
+
+// create bug
+export const postBug = createAsyncThunk(
+  "/bugs/createBug",
+  async (bug, thunkAPI) => {
+    try {
+      return await bugController.addBug();
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+// call getBugs from bugController
+export const fetchBugs = createAsyncThunk('/bugs/fetch', async (bug, thunkAPI) => {
+  try {
+    return await bugController.getBugs();
+  } catch (error) {
+    const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      return thunkAPI.rejectWithValue(message);
+  }
+})
+
+// set intitial state in slice
+const initialState = {
+  bugsList: null,
+  isError: false,
+  isSuccess: false,
+  isLoading: false,
+  message: ''
+}
 
 const slice = createSlice({
   name: "bugs",
-  initialState: [],
-  reducers: {
-    getBugs: (state, { payload }) => {
-      state = payload;
-      return state;
-    },
-
-    createBug: (state, action) => {},
-    addComment: (state, action) => {
-      // [state] = action.payload
-      state.map((bug) => {
-        if (bug._id === action.payload._id) {
-          bug = action.payload;
-        }
-        return bug;
-      });
-      return state;
-    },
-    updateBug: (state, actions) => {},
-    markComplete: (state, action) => {},
-  },
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      // fetch bugs on home load
+      .addCase(fetchBugs.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(fetchBugs.fulfilled, (state, action) => {
+        state.isLoading = true
+        state.isSuccess = true
+        state.bugsList = action.payload
+      })
+      .addCase(fetchBugs.rejected, (state, action) => {
+        state.isLoading = false
+        state.isError = true
+        console.log(action.payload)
+      })
+      // call create bug
+      .addCase(postBug.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(postBug.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.isSuccess = true
+        console.log(action.payload)
+        // state.bugsList.concat(action.payload)
+      })
+      .addCase(postBug.rejected, (state, action) => {
+        state.isLoading = false
+        state.isError = true
+        state.message = action.payload
+      })
+  }
 });
 
 // Set bugs state
-export function fetchBugs(data) {
-  return async (dispatch) => {
-    await axios
-      .get("http://localhost:5000/bugs")
-      .then((response) => {
-        dispatch(getBugs(response.data));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-}
+// export function fetchBugs(data) {
+//   return async (dispatch) => {
+//     await axios
+//       .get("http://localhost:5000/bugs")
+//       .then((response) => {
+//         dispatch(getBugs(response.data));
+//       })
+//       .catch((err) => {
+//         console.log(err);
+//       });
+//   };
+// }
 
-// Create a bug
-export function postBug(data) {
-  console.log(data);
-  return axios.post("http://localhost:5000/bugs/createBug", data);
-}
+// // Create a bug
+// export function postBug(data) {
+//   console.log(data);
+//   return axios.post("http://localhost:5000/bugs/createBug", data);
+// }
 
 // Add a comment
 export function addComm(user, comm, id) {

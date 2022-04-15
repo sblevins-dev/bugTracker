@@ -8,7 +8,7 @@ import "../css/home.css";
 export const Home = () => {
   // Redux
   const dispatch = useDispatch();
-  const { bugs } = useSelector((state) => state);
+  const { bugsList } = useSelector((state) => state.bugs);
 
   // set keyword for search
   const [keyword, setKeyword] = useState("");
@@ -22,7 +22,7 @@ export const Home = () => {
   // call when bugs length is less than 1
   useEffect(() => {
     dispatch(fetchBugs());
-  }, [bugs.length < 1]);
+  }, [bugsList.length < 1]);
 
   // set keyword search term
   const handleKeywordChange = (e) => {
@@ -50,7 +50,7 @@ export const Home = () => {
               bug.name.toLowerCase().includes(keyword.toLowerCase())
             );
           })
-        : bugs;
+        : bugsList;
     if (tempBugs.length === 0) {
       tempBugs = ["nothing"];
     }
@@ -59,25 +59,25 @@ export const Home = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    setFilteredBugs(filterBugs(bugs));
+    setFilteredBugs(filterBugs(bugsList));
   };
 
   const handleAll = () => {
-    setFilteredBugs(bugs);
+    setFilteredBugs(bugsList);
   };
 
   const handleOpen = () => {
-    setFilteredBugs(bugs.filter((bug) => bug.status === "open"));
+    setFilteredBugs(bugsList.filter((bug) => bug.status === "open"));
   };
 
   const handleClose = () => {
-    setFilteredBugs(bugs.filter((bug) => bug.status === "closed"));
+    setFilteredBugs(bugsList.filter((bug) => bug.status === "closed"));
   };
 
   return (
     <div className="home-wrapper">
       <Statistics
-        bugs={bugs}
+        bugs={bugsList}
         open={handleOpen}
         all={handleAll}
         close={handleClose}
@@ -147,7 +147,7 @@ export const Home = () => {
           </button>
         </form>
       </div>
-      <Bugs data={filteredBugs.length === 0 ? bugs : filteredBugs} />
+      <Bugs bugs={filteredBugs.length === 0 ? bugsList : filteredBugs} />
     </div>
   );
 };

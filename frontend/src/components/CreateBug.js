@@ -5,8 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { fetchUsers } from "../Controllers/Redux/userSlice";
 import "../css/createbug.css";
 
-export const CreateBug = ({user}) => {
-  const users = useSelector(state => state.users.usersList)
+export const CreateBug = ({ user }) => {
+  const users = useSelector((state) => state.users.usersList);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -18,8 +18,8 @@ export const CreateBug = ({user}) => {
   });
 
   useEffect(() => {
-    dispatch(fetchUsers())
-  }, [dispatch])
+    dispatch(fetchUsers());
+  }, [dispatch]);
 
   // used for adding steps
   const [counter, setCounter] = useState(1);
@@ -76,26 +76,35 @@ export const CreateBug = ({user}) => {
 
   // back button
   const handleBack = () => {
-    navigate('/');
-  }
+    navigate("/");
+  };
 
   return (
     <div className="create-page-wrapper">
       <form className="create-bug-wrapper">
-        <button className="back-btn" onClick={handleBack}>Back</button>
+        <button className="back-btn" onClick={handleBack}>
+          Back
+        </button>
         <label>Bug Name:</label>
         <input type="text" name="name" onChange={setForm} />
-        <select className="user-dropdown">
-          <option defaultValue>--Select User--</option>
-          {users && users.length > 0 && users.map(user => (
-            <option className="users" key={user._id}>{user.name}</option>
-          ))}
+        <label>Assign To:</label>
+        <select className="dropdown-content">
+          <option defaultValue>--Select a User--</option>
+          {users &&
+            users.length > 0 &&
+            users.map((user) => (
+              <option className="users" key={user._id}>
+                <div className="name">{user.name}</div>
+              </option>
+            ))}
         </select>
         <label>Steps:</label>
         {Array.from(Array(counter)).map((c, i) => {
           return renderSteps(i);
         })}
-        <button className="add-btn" onClick={addStep}>Add Step</button>
+        <button className="add-btn" onClick={addStep}>
+          Add Step
+        </button>
         <label>Details:</label>
         <textarea type="text" name="details" onChange={setForm} />
         <div className="btns-wrapper">

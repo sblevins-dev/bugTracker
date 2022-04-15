@@ -23,7 +23,7 @@ export const BugView = ({ user }) => {
 
   // Makes sure to pick correct bug to view. Might be redundant
   const selectedBug = useSelector((state) =>
-    state.bugs.filter((stateBug) => {
+    state.bugs.bugsList.filter((stateBug) => {
       return stateBug._id === bug._id;
     })
   );
