@@ -26,6 +26,25 @@
   font-weight: bold;
 }
 
+.create-bug-wrapper .step-btns {
+  max-width: 300px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.create-bug-wrapper .remove-btn {
+  background-color: red;
+  border: none;
+  width: 120px;
+  color: white;
+  padding: 5px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all .2s ease-in-out;
+  font-weight: bold;
+}
+
 .create-page-wrapper .create-bug-wrapper .btns-wrapper .cancel-btn:hover {
   background-color: rgb(255, 77, 0);
 }

@@ -1,13 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import bugController from "../bugController";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 // create bug
 export const postBug = createAsyncThunk(
   "/bugs/createBug",
   async (bug, thunkAPI) => {
     try {
-      return await bugController.addBug();
+      return await bugController.addBug(bug);
     } catch (error) {
       const message =
         (error.response &&
@@ -49,7 +50,13 @@ const initialState = {
 const slice = createSlice({
   name: "bugs",
   initialState,
-  reducers: {},
+  reducers: {
+    reset: (state) => {
+      state.isLoading = false
+      state.isSuccess = false
+      state.isError = false
+    }
+  },
   extraReducers: (builder) => {
     builder
       // fetch bugs on home load
@@ -73,8 +80,9 @@ const slice = createSlice({
       .addCase(postBug.fulfilled, (state, action) => {
         state.isLoading = false
         state.isSuccess = true
-        console.log(action.payload)
-        // state.bugsList.concat(action.payload)
+        toast.success('Bug Created!', {
+          position: toast.POSITION.BOTTOM_RIGHT
+        })
       })
       .addCase(postBug.rejected, (state, action) => {
         state.isLoading = false

@@ -1,28 +1,38 @@
-import axios from "axios";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { fetchUsers } from "../Controllers/Redux/userSlice";
+import { postBug } from "../Controllers/Redux/bugSlice";
 import "../css/createbug.css";
+import { toast } from "react-toastify";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 
 export const CreateBug = ({ user }) => {
   const users = useSelector((state) => state.users.usersList);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
+
+  // set state to be able to reset form
+  const formInitialState = {
     name: "",
+    assigned: "",
     status: "open",
     steps: {},
     details: "",
     author: user,
-  });
+  };
 
+  // set form to initial state
+  const [formData, setFormData] = useState(formInitialState);
+
+  // fetch users to be able to assign bug
   useEffect(() => {
     dispatch(fetchUsers());
   }, [users && users.length < 1]);
 
   // used for adding steps
-  const [counter, setCounter] = useState(1);
+  const [counter, setCounter] = useState(0);
 
   // set state of form
   const setForm = (e) => {
@@ -42,18 +52,33 @@ export const CreateBug = ({ user }) => {
     }
   };
 
+  const resetForm = () => {};
+
   // submit bug
   const handleCreate = (e) => {
     e.preventDefault();
-    try {
-      axios.post("http://localhost:5000/bugs/createBug", formData, {
-        headers: {
-          "Content-Type": "application/json",
-        },
+    if (!user) {
+      toast.error("Oops, Something went wrong", {
+        position: toast.POSITION.BOTTOM_RIGHT,
       });
-    } catch (error) {
-      console.log(error);
+    } else if (
+      formData.name === "" ||
+      (counter > 0 && Object.keys(formData.steps).length === 0) ||
+      formData.details === ""
+    ) {
+      toast.error("Please fill out form", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+    } else {
+      dispatch(postBug(formData));
+      setCounter(0);
+      setFormData(formInitialState);
     }
+  };
+
+  const removeStep = (e) => {
+    e.preventDefault();
+    setCounter(counter - 1);
   };
 
   // used to add steps per amount counted
@@ -63,6 +88,7 @@ export const CreateBug = ({ user }) => {
         key={index}
         type="text"
         name={`steps${index + 1}`}
+        value={formData.steps[0]}
         onChange={setForm}
       />
     );
@@ -86,9 +112,19 @@ export const CreateBug = ({ user }) => {
           Back
         </button>
         <label>Bug Name:</label>
-        <input type="text" name="name" onChange={setForm} />
+        <input
+          type="text"
+          name="name"
+          value={formData.name}
+          onChange={setForm}
+        />
         <label>Assign To:</label>
-        <select className="dropdown-content">
+        <select
+          className="dropdown-content"
+          name="assigned"
+          value={formData.assigned}
+          onChange={setForm}
+        >
           <option defaultValue>--Select a User--</option>
           {users &&
             users.length > 0 &&
@@ -102,11 +138,24 @@ export const CreateBug = ({ user }) => {
         {Array.from(Array(counter)).map((c, i) => {
           return renderSteps(i);
         })}
-        <button className="add-btn" onClick={addStep}>
-          Add Step
-        </button>
+        <div className="step-btns">
+          <button className="add-btn" onClick={addStep}>
+            Add Step
+          </button>
+          {counter > 0 && (
+            <button className="remove-btn" onClick={removeStep}>
+              Remove Step
+            </button>
+          )}
+        </div>
+
         <label>Details:</label>
-        <textarea type="text" name="details" onChange={setForm} />
+        <textarea
+          type="text"
+          name="details"
+          value={formData.details}
+          onChange={setForm}
+        />
         <div className="btns-wrapper">
           <button type="submit" className="save-btn" onClick={handleCreate}>
             Save

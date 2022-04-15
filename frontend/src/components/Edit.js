@@ -8,7 +8,6 @@ export const Edit = (props) => {
   const location = useLocation();
   const navigate = useNavigate();
   const bug = location.state;
-  console.log(bug);
 
   if (!auth.loggedIn) {
     navigate('/')
@@ -34,7 +33,7 @@ export const Edit = (props) => {
         </div>
         <label>Steps Taken:</label>
         {bug.steps.length > 0 ? (
-          bug.steps.map((step) => <input type="text" defaultValue={step} />)
+          bug.steps.map((step, i) => <input type="text" key={i} defaultValue={step} />)
         ) : (
           <div style={{fontSize: '1rem'}}>No Steps Taken</div>
         )}
