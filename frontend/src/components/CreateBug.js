@@ -1,11 +1,12 @@
 import axios from "axios";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { createBug, postBug } from "../Controllers/Redux/bugSlice";
+import { fetchUsers } from "../Controllers/Redux/userSlice";
 import "../css/createbug.css";
 
 export const CreateBug = ({user}) => {
+  const users = useSelector(state => state.users.usersList)
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -15,10 +16,17 @@ export const CreateBug = ({user}) => {
     details: "",
     author: user,
   });
+
+  useEffect(() => {
+    dispatch(fetchUsers())
+  }, [dispatch])
+
+  // used for adding steps
   const [counter, setCounter] = useState(1);
 
+  // set state of form
   const setForm = (e) => {
-    if (e.target.type === "text" && e.target.name != "name") {
+    if (e.target.type === "text" && e.target.name !== "name") {
       setFormData({
         ...formData,
         steps: {
@@ -34,6 +42,7 @@ export const CreateBug = ({user}) => {
     }
   };
 
+  // submit bug
   const handleCreate = (e) => {
     e.preventDefault();
     try {
@@ -47,6 +56,7 @@ export const CreateBug = ({user}) => {
     }
   };
 
+  // used to add steps per amount counted
   const renderSteps = (index) => {
     return (
       <input
@@ -58,11 +68,13 @@ export const CreateBug = ({user}) => {
     );
   };
 
+  // calls counter to renderSteps
   const addStep = (e) => {
     e.preventDefault();
     setCounter(counter + 1);
   };
 
+  // back button
   const handleBack = () => {
     navigate('/');
   }
@@ -73,6 +85,12 @@ export const CreateBug = ({user}) => {
         <button className="back-btn" onClick={handleBack}>Back</button>
         <label>Bug Name:</label>
         <input type="text" name="name" onChange={setForm} />
+        <select className="user-dropdown">
+          <option defaultValue>--Select User--</option>
+          {users && users.length > 0 && users.map(user => (
+            <option className="users" key={user._id}>{user.name}</option>
+          ))}
+        </select>
         <label>Steps:</label>
         {Array.from(Array(counter)).map((c, i) => {
           return renderSteps(i);

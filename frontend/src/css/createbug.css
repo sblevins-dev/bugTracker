@@ -59,6 +59,10 @@
   position: relative;
 }
 
+.create-bug-wrapper .user-dropdown {
+  cursor: pointer;
+}
+
 .create-page-wrapper .create-bug-wrapper .back-btn {
   position: absolute;
   top: 10px;
