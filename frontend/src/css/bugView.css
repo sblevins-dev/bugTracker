@@ -172,6 +172,26 @@
     line-height: 3rem;
 }
 
+.second-sec .bug-status .status {
+    border-radius: 10px;
+    width: 70px;
+    height: 30px;
+    text-align: center;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.second-sec .bug-status .open {
+    background-color: green;
+    width: 55px;
+}
+
+.second-sec .bug-status .closed {
+    background-color: red;
+}
+
 .author, .assigned, .status, .priority {
     font-size: 1.5rem;
 }
@@ -279,6 +299,7 @@
     }
     .second-sec .bug-author, .bug-assigned, .bug-status, .bug-priority {
         padding: 10px;
+        align-items: center;
     }
     .comment-wrapper {
         margin: 0;

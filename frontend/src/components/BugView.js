@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addComm, fetchBugs } from "../Controllers/Redux/bugSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleLeft } from "@fortawesome/free-solid-svg-icons";
+import { toast } from "react-toastify";
 
 export const BugView = ({ user }) => {
   // Get state from modal that was clicked
@@ -61,6 +62,10 @@ export const BugView = ({ user }) => {
       dispatch(addComm(user, comment, bug._id)).then(() =>
         setClicked(!clicked)
       );
+    } else {
+      toast.warn('Please enter text', {
+        position: toast.POSITION.BOTTOM_RIGHT
+      })
     }
   };
 
@@ -126,19 +131,19 @@ export const BugView = ({ user }) => {
         </div>
         <div className="second-sec">
           <div className="bug-author">
-            <div className="author-title">Creator</div>
+            <div className="author-title">Created By:</div>
             <div className="author">{author}</div>
           </div>
           <div className="bug-assigned">
-            <div className="assigned-title">Assigned</div>
+            <div className="assigned-title">Assigned:</div>
             <div className="assigned">{assigned}</div>
           </div>
           <div className="bug-status">
-            <div className="status-title">Status</div>
-            <div className="status">{status}</div>
+            <div className="status-title">Status:</div>
+            <div className={status === 'open' ? "status open" : "status closed"}>{status}</div>
           </div>
           <div className="bug-priority">
-            <div className="priority-title">Priority</div>
+            <div className="priority-title">Priority:</div>
             <div className="priority">{status}</div>
           </div>
         </div>
