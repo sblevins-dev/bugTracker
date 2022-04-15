@@ -25,7 +25,7 @@ function App() {
   };
 
   return (
-    <div className="app">
+    <div className="app" onClick={(e) => console.log(e.target)}>
       <Router>
         {auth.loggedIn ? (
           <>
@@ -46,7 +46,10 @@ function App() {
           </Routes>
         )}
       </Router>
-      <ToastContainer className='toast-container' theme='colored' ></ToastContainer>
+      <ToastContainer
+        className="toast-container"
+        theme="colored"
+      ></ToastContainer>
     </div>
   );
 }

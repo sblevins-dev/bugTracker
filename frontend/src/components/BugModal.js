@@ -1,34 +1,30 @@
 import { useEffect, useRef } from "react";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil, faComment } from "@fortawesome/free-solid-svg-icons";
 
-export const BugModal = ({bug}) => {
-  const { name, author, details, createdAt, priority, status, comments } = bug;
+export const BugModal = ({ bug }) => {
+  const { name, author, createdAt, priority, status, comments } = bug;
   const navigate = useNavigate();
   const ref = useRef();
 
-  useEffect(() => {
-
-  }, [bug])
+  useEffect(() => {}, [bug]);
 
   const handleClick = (e) => {
     e.preventDefault();
     if (!ref.current.contains(e.target)) {
-      navigate('/bugView', {
-      state: {
-        bug: bug
-      }
-    })
+      navigate("/bugView", {
+        state: {
+          bug: bug,
+        },
+      });
     }
-    
-  }
-
+  };
 
   return (
     <div className="bug-container" onClick={handleClick}>
       <Link to="/edit" ref={ref} state={bug}>
-        <FontAwesomeIcon icon={faPencil} className="edit"/>
+        <FontAwesomeIcon icon={faPencil} className="edit" />
       </Link>
       <div className="bug-container-name-wrapper">
         <h1>{name}</h1>
@@ -44,7 +40,15 @@ export const BugModal = ({bug}) => {
         <div className="bug-author">{author}</div>
       </div>
       <div className="bug-container-status-wrapper">
-        <div style={status === "open" ? {backgroundColor: "green"} : {backgroundColor: "red"}} >{status}</div>
+        <div
+          style={
+            status === "open"
+              ? { backgroundColor: "green" }
+              : { backgroundColor: "red" }
+          }
+        >
+          {status}
+        </div>
       </div>
     </div>
   );

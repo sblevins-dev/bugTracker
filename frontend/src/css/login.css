@@ -55,3 +55,9 @@
 .login-wrapper .form button:hover {
     background-color: var(--fourth-color);
 }
+
+@media (max-width: 500px) {
+    .login-wrapper {
+        padding: 15px;
+    }
+}

@@ -1,10 +1,9 @@
 .home-wrapper {
-    min-height: calc(100vh-80px);
     display: flex;
     flex-direction: column;
     width: 100%;
-    padding-left: 50px;
     background-color: var(--primary-color);
+    padding: 50px 10px 10px;
 }
 
 .home-wrapper .search-wrapper {
@@ -68,4 +67,60 @@
 
 .home-wrapper .search-wrapper .form-wrapper button:hover {
     background-color: var(--fourth-color);
+}
+
+@media (max-width: 500px) {
+    .statistics-wrapper {
+        width: 100%;
+    }
+    .home-wrapper .search-wrapper {
+        width: 100%;
+        padding: 10px;
+        margin: 0;
+    }
+    .bugs-wrapper .header {
+        font-size: 1rem;
+        display: none;
+    }
+    .bug-container {
+        flex-wrap: wrap;
+        position: relative;
+        height: 100px;
+    }
+    .bug-container .bug-container-date-wrapper {
+        position: absolute;
+        width: 100%;
+        top: 0;
+        left: 0;
+    }
+    .bug-container .bug-container-name-wrapper {
+        width: 100%;
+        align-items: flex-start;
+        padding-top: 15px;
+    }
+    .bug-container .bug-container-name-wrapper .comments {
+        padding-top: 10px;
+    }
+    .bug-container .bug-container-date-wrapper .bug-date {
+        padding: 10px;
+        width: 100%;
+        justify-content: left;
+    }
+    .bug-container .bug-container-author-wrapper {
+        position: absolute;
+        right: 5px;
+        bottom: 7px;
+    }
+    .bug-container .bug-container-status-wrapper {
+        position: absolute;
+        bottom: 9px;
+    }
+    .bug-container .bug-container-status-wrapper div {
+        width: 100%;
+        font-size: .9rem;
+        padding: 1px;
+    }
+    /* .home-wrapper .search-wrapper .form-wrapper {
+        padding: 10px;
+    } */
 }
