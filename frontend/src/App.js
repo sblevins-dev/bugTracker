@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useSelector } from "react-redux";
 import { Nav } from "./components/Nav";
 import { Login } from "./components/Login";
@@ -14,6 +14,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
+  const navRef = useRef();
   // define whether logged in
   const { auth } = useSelector((state) => state);
   const user = useSelector((state) => state.auth.user);
@@ -24,8 +25,22 @@ function App() {
     setNavShown(!navShown);
   };
 
+  const handleRefClick = (e) => {
+    console.log(navRef);
+    console.log(e.target.className);
+    let str = e.target.className;
+    if (
+      (navShown &&
+      str &&
+      !str.includes("active") &&
+      !str.includes("hamburger")) || (navShown && str === '')
+    ) {
+      setNavShown(!navShown);
+    }
+  };
+
   return (
-    <div className="app" onClick={(e) => console.log(e.target)}>
+    <div className="app" ref={navRef} onClick={handleRefClick}>
       <Router>
         {auth.loggedIn ? (
           <>

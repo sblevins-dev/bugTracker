@@ -4,27 +4,16 @@ import { faBug } from "@fortawesome/free-solid-svg-icons";
 import { NavLink } from "react-router-dom";
 import "../css/nav.css";
 import { signOut } from "../Controllers/Redux/authSlice";
-import { useRef, useState } from "react";
 
 export const Nav = ({ navShown }) => {
-  const [clickOutside, setClickOutside] = useState(false)
-  const navRef = useRef();
   const dispatch = useDispatch();
 
   const handleLogout = () => {
     dispatch(signOut());
   };
 
-  const handleRefClick = (e) => {
-    console.log(e.target)
-    console.log(navRef.current)
-    if (!navRef.current.contains(e.target)) {
-      console.log('clicked outside')
-      setClickOutside(true)
-    }
-  }
   return (
-    <div className={navShown && !clickOutside ? "nav-wrapper active" : "nav-wrapper"} ref={navRef} onClick={handleRefClick}>
+    <div className={navShown ? "nav-wrapper active" : "nav-wrapper"}>
       <FontAwesomeIcon className="logo" icon={faBug} size="1x" />
       <div className="nav-links">
         <NavLink to="/">Home</NavLink>
