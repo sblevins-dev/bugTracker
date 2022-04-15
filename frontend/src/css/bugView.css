@@ -120,20 +120,16 @@
     align-items: center;
     justify-content: space-between;
     padding-left: 100px;
+    transition: all .2s ease-in-out;
+    cursor: pointer;
+}
+
+.comment-dropdown div:hover {
+    color: var(--fifth-color);
 }
 
 .comment-dropdown div :first-child{
     padding-right: 20px;
-}
-
-.arrow {
-    cursor: pointer;
-    transition: all .3s ease-in-out;
-}
-
-.arrow-expanded {
-    transition: all .3s ease-in-out;
-    cursor: pointer;
 }
 
 .expanded {

@@ -94,13 +94,12 @@ export const BugView = ({ user }) => {
             <div className="comment-dropdown">
               <h1>Comments</h1>
               {comments.length >= 4 && (
-                <div>
+                <div onClick={() => setExpanded(!expanded)}>
                   <p>{expanded ? "Collapse" : "Expand"}</p>
                   <FontAwesomeIcon
                     icon={expanded ? faAngleDown : faAngleLeft}
                     className={expanded ? "arrow-expanded" : "arrow"}
                     size="2x"
-                    onClick={() => setExpanded(!expanded)}
                   />
                 </div>
               )}
