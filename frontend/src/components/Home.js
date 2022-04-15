@@ -22,7 +22,7 @@ export const Home = () => {
   // call when bugs length is less than 1
   useEffect(() => {
     dispatch(fetchBugs());
-  }, [bugsList.length < 1]);
+  }, [bugsList && bugsList.length < 1]);
 
   // set keyword search term
   const handleKeywordChange = (e) => {

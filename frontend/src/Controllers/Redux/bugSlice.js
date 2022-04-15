@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { retrieveBugs } from "../bugController";
 import bugController from "../bugController";
 import axios from "axios";
 

@@ -19,7 +19,7 @@ export const CreateBug = ({ user }) => {
 
   useEffect(() => {
     dispatch(fetchUsers());
-  }, [dispatch]);
+  }, [users && users.length < 1]);
 
   // used for adding steps
   const [counter, setCounter] = useState(1);
@@ -93,8 +93,8 @@ export const CreateBug = ({ user }) => {
           {users &&
             users.length > 0 &&
             users.map((user) => (
-              <option className="users" key={user._id}>
-                <div className="name">{user.name}</div>
+              <option className="users" key={user._id} value={user.name}>
+                {user.name}
               </option>
             ))}
         </select>

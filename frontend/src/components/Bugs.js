@@ -10,7 +10,7 @@ export const Bugs = ({ bugs }) => {
         <div className="bug-header-creator">Creator</div>
         <div className="bug-header-status">Status</div>
       </div>
-      {bugs[0] !== "nothing" ? (
+      {bugs && bugs[0] !== "nothing" ? (
         bugs.map((bug) => <BugModal key={bug._id} bug={bug} />)
       ) : (
         <div className="no-bugs">No Bugs Found</div>
