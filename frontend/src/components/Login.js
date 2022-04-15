@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { loginFunc } from "../Controllers/authController";
+import { ToastContainer, toast } from 'react-toastify';
 import "../css/login.css";
 
 export const Login = () => {
@@ -22,7 +23,13 @@ export const Login = () => {
   // dispatch to auth controller
   const handleLogin = (e) => {
     e.preventDefault();
-    dispatch(loginFunc(formInput));
+    if (formInput.name !== '' || formInput.password !== '') {
+      dispatch(loginFunc(formInput));
+    } else {
+      toast.error('Please enter valid information', {
+        position: toast.POSITION.BOTTOM_RIGHT
+      })
+    }
   };
 
   return (

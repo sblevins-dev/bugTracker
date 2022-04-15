@@ -3,6 +3,7 @@
     max-width: 100vw;
     overflow: hidden;
     background-color: var(--primary-color);
+    position: relative;
 }
 
 .hamburger {

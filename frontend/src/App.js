@@ -10,6 +10,8 @@ import { Edit } from "./components/Edit";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import "./App.css";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   // define whether logged in
@@ -44,6 +46,7 @@ function App() {
           </Routes>
         )}
       </Router>
+      <ToastContainer className='toast-container' theme='dark' ></ToastContainer>
     </div>
   );
 }
