@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { loginFunc } from "../authController";
+import { toast } from 'react-toastify';
 
 const slice = createSlice({
   name: "auth",
@@ -23,7 +24,7 @@ const slice = createSlice({
   extraReducers: (builder) => {
     builder
       // login builder reducers
-      .addCase(loginFunc.pending, (state, action) => {
+      .addCase(loginFunc.pending, (state) => {
         if (state.loading === "idle") {
           state.loading = "pending";
         }
@@ -39,7 +40,16 @@ const slice = createSlice({
         if (state.user === name && action.payload.role === "admin") {
           state.admin = true;
         }
-      });
+
+        toast.success('Welcome!', {
+          position: toast.POSITION.BOTTOM_RIGHT
+        })
+      })
+      .addCase(loginFunc.rejected, (state, action) => {
+        toast.error(action.payload, {
+          position: toast.POSITION.BOTTOM_RIGHT
+        })
+      })
   },
 });
 

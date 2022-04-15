@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { loginFunc } from "../Controllers/authController";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import "../css/login.css";
 
 export const Login = () => {

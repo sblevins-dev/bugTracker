@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Nav } from "./components/Nav";
 import { Login } from "./components/Login";
@@ -46,7 +46,7 @@ function App() {
           </Routes>
         )}
       </Router>
-      <ToastContainer className='toast-container' theme='dark' ></ToastContainer>
+      <ToastContainer className='toast-container' theme='colored' ></ToastContainer>
     </div>
   );
 }

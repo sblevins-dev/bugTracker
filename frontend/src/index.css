@@ -13,7 +13,7 @@ html, body, #root {
   --fifth-color: #6586B8;
   --sixth-color: #2045AF;
   --seventh-color: #3C516B;
-  --toastify-color-dark: #232830;
+  --toastify-color-dark: var(--fifth-color);
 }
 
 
