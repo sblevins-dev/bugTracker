@@ -26,8 +26,6 @@ function App() {
   };
 
   const handleRefClick = (e) => {
-    console.log(navRef);
-    console.log(e.target.className);
     let str = e.target.className;
     if (
       (navShown &&

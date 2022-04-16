@@ -3,18 +3,34 @@ import axios from "axios";
 const getBugs = async () => {
   const response = await axios.get("http://localhost:5000/bugs");
 
-  return response.data
+  return response.data;
 };
 
 const addBug = async (data) => {
   const response = await axios.post("/bugs/createBug", data);
 
-  return response.data
+  return response.data;
+};
+
+const leaveComm = async (data) => {
+  const { user, comment, id } = data;
+  const response = await axios.put(
+    `http://localhost:5000/bugs/leaveComment/${id}`,
+    { user, comment },
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  return response.data;
 };
 
 const bugController = {
   addBug,
-  getBugs
+  getBugs,
+  leaveComm,
 };
 
 export default bugController;

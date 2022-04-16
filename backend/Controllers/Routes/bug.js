@@ -28,10 +28,12 @@ route.post("/createBug", async (req, res) => {
 
 // Add comment
 route.put("/leaveComment/:id", async (req, res) => {
+  const today = new Date()
+  // console.log(today.format('dd-m-yy'))
   // Destructure from body
-  const { user, comm } = req.body;
+  const { user, comment } = req.body;
   // Put in array to push to comments
-  let arr = [user, comm];
+  let arr = [user, comment, today];
   // Find Bug
   const bug = await Bug.findById(req.params.id);
 

@@ -23,11 +23,13 @@ export const postBug = createAsyncThunk(
 );
 
 // call getBugs from bugController
-export const fetchBugs = createAsyncThunk('/bugs/fetch', async (bug, thunkAPI) => {
-  try {
-    return await bugController.getBugs();
-  } catch (error) {
-    const message =
+export const fetchBugs = createAsyncThunk(
+  "/bugs/fetch",
+  async (bug, thunkAPI) => {
+    try {
+      return await bugController.getBugs();
+    } catch (error) {
+      const message =
         (error.response &&
           error.response.data &&
           error.response.data.message) ||
@@ -35,8 +37,28 @@ export const fetchBugs = createAsyncThunk('/bugs/fetch', async (bug, thunkAPI) =
         error.toString();
 
       return thunkAPI.rejectWithValue(message);
+    }
   }
-})
+);
+
+// send comment to backend
+export const leaveComment = createAsyncThunk(
+  "/bugs/comments",
+  async (bug, thunkAPI) => {
+    try {
+      return await bugController.leaveComm(bug);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 
 // set intitial state in slice
 const initialState = {
@@ -44,52 +66,71 @@ const initialState = {
   isError: false,
   isSuccess: false,
   isLoading: false,
-  message: ''
-}
+  message: "",
+};
 
 const slice = createSlice({
   name: "bugs",
   initialState,
   reducers: {
     reset: (state) => {
-      state.isLoading = false
-      state.isSuccess = false
-      state.isError = false
-    }
+      state.isLoading = false;
+      state.isSuccess = false;
+      state.isError = false;
+    },
   },
   extraReducers: (builder) => {
     builder
       // fetch bugs on home load
       .addCase(fetchBugs.pending, (state) => {
-        state.isLoading = true
+        state.isLoading = true;
       })
       .addCase(fetchBugs.fulfilled, (state, action) => {
-        state.isLoading = true
-        state.isSuccess = true
-        state.bugsList = action.payload
+        state.isLoading = true;
+        state.isSuccess = true;
+        state.bugsList = action.payload;
       })
       .addCase(fetchBugs.rejected, (state, action) => {
-        state.isLoading = false
-        state.isError = true
-        console.log(action.payload)
+        state.isLoading = false;
+        state.isError = true;
+        console.log(action.payload);
       })
       // call create bug
       .addCase(postBug.pending, (state) => {
-        state.isLoading = true
+        state.isLoading = true;
       })
       .addCase(postBug.fulfilled, (state, action) => {
-        state.isLoading = false
-        state.isSuccess = true
-        toast.success('Bug Created!', {
+        state.isLoading = false;
+        state.isSuccess = true;
+        toast.success("Bug Created!", {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
+      })
+      .addCase(postBug.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      //leave a comment
+      .addCase(leaveComment.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(leaveComment.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        toast.success('Comment Submitted', {
           position: toast.POSITION.BOTTOM_RIGHT
         })
       })
-      .addCase(postBug.rejected, (state, action) => {
-        state.isLoading = false
-        state.isError = true
-        state.message = action.payload
-      })
-  }
+      .addCase(leaveComment.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+        toast.error(state.message, {
+          position: toast.POSITION.BOTTOM_RIGHT
+        })
+      });
+  },
 });
 
 // Set bugs state
@@ -113,29 +154,30 @@ const slice = createSlice({
 // }
 
 // Add a comment
-export function addComm(user, comm, id) {
-  return async (dispatch) => {
-    console.log(dispatch);
-    // try {
-    await axios
-      .put(
-        `http://localhost:5000/bugs/leaveComment/${id}`,
-        { user, comm },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
-      .then((response) => {
-        dispatch(addComment(response.data));
-      })
-      .catch((err) => console.log(err));
-    // } catch (error) {
-    //   console.log(error)
-    // }
-  };
-}
+// export function addComm(user, comm, id) {
+//   return async (dispatch) => {
+//     console.log(dispatch);
+//     // try {
+//     await axios
+//       .put(
+//         `http://localhost:5000/bugs/leaveComment/${id}`,
+//         { user, comm },
+//         {
+//           headers: {
+//             "Content-Type": "application/json",
+//           },
+//         }
+//       )
+//       .then((response) => {
+//         dispatch(addComment(response.data));
+//       })
+//       .catch((err) => console.log(err));
+//     // } catch (error) {
+//     //   console.log(error)
+//     // }
+//   };
+// }
+
 export default slice.reducer;
 
 export const { getBugs, createBug, addComment, updateBug, markComplete } =

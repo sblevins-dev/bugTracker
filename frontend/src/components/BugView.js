@@ -2,7 +2,11 @@ import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "../css/bugView.css";
 import { useDispatch, useSelector } from "react-redux";
-import { addComm, fetchBugs } from "../Controllers/Redux/bugSlice";
+import {
+  addComm,
+  fetchBugs,
+  leaveComment,
+} from "../Controllers/Redux/bugSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
@@ -29,10 +33,10 @@ export const BugView = ({ user }) => {
     })
   );
 
-  const { auth } = useSelector(state => state);
+  const { auth } = useSelector((state) => state);
 
   if (!auth.loggedIn) {
-    navigate('/')
+    navigate("/");
   }
 
   // Set comment to leave
@@ -50,22 +54,40 @@ export const BugView = ({ user }) => {
     navigate("/");
   };
 
+  // create date
+  const createDate = () => {
+    let today = new Date()
+    
+    return today;
+  }
+
   // Onchange to set comment
   const handleComment = (e) => {
     setComment(e.target.value);
   };
 
   // Handle submit of comment
-  const leaveComment = async (e) => {
+  const submitComment = async (e) => {
     e.preventDefault();
+
+    let obj;
+
+    if (comment && user && bug) {
+      obj = {
+        user,
+        comment,
+        id: bug._id,
+      };
+    }
+
     if (comment !== "") {
-      dispatch(addComm(user, comment, bug._id)).then(() =>
-        setClicked(!clicked)
-      );
+      dispatch(leaveComment(obj))
+        .then(() => setClicked(!clicked))
+        .then(() => setComment(""));
     } else {
-      toast.warn('Please enter text', {
-        position: toast.POSITION.BOTTOM_RIGHT
-      })
+      toast.warn("Please enter text", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
     }
   };
 
@@ -73,6 +95,38 @@ export const BugView = ({ user }) => {
   useEffect(() => {
     dispatch(fetchBugs());
   }, [clicked, dispatch]);
+
+  // format time
+  const formatTime = (timeToFormat) => {
+    let tempArr = timeToFormat.split(':')
+
+    let hour, minute, amPm, time;
+
+    if (tempArr[0] > 12) {
+      hour = parseInt(tempArr[0]) - 12
+      minute = tempArr[1]
+      amPm = 'pm'
+      time = hour.toString() + ':' + minute + amPm
+    } else {
+      hour = tempArr[0]
+      minute = tempArr[1]
+      amPm = 'am'
+      time = hour + ':' + minute + amPm
+    }
+
+    return time
+  }
+
+  // format date
+  const formatDate = (dateToFormat) => {
+    let tempArr = dateToFormat.split(' ')
+
+    let newArr = tempArr.slice(0, 5)
+
+    let time = formatTime(newArr[4])
+
+    return time
+  }
 
   return (
     <div className="bugview-page-wrapper">
@@ -119,8 +173,9 @@ export const BugView = ({ user }) => {
               >
                 {comments.map((comm, i) => (
                   <li key={i} className="each-comm-wrapper">
-                    <div className="comment-user">Author: {comm[0]}</div>
+                    <div className="comment-user">{comm[0]}</div>
                     <div className="comment">{comm[1]}</div>
+                    {comm[2] && <div className="comment-date">{formatDate(comm[2])}</div>}
                   </li>
                 ))}
               </ul>
@@ -140,7 +195,11 @@ export const BugView = ({ user }) => {
           </div>
           <div className="bug-status">
             <div className="status-title">Status:</div>
-            <div className={status === 'open' ? "status open" : "status closed"}>{status}</div>
+            <div
+              className={status === "open" ? "status open" : "status closed"}
+            >
+              {status}
+            </div>
           </div>
           <div className="bug-priority">
             <div className="priority-title">Priority:</div>
@@ -151,11 +210,15 @@ export const BugView = ({ user }) => {
       <div className="comment-wrapper">
         <form>
           <label>Leave a Comment:</label>
-          <textarea className="comment-box" onChange={handleComment}></textarea>
+          <textarea
+            className="comment-box"
+            value={comment}
+            onChange={handleComment}
+          ></textarea>
           <button
             type="submit"
             className="comment-submit-btn"
-            onClick={leaveComment}
+            onClick={submitComment}
           >
             Submit
           </button>

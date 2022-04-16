@@ -208,11 +208,27 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 .comment-user {
-    font-size: .9rem;
-    padding-bottom: 5px;
+    font-size: 1.2rem;
+    padding-bottom: 10px;
+    color: var(--fifth-color);
+    font-weight: bold;
+}
+
+.comment {
+    width: 100%;
+    word-wrap: break-word;
+    padding-bottom: 15px;
+}
+
+.comment-date {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    color: var(--fifth-color);
 }
 
 .comment-wrapper form {
