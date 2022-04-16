@@ -209,6 +209,12 @@
     display: flex;
     flex-direction: column;
     position: relative;
+    transition: all .2s ease-in-out;
+    cursor:zoom-in;
+}
+
+.each-comm-wrapper:hover {
+    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.603);
 }
 
 .comment-user {
@@ -222,6 +228,11 @@
     width: 100%;
     word-wrap: break-word;
     padding-bottom: 15px;
+    transition: all .3s ease-in-out;
+}
+
+.each-comm-wrapper:hover .comment {
+    font-size: 1.5rem;
 }
 
 .comment-date {
