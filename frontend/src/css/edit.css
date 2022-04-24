@@ -61,7 +61,14 @@
     padding: 5px;
 }
 
-.status div {
+.edit-bug-wrapper .status {
+    display: flex;
+    width: 350px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.status div:first-child {
     font-size: 1.2rem;
     font-weight: bold;
     margin: 10px 0;
@@ -80,6 +87,16 @@
 
 .status .closed {
     background-color: red;
+}
+
+.status .marks div {
+    width: 250px;
+}
+
+.status .checkbox {
+    margin-right: 20px;
+    transform: scale(1.2);
+    cursor: pointer;
 }
 
 @media (max-width: 500px) {
