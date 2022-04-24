@@ -13,7 +13,18 @@ const addBug = async (data) => {
 };
 
 const updateBug = async (data) => {
-  console.log(data)
+  const {id, name, assigned, author, status, steps, details} = data;
+  const response = await axios.put(
+    `http://localhost:5000/bugs/updateBug/${id}`,
+    {name, assigned, author, status, steps, details},
+    {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }
+  )
+
+  return response.data
 }
 
 const leaveComm = async (data) => {

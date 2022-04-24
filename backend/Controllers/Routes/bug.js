@@ -57,6 +57,7 @@ route
   .put("/updateBug/:id", async (req, res) => {
     const { name, status, details, steps, assigned, author } =
       req.body;
+    const stepsArr = Object.values(steps);
     const bug = await Bug.findById(req.params.id);
 
     if (!bug) {
@@ -64,40 +65,12 @@ route
       throw new Error("Bug not found");
     }
 
-    const checkForSteps = () => {
-      let tempBug = null;
-
-      if (steps) {
-        tempBug = Bug.findByIdAndUpdate(
-          req.params.id,
-          { $push: { steps: steps } },
-          { new: true }
-        );
-      }
-
-      return tempBug;
-    };
-
-    const checkForComments = () => {
-      let tempBug = null;
-
-      if (comments) {
-        tempBug = Bug.findByIdAndUpdate(
-          req.params.id,
-          { $push: { comments: comments } },
-          { new: true }
-        );
-      }
-
-      return tempBug;
-    };
-
     const checkForRestOfUpdates = () => {
       let tempBug = null;
 
       tempBug = Bug.findByIdAndUpdate(
         req.params.id,
-        { name, details, status, assigned, author },
+        { name, details, status, assigned, author, steps: stepsArr },
         { new: true }
       );
 
@@ -105,15 +78,7 @@ route
     };
     let updatedBug = null;
 
-    if (steps) {
-      updatedBug = await checkForSteps();
-    }
-
-    if (comments) {
-      updatedBug = await checkForComments();
-    }
-
-    if (name || details || author || assigned || status) {
+    if (name || details || author || assigned || status || steps) {
       updatedBug = await checkForRestOfUpdates();
     }
 
