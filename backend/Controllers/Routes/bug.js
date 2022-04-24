@@ -55,7 +55,7 @@ route.put("/leaveComment/:id", async (req, res) => {
 // Update bug
 route
   .put("/updateBug/:id", async (req, res) => {
-    const { name, status, details, steps, assigned, author, comments } =
+    const { name, status, details, steps, assigned, author } =
       req.body;
     const bug = await Bug.findById(req.params.id);
 

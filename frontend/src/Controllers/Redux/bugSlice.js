@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import bugController from "../bugController";
-import axios from "axios";
 import { toast } from "react-toastify";
 
 // create bug
@@ -9,6 +8,25 @@ export const postBug = createAsyncThunk(
   async (bug, thunkAPI) => {
     try {
       return await bugController.addBug(bug);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+// edit page calls updateBug
+export const editBug = createAsyncThunk(
+  "/bugs/update",
+  async (bug, thunkAPI) => {
+    try {
+      return await bugController.updateBug(bug);
     } catch (error) {
       const message =
         (error.response &&
@@ -111,6 +129,22 @@ const slice = createSlice({
         state.isError = true;
         state.message = action.payload;
       })
+      // edit bug
+      .addCase(editBug.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(editBug.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        toast.success("Updated bug successfully!", {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
+      })
+      .addCase(editBug.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
       //leave a comment
       .addCase(leaveComment.pending, (state) => {
         state.isLoading = true;
@@ -118,17 +152,17 @@ const slice = createSlice({
       .addCase(leaveComment.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        toast.success('Comment Submitted', {
-          position: toast.POSITION.BOTTOM_RIGHT
-        })
+        toast.success("Comment Submitted", {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
       })
       .addCase(leaveComment.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
         toast.error(state.message, {
-          position: toast.POSITION.BOTTOM_RIGHT
-        })
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
       });
   },
 });

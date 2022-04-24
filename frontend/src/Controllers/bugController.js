@@ -12,6 +12,10 @@ const addBug = async (data) => {
   return response.data;
 };
 
+const updateBug = async (data) => {
+  console.log(data)
+}
+
 const leaveComm = async (data) => {
   const { user, comment, id } = data;
   const response = await axios.put(
@@ -31,6 +35,7 @@ const bugController = {
   addBug,
   getBugs,
   leaveComm,
+  updateBug
 };
 
 export default bugController;

@@ -4,6 +4,7 @@ import { fetchBugs } from "../Controllers/Redux/bugSlice";
 import { Bugs } from "./Bugs";
 import { Statistics } from "./Statistics";
 import "../css/home.css";
+import { fetchUsers } from "../Controllers/Redux/userSlice";
 
 export const Home = () => {
   // Redux
@@ -37,6 +38,10 @@ export const Home = () => {
   useEffect(() => {
     dispatch(fetchBugs());
   }, [bugsListChecked, dispatch]);
+
+  useEffect(() => {
+    dispatch(fetchUsers())
+  }, [])
 
   // set keyword search term
   const handleKeywordChange = (e) => {

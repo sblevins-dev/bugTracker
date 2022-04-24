@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { editBug } from "../Controllers/Redux/bugSlice";
 import { useLocation, Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "../css/edit.css";
@@ -7,6 +8,7 @@ import "../css/edit.css";
 export const Edit = ({ user }) => {
   const { auth } = useSelector((state) => state);
   const users = useSelector((state) => state.users.usersList);
+  const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
   const bug = location.state;
@@ -21,6 +23,7 @@ export const Edit = ({ user }) => {
   };
 
   const initialState = {
+    id: bug._id,
     name: bug.name,
     assigned: bug.assigned,
     author: user,
@@ -154,6 +157,13 @@ export const Edit = ({ user }) => {
       toast.error("Please add or remove empty step", {
         position: toast.POSITION.BOTTOM_RIGHT,
       });
+    } else if (formData === initialState) {
+      toast.warning("Nothing to update!", {
+        position: toast.POSITION.BOTTOM_RIGHT
+      })
+    } else {
+      dispatch(editBug(formData))
+      console.log('sent')
     }
 
     console.log(formData.status);
