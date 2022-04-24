@@ -4,8 +4,9 @@ import { useLocation, Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "../css/edit.css";
 
-export const Edit = (props) => {
+export const Edit = ({ user }) => {
   const { auth } = useSelector((state) => state);
+  const users = useSelector((state) => state.users.usersList);
   const location = useLocation();
   const navigate = useNavigate();
   const bug = location.state;
@@ -21,10 +22,12 @@ export const Edit = (props) => {
 
   const initialState = {
     name: bug.name,
+    assigned: bug.assigned,
+    author: user,
     status: bug.status,
     steps: setSteps(),
     details: bug.details,
-  }
+  };
 
   // set formData
   const [formData, setFormData] = useState(initialState);
@@ -39,6 +42,7 @@ export const Edit = (props) => {
             key={i}
             value={step[1]}
             name={step[0]}
+            placeholder="Please add step or remove step..."
             onChange={setForm}
             className="step"
           />
@@ -100,7 +104,7 @@ export const Edit = (props) => {
   // add step to form data
   const addStep = (e) => {
     e.preventDefault();
-    if (step !== '') {
+    if (step !== "") {
       let index = Object.keys(formData.steps).length;
       let name = `step ${index + 1}`;
 
@@ -118,14 +122,39 @@ export const Edit = (props) => {
       });
     } else {
       toast.error("Please enter valid input", {
-        position: toast.POSITION.BOTTOM_RIGHT
-      })
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
     }
   };
 
   // submit form
   const handleEdit = (e) => {
     e.preventDefault();
+    const { name, assigned, author, status, steps, details } = formData;
+
+    if (!user) {
+      toast.error("Oops, something went wrong!", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+    } else if (
+      name === "" ||
+      assigned === "" ||
+      author === "" ||
+      status === "" ||
+      details === ""
+    ) {
+      toast.error("Please enter bug information", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+    } else if (assigned === "--Select a User--") {
+      toast.error("Please assign to a user", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+    } else if (Object.values(steps).includes('')) {
+      toast.error("Please add or remove empty step", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+    }
 
     console.log(formData.status);
     console.log("form sent");
@@ -139,6 +168,7 @@ export const Edit = (props) => {
           type="text"
           name="name"
           defaultValue={bug.name}
+          placeholder="Please add a name..."
           onChange={setForm}
         />
         <label>Status:</label>
@@ -170,6 +200,24 @@ export const Edit = (props) => {
             )}
           </div>
         </div>
+        <div className="assigned-to">
+          <div className="assigned-title">Assigned To:</div>
+          <select
+            className="dropdown-content"
+            name="assigned"
+            value={formData.assigned}
+            onChange={setForm}
+          >
+            <option defaultValue>--Select a User--</option>
+            {users &&
+              users.length > 0 &&
+              users.map((user) => (
+                <option className="users" key={user._id} value={user.name}>
+                  {user.name}
+                </option>
+              ))}
+          </select>
+        </div>
         <label>Steps Taken:</label>
         {renderSteps()}
         <div className="add-step">
@@ -177,7 +225,7 @@ export const Edit = (props) => {
             type="text"
             value={step}
             onChange={(e) => setStep(e.target.value)}
-            placeholder="Add a step"
+            placeholder="Add a step..."
           />
         </div>
         <button className="add-step-btn" onClick={addStep}>
@@ -188,6 +236,7 @@ export const Edit = (props) => {
           type="text"
           defaultValue={bug.details}
           name="details"
+          placeholder="Add details..."
           onChange={setForm}
         />
         <div className="btns-wrapper">

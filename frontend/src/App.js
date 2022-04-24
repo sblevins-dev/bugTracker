@@ -48,7 +48,7 @@ function App() {
             </div>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/edit" element={<Edit />} />
+              <Route path="/edit" element={<Edit user={user} />} />
               <Route path="/createBug" element={<CreateBug user={user} />} />
               <Route path="/bugView" element={<BugView user={user} />} />
             </Routes>

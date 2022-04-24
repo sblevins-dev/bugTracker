@@ -98,6 +98,16 @@
     cursor: pointer;
 }
 
+.assigned-to {
+    margin: 10px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.assigned-to .dropdown-content {
+    margin: 10px 0;
+}
+
 .add-step {
     margin: 20px 0;
     width: 500px;
