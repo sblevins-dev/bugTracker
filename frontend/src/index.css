@@ -16,4 +16,16 @@ html, body, #root {
   --toastify-color-dark: var(--fifth-color);
 }
 
+input[type=text] {
+  word-wrap: break-word;
+  max-width: 500px;
+  background-color: var(--secondary-color);
+  border-radius: 10px;
+}
+
+textarea {
+  background-color: var(--secondary-color);
+  border-radius: 10px;
+}
+
 
