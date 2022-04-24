@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { editBug } from "../Controllers/Redux/bugSlice";
 import { useLocation, Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import "../css/edit.css";
 
 export const Edit = ({ user }) => {
@@ -34,26 +36,21 @@ export const Edit = ({ user }) => {
 
   // set formData
   const [formData, setFormData] = useState(initialState);
+  const [filteredSteps, setFilteredSteps] = useState(
+    Array.from(Object.entries(formData.steps).map((step) => step))
+  );
 
-  // necessary right now to map steps and add when necessary
-  const renderSteps = () => {
-    return Object.keys(formData.steps).length > 0 ? (
-      Array.from(
-        Object.entries(formData.steps).map((step, i) => (
-          <input
-            type="text"
-            key={i}
-            value={step[1]}
-            name={step[0]}
-            placeholder="Please add step or remove step..."
-            onChange={setForm}
-            className="step"
-          />
-        ))
-      )
-    ) : (
-      <div style={{ fontSize: "1rem" }}>No Steps Taken</div>
-    );
+  // delete step
+  const deleteStep = (key) => {
+    setFilteredSteps(filteredSteps.filter((step) => step[0] !== key[0]));
+    console.log(key)
+    console.log(filteredSteps)
+    // setFormData({
+    //   ...formData,
+    //   steps: {
+    //     [fil]
+    //   }
+    // })
   };
 
   // checked if logged in
@@ -153,21 +150,17 @@ export const Edit = ({ user }) => {
       toast.error("Please assign to a user", {
         position: toast.POSITION.BOTTOM_RIGHT,
       });
-    } else if (Object.values(steps).includes('')) {
+    } else if (Object.values(steps).includes("")) {
       toast.error("Please add or remove empty step", {
         position: toast.POSITION.BOTTOM_RIGHT,
       });
     } else if (formData === initialState) {
       toast.warning("Nothing to update!", {
-        position: toast.POSITION.BOTTOM_RIGHT
-      })
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
     } else {
-      dispatch(editBug(formData))
-      console.log('sent')
+      dispatch(editBug(formData));
     }
-
-    console.log(formData.status);
-    console.log("form sent");
   };
 
   return (
@@ -229,7 +222,25 @@ export const Edit = ({ user }) => {
           </select>
         </div>
         <label>Steps Taken:</label>
-        {renderSteps()}
+        {filteredSteps.map((step) => (
+          <div key={step[0]}>
+            <input
+              type="text"
+              value={step[1]}
+              name={step[0]}
+              placeholder="Please add step or remove step..."
+              onChange={setForm}
+              className="step"
+            />
+            <FontAwesomeIcon
+              icon={faCircleXmark}
+              className="remove-step"
+              onClick={() => deleteStep(step)}
+            />
+          </div>
+        ))}
+        {/* {renderSteps()} */}
+        {/* {deleteStep()} */}
         <div className="add-step">
           <input
             type="text"

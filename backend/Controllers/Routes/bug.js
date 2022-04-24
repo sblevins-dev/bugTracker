@@ -57,7 +57,8 @@ route
   .put("/updateBug/:id", async (req, res) => {
     const { name, status, details, steps, assigned, author } =
       req.body;
-    const stepsArr = Object.values(steps);
+    let stepsArr;
+    steps ? stepsArr = Object.values(steps) : stepsArr
     const bug = await Bug.findById(req.params.id);
 
     if (!bug) {

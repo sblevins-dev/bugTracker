@@ -108,6 +108,30 @@
     margin: 10px 0;
 }
 
+.steps {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 500px;
+}
+
+.steps input {
+    width: 450px;
+}
+
+.steps .remove-step {
+    color: red;
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: var(--secondary-color);
+    transition: all .2s ease-in-out;
+}
+
+.steps .remove-step:hover {
+    color: white;
+    background-color: red;
+}
+
 .add-step {
     margin: 20px 0;
     width: 500px;
