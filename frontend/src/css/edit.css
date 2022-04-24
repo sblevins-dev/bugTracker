@@ -1,5 +1,5 @@
 .edit-page-wrapper {
-    min-height: calc(100vh - 80px);
+    min-height: 100vh;
     padding: 20px;
     font-size: 2rem;
     width: 100%;
