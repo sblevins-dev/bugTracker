@@ -41,16 +41,18 @@ export const Edit = ({ user }) => {
   );
 
   // delete step
-  const deleteStep = (key) => {
-    setFilteredSteps(filteredSteps.filter((step) => step[0] !== key[0]));
-    console.log(key)
-    console.log(filteredSteps)
-    // setFormData({
-    //   ...formData,
-    //   steps: {
-    //     [fil]
-    //   }
-    // })
+  const deleteStep =  (key) => {
+    let newSteps = filteredSteps.filter((step) => step[0] !== key[0])
+    setFilteredSteps(newSteps);
+    let obj = {}
+     console.log(filteredSteps)
+    newSteps.map((step, i) => {
+      obj[`step ${i + 1}`] = step[1]
+    })
+    setFormData({
+      ...formData,
+      steps: obj
+    })
   };
 
   // checked if logged in
@@ -128,7 +130,7 @@ export const Edit = ({ user }) => {
   };
 
   // submit form
-  const handleEdit = (e) => {
+  const handleEdit = async (e) => {
     e.preventDefault();
     const { name, assigned, author, status, steps, details } = formData;
 
@@ -159,7 +161,8 @@ export const Edit = ({ user }) => {
         position: toast.POSITION.BOTTOM_RIGHT,
       });
     } else {
-      dispatch(editBug(formData));
+      await dispatch(editBug(formData));
+      await navigate('/')
     }
   };
 
@@ -223,7 +226,7 @@ export const Edit = ({ user }) => {
         </div>
         <label>Steps Taken:</label>
         {filteredSteps.map((step) => (
-          <div key={step[0]}>
+          <div key={step[0]} className="steps">
             <input
               type="text"
               value={step[1]}

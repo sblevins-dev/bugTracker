@@ -112,14 +112,15 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 500px;
-}
-
-.steps input {
     width: 450px;
 }
 
-.steps .remove-step {
+.steps input {
+    width: 400px;
+    margin-right: 20px;
+}
+
+.remove-step {
     color: red;
     cursor: pointer;
     border-radius: 50%;
@@ -127,7 +128,7 @@
     transition: all .2s ease-in-out;
 }
 
-.steps .remove-step:hover {
+.remove-step:hover {
     color: white;
     background-color: red;
 }
