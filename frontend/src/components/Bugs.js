@@ -1,7 +1,7 @@
 import { BugModal } from "./BugModal";
 import "../css/bugs.css";
 
-export const Bugs = ({ bugs }) => {
+export const Bugs = ({ bugs, dateFunction }) => {
   return (
     <div className="bugs-wrapper">
       <div className="header">
@@ -11,7 +11,7 @@ export const Bugs = ({ bugs }) => {
         <div className="bug-header-status">Status</div>
       </div>
       {bugs && bugs[0] !== "nothing" ? (
-        bugs.map((bug) => <BugModal key={bug._id} bug={bug} />)
+        bugs.map((bug) => <BugModal key={bug._id} bug={bug} dateFunction={dateFunction} />)
       ) : (
         <div className="no-bugs">No Bugs Found</div>
       )}

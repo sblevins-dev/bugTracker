@@ -3,21 +3,21 @@ import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil, faComment } from "@fortawesome/free-solid-svg-icons";
 
-export const BugModal = ({ bug }) => {
+export const BugModal = ({ bug, dateFunction }) => {
   const { name, author, createdAt, priority, status, comments } = bug;
   const navigate = useNavigate();
   const ref = useRef();
 
   useEffect(() => {}, [bug]);
 
-  // Date format
-  const formatDate = () => {
-    let tempDate = createdAt.split('T')
-    let tempDate2 = tempDate[0].split('-')
-    let newDate = tempDate2[1] + '-' + tempDate2[2] + '-' + tempDate2[0]
+  // // Date format
+  // const formatDate = () => {
+  //   let tempDate = createdAt.split('T')
+  //   let tempDate2 = tempDate[0].split('-')
+  //   let newDate = tempDate2[1] + '-' + tempDate2[2] + '-' + tempDate2[0]
 
-    return newDate
-  }
+  //   return newDate
+  // }
 
   // Present bug view on click
   const handleClick = (e) => {
@@ -44,7 +44,7 @@ export const BugModal = ({ bug }) => {
         </div>
       </div>
       <div className="bug-container-date-wrapper">
-        <div className="bug-date">{formatDate()}</div>
+        <div className="bug-date">{dateFunction(createdAt)}</div>
       </div>
       <div className="bug-container-author-wrapper">
         <div className="bug-author">{author}</div>

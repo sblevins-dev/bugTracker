@@ -20,17 +20,20 @@ export const Home = () => {
   // set status for search
   const [status, setStatus] = useState("");
 
+  // set for minimum date search choice
+  const [minDate, setMinDate] = useState(null);
+
   let bugsListChecked;
 
   const checkBugsList = () => {
     if (bugsList && bugsList.length < 1) {
-      bugsListChecked = true
+      bugsListChecked = true;
     } else {
-      bugsListChecked = true
+      bugsListChecked = true;
     }
 
-    return bugsListChecked
-  }
+    return bugsListChecked;
+  };
 
   checkBugsList();
 
@@ -40,17 +43,48 @@ export const Home = () => {
   }, [bugsListChecked, dispatch]);
 
   useEffect(() => {
-    dispatch(fetchUsers())
-  }, [])
+    dispatch(fetchUsers());
+  }, []);
 
   // set keyword search term
   const handleKeywordChange = (e) => {
     setKeyword(e.target.value);
   };
 
-  // handle radio buttons for search
-  const handleRadioSelection = (e) => {
-    setStatus(e.target.value);
+  // Date format
+  const formatDate = (createdAt) => {
+    let tempDate = createdAt.split("T");
+    let tempDate2 = tempDate[0].split("-");
+    let newDate = tempDate2[1] + "-" + tempDate2[2] + "-" + tempDate2[0];
+
+    return newDate;
+  };
+
+  // compare dates
+  const compareDates = (tempBugs) => {
+    let dateToCheck, newDate, difference, filteredBugs;
+
+    // create date to compare
+    let todaysDate = new Date();
+
+    console.log(tempBugs);
+    // filter according to search selection
+    filteredBugs = tempBugs.filter((bug) => {
+      dateToCheck = formatDate(bug.createdAt).split("-");
+      newDate = new Date(
+        Number(dateToCheck[2]),
+        Number(dateToCheck[0]) - 1,
+        Number(dateToCheck[1])
+      );
+
+      difference =
+        Math.abs(newDate.getTime() - todaysDate.getTime()) /
+        (1000 * 60 * 60 * 24.0);
+
+      return difference < minDate && bug;
+    });
+
+    return filteredBugs;
   };
 
   // filter bug list by search terms
@@ -58,21 +92,26 @@ export const Home = () => {
     let tempBugs;
     tempBugs =
       keyword !== ""
-        ? temp.filter((bug) => {
-            return (
-              bug.details.toLowerCase().includes(keyword.toLowerCase()) ||
-              bug.name.toLowerCase().includes(keyword.toLowerCase()) ||
-              (bug.author.toLowerCase().includes(keyword.toLowerCase()) &&
-                status !== "all" &&
-                bug.status === status) ||
-              bug.details.toLowerCase().includes(keyword.toLowerCase()) ||
-              bug.name.toLowerCase().includes(keyword.toLowerCase())
-            );
-          })
+        ? temp.filter(
+            (bug) =>
+              (bug.author !== undefined &&
+                bug.author.toLowerCase().includes(keyword.toLowerCase())) ||
+              (bug.name !== undefined &&
+                bug.name.toLowerCase().includes(keyword.toLowerCase()))
+          )
         : bugsList;
+
+    tempBugs =
+      minDate !== null && minDate !== "--Select--" && tempBugs !== undefined
+        ? compareDates(tempBugs)
+        : tempBugs;
+
     if (tempBugs.length === 0) {
       tempBugs = ["nothing"];
     }
+
+    console.log(tempBugs);
+
     return tempBugs;
   };
 
@@ -107,57 +146,13 @@ export const Home = () => {
             <label>Keywords: </label>
             <input type="text" onChange={handleKeywordChange}></input>
           </div>
-          <div className="form-group">
-            <label className="radio-header">Case Status: </label>
-            <div className="radio-group">
-              <input
-                type="radio"
-                id="all"
-                name="status"
-                value="all"
-                defaultChecked
-                onChange={handleRadioSelection}
-              ></input>
-              <label htmlFor="all" className="first-select">
-                All{" "}
-              </label>
-              <input
-                type="radio"
-                id="open"
-                name="status"
-                value="open"
-                onChange={handleRadioSelection}
-              ></input>
-              <label htmlFor="open" className="first-select">
-                Open
-              </label>
-              <input
-                type="radio"
-                id="closed"
-                name="status"
-                value="closed"
-                onChange={handleRadioSelection}
-              ></input>
-              <label htmlFor="closed"> Closed</label>
-            </div>
-          </div>
           <div className="form-group dropdown-wrapper">
             <div className="dropdown-group">
               <label className="min-age-label">Min-Age: </label>
-              <select id="min-age">
+              <select id="min-age" onChange={(e) => setMinDate(e.target.value)}>
                 <option defaultValue>--Select--</option>
-                <option value="30">30days</option>
-                <option value="6">6 Months</option>
-                <option value="1">1 Year</option>
-              </select>
-            </div>
-            <div className="dropdown-group">
-              <label className="max-age-label">Max-Age: </label>
-              <select id="max-age">
-                <option defaultValue>--Select--</option>
-                <option value="30">30days</option>
-                <option value="6">6 Months</option>
-                <option value="1">1 Year</option>
+                <option value="15">15 Days</option>
+                <option value="30">30 Days</option>
               </select>
             </div>
           </div>
@@ -166,7 +161,15 @@ export const Home = () => {
           </button>
         </form>
       </div>
-      <Bugs bugs={filteredBugs.length === 0 ? bugsList : filteredBugs} />
+      <div className="results">
+        {filteredBugs.length === 0 ? bugsList.length : filteredBugs.length}
+        {" "}
+        Results
+      </div>
+      <Bugs
+        bugs={filteredBugs.length === 0 ? bugsList : filteredBugs}
+        dateFunction={formatDate}
+      />
     </div>
   );
 };
