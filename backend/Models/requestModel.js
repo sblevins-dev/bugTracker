@@ -7,6 +7,9 @@ const requestSchema = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
     },
+    reason: {
+      type: String,
+    },
     name: {
       type: String,
     },
@@ -20,7 +23,7 @@ const requestSchema = mongoose.Schema(
       type: [String],
     },
     priority: {
-      type: Number,
+      type: String,
     },
     assigned: {
       type: String,

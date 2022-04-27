@@ -88,6 +88,10 @@ export const Requests = () => {
                   {req.assigned}
                 </div>
                 <div className="form-group">
+                  <label>Reason:</label>
+                  {req.reason}
+                </div>
+                <div className="form-group">
                   <label>Details:</label>
                   {req.details}
                 </div>

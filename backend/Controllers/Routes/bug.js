@@ -12,10 +12,11 @@ route.post("/sendRequest", async (req, res) => {
     throw new Error("Please add text fields")
   }
 
-  const { name, status, details, assigned, author, comments } = req.body;
+  const { name, reason, status, details, assigned, author, comments } = req.body;
   const steps = req.body.steps && Object.values(req.body.steps);
   const bug = await Request.create({
     name,
+    reason,
     status,
     details,
     steps,

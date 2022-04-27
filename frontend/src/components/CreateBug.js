@@ -13,6 +13,7 @@ export const CreateBug = ({ user }) => {
   // set state to be able to reset form
   const formInitialState = {
     name: "",
+    reason: "create",
     assigned: "",
     status: "open",
     steps: {},
