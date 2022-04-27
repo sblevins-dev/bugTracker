@@ -4,9 +4,54 @@
     width: 100%;
 }
 
-.requests-form-wrapper {
+.requests-div-wrapper {
     background-color: var(--third-color);
     height: 100%;
     width: 100%;
     border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 10px;
+}
+
+.header {
+    color: var(--secondary-color);
+}
+
+.request-wrapper {
+    color: var(--secondary-color);
+    background-color: var(--primary-color);
+    width: 100%;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.bug-details {
+    height: 100%;
+}
+
+.btns {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100px;
+    height: 50px;
+    padding-right: 20px;
+    cursor: pointer;
+}
+
+.approve {
+    color: green;
+}
+
+.reject {
+    color: red;
+}
+
+.approve:hover, .reject:hover {
+    transform: scale(1.1);
 }

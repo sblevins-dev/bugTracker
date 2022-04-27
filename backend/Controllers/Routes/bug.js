@@ -27,6 +27,12 @@ route.post("/sendRequest", async (req, res) => {
   res.status(200).json(bug);
 })
 
+route.get("/getRequests", async (req, res) => {
+  const bugs = await Request.find();
+
+  res.status(200).json(bugs);
+})
+
 // Create bug
 route.post("/createBug", async (req, res) => {
   if (!req.body) {
