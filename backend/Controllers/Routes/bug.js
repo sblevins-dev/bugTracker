@@ -1,8 +1,31 @@
 const route = require("express").Router();
 const Bug = require("../../Models/bugModel");
+const Request = require("../../Models/requestModel")
 const bodyParser = require("body-parser");
 
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
+
+// Send request
+route.post("/sendRequest", async (req, res) => {
+  if (!req.body) {
+    res.status(400)
+    throw new Error("Please add text fields")
+  }
+
+  const { name, status, details, assigned, author, comments } = req.body;
+  const steps = req.body.steps && Object.values(req.body.steps);
+  const bug = await Request.create({
+    name,
+    status,
+    details,
+    steps,
+    assigned,
+    author,
+    comments,
+  });
+
+  res.status(200).json(bug);
+})
 
 // Create bug
 route.post("/createBug", async (req, res) => {

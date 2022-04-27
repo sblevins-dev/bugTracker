@@ -1,17 +1,27 @@
 import axios from "axios";
 
+// sending a request bug
+const sendBug = async (data) => {
+  const response = await axios.post("/bugs/sendRequest", data)
+
+  return response.data
+}
+
+// fetch bugs for app
 const getBugs = async () => {
   const response = await axios.get("http://localhost:5000/bugs");
 
   return response.data;
 };
 
+// creating a bug
 const addBug = async (data) => {
   const response = await axios.post("/bugs/createBug", data);
 
   return response.data;
 };
 
+// updating bug
 const updateBug = async (data) => {
   const {id, name, assigned, author, status, steps, details} = data;
   const response = await axios.put(
@@ -27,6 +37,7 @@ const updateBug = async (data) => {
   return response.data
 }
 
+// leave a comment
 const leaveComm = async (data) => {
   const { user, comment, id } = data;
   const response = await axios.put(
@@ -46,7 +57,8 @@ const bugController = {
   addBug,
   getBugs,
   leaveComm,
-  updateBug
+  updateBug,
+  sendBug
 };
 
 export default bugController;

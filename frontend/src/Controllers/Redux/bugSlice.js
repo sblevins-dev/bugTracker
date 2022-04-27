@@ -2,6 +2,25 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import bugController from "../bugController";
 import { toast } from "react-toastify";
 
+// send request
+export const sendRequest = createAsyncThunk(
+  "/bugs/sendRequest",
+  async (bug, thunkAPI) => {
+    try {
+      return await bugController.sendBug(bug);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 // create bug
 export const postBug = createAsyncThunk(
   "/bugs/createBug",
@@ -85,6 +104,7 @@ const initialState = {
   isSuccess: false,
   isLoading: false,
   message: "",
+  requests: {}
 };
 
 const slice = createSlice({
@@ -163,7 +183,25 @@ const slice = createSlice({
         toast.error(state.message, {
           position: toast.POSITION.BOTTOM_RIGHT,
         });
-      });
+      })
+      .addCase(sendRequest.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(sendRequest.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.isSuccess = true
+        toast.success("Sent bug request!", {
+          position: toast.POSITION.BOTTOM_RIGHT
+        })
+      })
+      .addCase(sendRequest.rejected, (state, action) => {
+        state.isError = true
+        state.isLoading = false
+        state.message = action.payload
+        toast.error(state.message, {
+          position: toast.POSITION.BOTTOM_RIGHT
+        })
+      })
   },
 });
 
