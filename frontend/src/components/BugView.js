@@ -56,10 +56,10 @@ export const BugView = ({ user }) => {
 
   // create date
   const createDate = () => {
-    let today = new Date()
-    
+    let today = new Date();
+
     return today;
-  }
+  };
 
   // Onchange to set comment
   const handleComment = (e) => {
@@ -98,37 +98,35 @@ export const BugView = ({ user }) => {
 
   // format time
   const formatTime = (timeToFormat) => {
-    let tempArr = timeToFormat.split(':')
+    let tempArr = timeToFormat.split(":");
 
     let hour, minute, amPm, time;
 
     if (tempArr[0] > 12) {
-      hour = parseInt(tempArr[0]) - 12
-      minute = tempArr[1]
-      amPm = 'pm'
-      time = hour.toString() + ':' + minute + amPm
+      hour = parseInt(tempArr[0]) - 12;
+      minute = tempArr[1];
+      amPm = "pm";
+      time = hour.toString() + ":" + minute + amPm;
     } else {
-      hour = tempArr[0]
-      minute = tempArr[1]
-      amPm = 'am'
-      time = hour + ':' + minute + amPm
+      hour = tempArr[0];
+      minute = tempArr[1];
+      amPm = "am";
+      time = hour + ":" + minute + amPm;
     }
 
-    return time
-  }
+    return time;
+  };
 
   // format date
   const formatDate = (dateToFormat) => {
-    let tempArr = dateToFormat[2].split(' ')
+    let tempArr = dateToFormat[2].split(" ");
 
-    let newArr = tempArr.slice(0, 5)
+    let newArr = tempArr.slice(0, 5);
 
-    let time = formatTime(newArr[4])
+    let time = formatTime(newArr[4]);
 
-    console.log(tempArr)
-
-    return tempArr[0] + ' ' + tempArr[1] + ', ' + tempArr[2] + ' ' + time
-  }
+    return tempArr[0] + " " + tempArr[1] + ", " + tempArr[2] + " " + time;
+  };
 
   return (
     <div className="bugview-page-wrapper">
@@ -177,7 +175,9 @@ export const BugView = ({ user }) => {
                   <li key={i} className="each-comm-wrapper">
                     <div className="comment-user">{comm[0]}</div>
                     <div className="comment">{comm[1]}</div>
-                    {comm[2] && <div className="comment-date">{formatDate(comm)}</div>}
+                    {comm[2] && (
+                      <div className="comment-date">{formatDate(comm)}</div>
+                    )}
                   </li>
                 ))}
               </ul>

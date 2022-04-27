@@ -6,6 +6,7 @@ export const loginFunc = createAsyncThunk("auth/login", async (data, thunkAPI) =
   try {
     let response = await axios.post("http://localhost:5000/auth/", data);
     let user = await response.data;
+    console.log(user)
     
     return user;
   } catch (error) {

@@ -17,30 +17,13 @@ export const Home = () => {
   // set bug list to filtered list
   const [filteredBugs, setFilteredBugs] = useState([]);
 
-  // set status for search
-  const [status, setStatus] = useState("");
-
   // set for minimum date search choice
   const [minDate, setMinDate] = useState(null);
-
-  let bugsListChecked;
-
-  const checkBugsList = () => {
-    if (bugsList && bugsList.length < 1) {
-      bugsListChecked = true;
-    } else {
-      bugsListChecked = true;
-    }
-
-    return bugsListChecked;
-  };
-
-  checkBugsList();
 
   // call when bugs length is less than 1
   useEffect(() => {
     dispatch(fetchBugs());
-  }, [bugsListChecked, dispatch]);
+  }, [dispatch]);  
 
   useEffect(() => {
     dispatch(fetchUsers());
@@ -162,12 +145,12 @@ export const Home = () => {
         </form>
       </div>
       <div className="results">
-        {filteredBugs.length === 0 ? bugsList.length : filteredBugs.length}
+        {bugsList && filteredBugs && filteredBugs !== null && filteredBugs.length === 0 ? bugsList.length : filteredBugs.length}
         {" "}
         Results
       </div>
       <Bugs
-        bugs={filteredBugs.length === 0 ? bugsList : filteredBugs}
+        bugs={bugsList && filteredBugs !== null && filteredBugs.length === 0 ? bugsList : filteredBugs}
         dateFunction={formatDate}
       />
     </div>
