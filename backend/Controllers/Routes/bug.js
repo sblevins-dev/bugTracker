@@ -93,4 +93,17 @@ route
     res.status(200).json(bugs);
   });
 
+  // Delete bug
+  route.delete('/:id', async (req, res) => {
+    const bug = await Bug.findByIdAndDelete(req.params.id)
+
+    if (!bug) {
+      res.status(400)
+      res.send('Bug not found')
+    } else {
+      res.send('Bug deleted')
+    }
+    
+  })
+
 module.exports = route;
