@@ -1,0 +1,12 @@
+.requests-page-wrapper {
+    min-height: 100vh;
+    padding: 20px 20px 20px 80px;
+    width: 100%;
+}
+
+.requests-form-wrapper {
+    background-color: var(--third-color);
+    height: 100%;
+    width: 100%;
+    border-radius: 5px;
+}

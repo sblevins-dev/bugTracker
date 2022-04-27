@@ -7,6 +7,7 @@ import { Home } from "./components/Home";
 import { BugView } from "./components/BugView";
 import { CreateBug } from "./components/CreateBug";
 import { Edit } from "./components/Edit";
+import { Requests } from "./components/Requests";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import "./App.css";
@@ -21,10 +22,12 @@ function App() {
 
   const [navShown, setNavShown] = useState(false);
 
+  // show navigation
   const handleClick = () => {
     setNavShown(!navShown);
   };
 
+  // check for click outside menu
   const handleRefClick = (e) => {
     let str = e.target.className;
     if (
@@ -51,6 +54,7 @@ function App() {
               <Route path="/edit" element={<Edit user={user} />} />
               <Route path="/createBug" element={<CreateBug user={user} />} />
               <Route path="/bugView" element={<BugView user={user} />} />
+              {auth.admin && <Route path="/requests" element={<Requests />} />}
             </Routes>
           </>
         ) : (
