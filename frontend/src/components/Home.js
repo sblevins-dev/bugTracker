@@ -50,7 +50,6 @@ export const Home = () => {
     // create date to compare
     let todaysDate = new Date();
 
-    console.log(tempBugs);
     // filter according to search selection
     filteredBugs = tempBugs.filter((bug) => {
       dateToCheck = formatDate(bug.createdAt).split("-");
@@ -92,8 +91,6 @@ export const Home = () => {
     if (tempBugs.length === 0) {
       tempBugs = ["nothing"];
     }
-
-    console.log(tempBugs);
 
     return tempBugs;
   };
@@ -145,7 +142,7 @@ export const Home = () => {
         </form>
       </div>
       <div className="results">
-        {bugsList && filteredBugs && filteredBugs !== null && filteredBugs.length === 0 ? bugsList.length : filteredBugs.length}
+        {bugsList && filteredBugs && filteredBugs !== null && filteredBugs.length === 0 ? bugsList.length : filteredBugs[0] === 'nothing' ? '0' : filteredBugs.length}
         {" "}
         Results
       </div>
