@@ -6,7 +6,7 @@
 }
 
 .bugview-wrapper {
-    padding: 50px 20px 20px;
+    padding: 70px 20px 20px;
     margin-left: 20px;
     background-color: var(--third-color);
     width: 95%;
@@ -54,7 +54,7 @@
 }
 
 .bug-details {
-    height: 250px;
+    height: 200px;
     width: 100%;
 }
 
@@ -65,7 +65,7 @@
 
 .details {
     width: 95%;
-    height: 200px;
+    height: 150px;
     border: 1px solid var(--secondary-color);
     border-radius: 10px;
     background-color: var(--primary-color);
@@ -210,11 +210,11 @@
     flex-direction: column;
     position: relative;
     transition: all .2s ease-in-out;
-    cursor:zoom-in;
 }
 
 .each-comm-wrapper:hover {
-    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.603);
+    box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.603);
+    border-radius: 10px;
 }
 
 .comment-user {
@@ -231,11 +231,8 @@
     transition: all .3s ease-in-out;
 }
 
-.each-comm-wrapper:hover .comment {
-    font-size: 1.5rem;
-}
-
 .comment-date {
+    font-size: .8rem;
     position: absolute;
     bottom: 5px;
     right: 5px;

@@ -119,13 +119,15 @@ export const BugView = ({ user }) => {
 
   // format date
   const formatDate = (dateToFormat) => {
-    let tempArr = dateToFormat.split(' ')
+    let tempArr = dateToFormat[2].split(' ')
 
     let newArr = tempArr.slice(0, 5)
 
     let time = formatTime(newArr[4])
 
-    return time
+    console.log(tempArr)
+
+    return tempArr[0] + ' ' + tempArr[1] + ', ' + tempArr[2] + ' ' + time
   }
 
   return (
@@ -175,7 +177,7 @@ export const BugView = ({ user }) => {
                   <li key={i} className="each-comm-wrapper">
                     <div className="comment-user">{comm[0]}</div>
                     <div className="comment">{comm[1]}</div>
-                    {comm[2] && <div className="comment-date">{formatDate(comm[2])}</div>}
+                    {comm[2] && <div className="comment-date">{formatDate(comm)}</div>}
                   </li>
                 ))}
               </ul>
