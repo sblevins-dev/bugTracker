@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { fetchUsers } from "../Controllers/Redux/userSlice";
 import { sendRequest } from "../Controllers/Redux/bugSlice";
 import "../css/createbug.css";
 import { toast } from "react-toastify";
@@ -23,24 +22,6 @@ export const CreateBug = ({ user }) => {
 
   // set form to initial state
   const [formData, setFormData] = useState(formInitialState);
-
-  // eslint crap
-  let usersChecked;
-
-  const checkUsersArr = () => {
-    if (users && users.length < 1) {
-      usersChecked = true
-    } else {
-      usersChecked = false
-    }
-  }
-
-  checkUsersArr()
-
-  // fetch users to be able to assign bug
-  useEffect(() => {
-    dispatch(fetchUsers());
-  }, [usersChecked, dispatch]);
 
   // used for adding steps
   const [counter, setCounter] = useState(0);
@@ -79,7 +60,7 @@ export const CreateBug = ({ user }) => {
         position: toast.POSITION.BOTTOM_RIGHT,
       });
     } else {
-      dispatch(sendRequest(formData))
+      dispatch(sendRequest(formData));
       setCounter(0);
       setFormData(formInitialState);
     }

@@ -1,5 +1,7 @@
 const route = require("express").Router();
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken")
+const { protect } = require('../../middleware/authMiddleware')
 const userModel = require("../../Models/userModel");
 
 const hashPassword = async (p) => {
@@ -74,6 +76,7 @@ route
       res.status(200).json({
         name,
         role: user.role,
+        token: generateToken(user._id)
       });
     } else {
       res.status(400).json({
@@ -83,7 +86,7 @@ route
   })
 
   // Get users
-  .get("/", async (req, res) => {
+  .get("/", protect, async (req, res) => {
     let userArr = [];
     let users = await userModel.find().select("-password -__v");
 
@@ -93,12 +96,19 @@ route
       users.map((user) => {
         userArr.push({
           id: user._id,
-          name: user.name
+          name: user.name,
         });
       });
     }
 
     res.status(200).send(JSON.stringify(users));
   });
+
+  // Generate JWT
+const generateToken = (id) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET, {
+    expiresIn: "1d",
+  });
+};
 
 module.exports = route;

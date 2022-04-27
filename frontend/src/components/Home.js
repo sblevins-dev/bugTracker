@@ -4,7 +4,6 @@ import { fetchBugs } from "../Controllers/Redux/bugSlice";
 import { Bugs } from "./Bugs";
 import { Statistics } from "./Statistics";
 import "../css/home.css";
-import { fetchUsers } from "../Controllers/Redux/userSlice";
 
 export const Home = () => {
   // Redux
@@ -23,11 +22,7 @@ export const Home = () => {
   // call when bugs length is less than 1
   useEffect(() => {
     dispatch(fetchBugs());
-  }, [dispatch]);  
-
-  useEffect(() => {
-    dispatch(fetchUsers());
-  }, []);
+  }, [dispatch]);
 
   // set keyword search term
   const handleKeywordChange = (e) => {
@@ -142,12 +137,22 @@ export const Home = () => {
         </form>
       </div>
       <div className="results">
-        {bugsList && filteredBugs && filteredBugs !== null && filteredBugs.length === 0 ? bugsList.length : filteredBugs[0] === 'nothing' ? '0' : filteredBugs.length}
-        {" "}
+        {bugsList &&
+        filteredBugs &&
+        filteredBugs !== null &&
+        filteredBugs.length === 0
+          ? bugsList.length
+          : filteredBugs[0] === "nothing"
+          ? "0"
+          : filteredBugs.length}{" "}
         Results
       </div>
       <Bugs
-        bugs={bugsList && filteredBugs !== null && filteredBugs.length === 0 ? bugsList : filteredBugs}
+        bugs={
+          bugsList && filteredBugs !== null && filteredBugs.length === 0
+            ? bugsList
+            : filteredBugs
+        }
         dateFunction={formatDate}
       />
     </div>

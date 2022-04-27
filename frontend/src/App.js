@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useState, useRef } from "react";
-import { useSelector } from "react-redux";
+import { useState, useRef, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchUsers } from "./Controllers/Redux/userSlice";
 import { Nav } from "./components/Nav";
 import { Login } from "./components/Login";
 import { Home } from "./components/Home";
@@ -16,8 +17,14 @@ import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const navRef = useRef();
+
   // define whether logged in
   const { auth } = useSelector((state) => state);
+
+  // dispatch for fetch users
+  const dispatch = useDispatch();
+
+  // pull current user
   const user = useSelector((state) => state.auth.user);
 
   const [navShown, setNavShown] = useState(false);
@@ -32,13 +39,21 @@ function App() {
     let str = e.target.className;
     if (
       (navShown &&
-      str &&
-      !str.includes("active") &&
-      !str.includes("hamburger")) || (navShown && str === '')
+        str &&
+        !str.includes("active") &&
+        !str.includes("hamburger")) ||
+      (navShown && str === "")
     ) {
       setNavShown(!navShown);
     }
   };
+
+  // fetch users when login takes place
+  useEffect(() => {
+    if (auth.loggedIn) {
+      dispatch(fetchUsers());
+    }
+  }, [auth.loggedIn]);
 
   return (
     <div className="app" ref={navRef} onClick={handleRefClick}>

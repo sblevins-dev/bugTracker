@@ -6,6 +6,10 @@ export const loginFunc = createAsyncThunk("auth/login", async (data, thunkAPI) =
   try {
     let response = await axios.post("http://localhost:5000/auth/", data);
     let user = await response.data;
+
+    if (user) {
+      localStorage.setItem('user', JSON.stringify(response.data.token))
+  }
     
     return user;
   } catch (error) {
@@ -13,7 +17,12 @@ export const loginFunc = createAsyncThunk("auth/login", async (data, thunkAPI) =
       (error.response && error.response.data && error.response.data.message) ||
       error.message ||
       error.toString();
-      console.log(message)
       return thunkAPI.rejectWithValue(message)
   }
 });
+
+
+// Logout user
+export const logout = () => {
+  localStorage.removeItem('user')
+}

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginFunc } from "../authController";
+import { loginFunc, logout } from "../authController";
 import { toast } from 'react-toastify';
 
 const slice = createSlice({
@@ -12,12 +12,12 @@ const slice = createSlice({
   },
   reducers: {
     getAccountUser: (state, action) => {
-      console.log(state.user);
       return state.user;
     },
     signOut: (state) => {
       state.loggedIn = false;
       state.admin = false;
+      logout()
     },
     createUser: (state) => {},
   },
