@@ -27,6 +27,20 @@ route.post("/sendRequest", async (req, res) => {
   res.status(200).json(bug);
 })
 
+// delete request
+route.delete('/request/:id', async (req, res) => {
+  const bug = await Request.findByIdAndDelete(req.params.id)
+
+  if (!bug) {
+    res.status(400)
+    res.send('Bug not found')
+  } else {
+    res.send('Bug deleted')
+  }
+  
+})
+
+
 route.get("/getRequests", async (req, res) => {
   const bugs = await Request.find();
 

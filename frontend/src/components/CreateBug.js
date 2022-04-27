@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { fetchUsers } from "../Controllers/Redux/userSlice";
-import { postBug, sendRequest } from "../Controllers/Redux/bugSlice";
+import { sendRequest } from "../Controllers/Redux/bugSlice";
 import "../css/createbug.css";
 import { toast } from "react-toastify";
 
@@ -80,7 +80,6 @@ export const CreateBug = ({ user }) => {
       });
     } else {
       dispatch(sendRequest(formData))
-      // dispatch(postBug(formData));
       setCounter(0);
       setFormData(formInitialState);
     }

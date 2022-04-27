@@ -7,7 +7,6 @@ import { signOut } from "../Controllers/Redux/authSlice";
 
 export const Nav = ({ navShown }) => {
   const { admin } = useSelector((state) => state.auth);
-  console.log(admin);
   const dispatch = useDispatch();
 
   const handleLogout = () => {

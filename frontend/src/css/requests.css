@@ -12,12 +12,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-evenly;
     padding: 10px;
 }
 
 .header {
     color: var(--secondary-color);
+    padding-bottom: 20px;
 }
 
 .request-wrapper {
@@ -54,4 +54,8 @@
 
 .approve:hover, .reject:hover {
     transform: scale(1.1);
+}
+
+.no-requests {
+    color: var(--secondary-color);
 }
