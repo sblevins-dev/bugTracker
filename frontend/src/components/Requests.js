@@ -5,7 +5,7 @@ import "../css/requests.css";
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faX } from "@fortawesome/free-solid-svg-icons";
-import { postBug } from "../Controllers/Redux/bugSlice";
+import { editBug, postBug } from "../Controllers/Redux/bugSlice";
 import { toast } from "react-toastify";
 
 export const Requests = () => {
@@ -33,6 +33,7 @@ export const Requests = () => {
   const handleApprove = async (data) => {
     let bugData = {
       id: data._id,
+      foreign_id: data.foreign_id,
       name: data.name,
       assigned: data.assigned,
       status: "open",
@@ -42,7 +43,12 @@ export const Requests = () => {
     }
 
     if (admin && data.name !== '') {
-      await dispatch(postBug(bugData))
+      if (data.reason === 'create') {
+        await dispatch(postBug(bugData))
+      } else if (data.reason === 'edit') {
+        await dispatch(editBug(bugData))
+      }
+      
       await axios.delete(`/bugs/request/${bugData.id}`)
       await getRequests()
     } else {

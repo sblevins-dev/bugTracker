@@ -2,6 +2,7 @@ import axios from "axios";
 
 // sending a request bug
 const sendBug = async (data) => {
+  console.log(data)
   const response = await axios.post("/bugs/sendRequest", data)
 
   return response.data
@@ -23,9 +24,9 @@ const addBug = async (data) => {
 
 // updating bug
 const updateBug = async (data) => {
-  const {id, name, assigned, author, status, steps, details} = data;
+  const {foreign_id, name, assigned, author, status, steps, details} = data;
   const response = await axios.put(
-    `http://localhost:5000/bugs/updateBug/${id}`,
+    `http://localhost:5000/bugs/updateBug/${foreign_id}`,
     {name, assigned, author, status, steps, details},
     {
       headers: {

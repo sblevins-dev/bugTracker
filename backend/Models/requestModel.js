@@ -7,6 +7,9 @@ const requestSchema = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
     },
+    foreign_id: {
+      type: mongoose.Schema.Types.ObjectId,
+    },
     reason: {
       type: String,
     },

@@ -7,6 +7,7 @@ export const sendRequest = createAsyncThunk(
   "/bugs/sendRequest",
   async (bug, thunkAPI) => {
     try {
+      console.log(bug)
       return await bugController.sendBug(bug);
     } catch (error) {
       const message =

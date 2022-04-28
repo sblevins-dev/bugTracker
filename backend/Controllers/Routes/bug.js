@@ -1,6 +1,6 @@
 const route = require("express").Router();
 const Bug = require("../../Models/bugModel");
-const Request = require("../../Models/requestModel")
+const Request = require("../../Models/requestModel");
 const bodyParser = require("body-parser");
 
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
@@ -8,13 +8,16 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false });
 // Send request
 route.post("/sendRequest", async (req, res) => {
   if (!req.body) {
-    res.status(400)
-    throw new Error("Please add text fields")
+    res.status(400);
+    throw new Error("Please add text fields");
   }
+  console.log(req.body);
 
-  const { name, reason, status, details, assigned, author, comments } = req.body;
+  const { id, name, reason, status, details, assigned, author, comments } =
+    req.body;
   const steps = req.body.steps && Object.values(req.body.steps);
   const bug = await Request.create({
+    foreign_id: id,
     name,
     reason,
     status,
@@ -26,27 +29,25 @@ route.post("/sendRequest", async (req, res) => {
   });
 
   res.status(200).json(bug);
-})
+});
 
 // delete request
-route.delete('/request/:id', async (req, res) => {
-  const bug = await Request.findByIdAndDelete(req.params.id)
+route.delete("/request/:id", async (req, res) => {
+  const bug = await Request.findByIdAndDelete(req.params.id);
 
   if (!bug) {
-    res.status(400)
-    res.send('Bug not found')
+    res.status(400);
+    res.send("Bug not found");
   } else {
-    res.send('Bug deleted')
+    res.send("Bug deleted");
   }
-  
-})
-
+});
 
 route.get("/getRequests", async (req, res) => {
   const bugs = await Request.find();
 
   res.status(200).json(bugs);
-})
+});
 
 // Create bug
 route.post("/createBug", async (req, res) => {
@@ -72,7 +73,7 @@ route.post("/createBug", async (req, res) => {
 
 // Add comment
 route.put("/leaveComment/:id", async (req, res) => {
-  const today = new Date()
+  const today = new Date();
   // console.log(today.format('dd-m-yy'))
   // Destructure from body
   const { user, comment } = req.body;
@@ -99,10 +100,9 @@ route.put("/leaveComment/:id", async (req, res) => {
 // Update bug
 route
   .put("/updateBug/:id", async (req, res) => {
-    const { name, status, details, steps, assigned, author } =
-      req.body;
+    const { name, status, details, steps, assigned, author } = req.body;
     let stepsArr;
-    steps ? stepsArr = Object.values(steps) : stepsArr
+    steps ? (stepsArr = Object.values(steps)) : stepsArr;
     const bug = await Bug.findById(req.params.id);
 
     if (!bug) {
@@ -137,17 +137,16 @@ route
     res.status(200).json(bugs);
   });
 
-  // Delete bug
-  route.delete('/:id', async (req, res) => {
-    const bug = await Bug.findByIdAndDelete(req.params.id)
+// Delete bug
+route.delete("/:id", async (req, res) => {
+  const bug = await Bug.findByIdAndDelete(req.params.id);
 
-    if (!bug) {
-      res.status(400)
-      res.send('Bug not found')
-    } else {
-      res.send('Bug deleted')
-    }
-    
-  })
+  if (!bug) {
+    res.status(400);
+    res.send("Bug not found");
+  } else {
+    res.send("Bug deleted");
+  }
+});
 
 module.exports = route;

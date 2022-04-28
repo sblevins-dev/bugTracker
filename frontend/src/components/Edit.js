@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { editBug } from "../Controllers/Redux/bugSlice";
+import { sendRequest } from "../Controllers/Redux/bugSlice";
 import { useLocation, Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -27,6 +27,7 @@ export const Edit = ({ user }) => {
   const initialState = {
     id: bug._id,
     name: bug.name,
+    reason: 'edit',
     assigned: bug.assigned,
     author: user,
     status: bug.status,
@@ -161,7 +162,8 @@ export const Edit = ({ user }) => {
         position: toast.POSITION.BOTTOM_RIGHT,
       });
     } else {
-      await dispatch(editBug(formData));
+      console.log(formData)
+      await dispatch(sendRequest(formData));
       await navigate('/')
     }
   };
