@@ -20,7 +20,7 @@ const bugSchema = mongoose.Schema(
       type: [String],
     },
     priority: {
-      type: Number,
+      type: String,
     },
     assigned: {
       type: String,

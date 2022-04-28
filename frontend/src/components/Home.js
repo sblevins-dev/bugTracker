@@ -117,6 +117,7 @@ export const Home = () => {
       />
       <div className="search-wrapper">
         <form className="form-wrapper">
+          <h1>Search</h1>
           <div className="form-group">
             <label>Keywords: </label>
             <input type="text" onChange={handleKeywordChange}></input>

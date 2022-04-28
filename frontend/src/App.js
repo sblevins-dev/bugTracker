@@ -40,6 +40,7 @@ function App() {
     if (
       (navShown &&
         str &&
+        typeof str === "string" &&
         !str.includes("active") &&
         !str.includes("hamburger")) ||
       (navShown && str === "")
