@@ -14,7 +14,7 @@ const sendBug = async (data) => {
 
 // fetch bugs for app
 const getBugs = async () => {
-  const response = await axios.get("http://localhost:5000/bugs");
+  const response = await axios.get("/bugs");
 
   return response.data;
 };
@@ -38,7 +38,7 @@ const updateBug = async (data) => {
   const {foreign_id, name, assigned, author, status, steps, details} = data;
   
   const response = await axios.put(
-    `http://localhost:5000/bugs/updateBug/${foreign_id}`,
+    `/bugs/updateBug/${foreign_id}`,
     {name, assigned, author, status, steps, details},
     {
       headers: {
@@ -56,7 +56,7 @@ const leaveComm = async (data) => {
   const token = JSON.parse(localStorage.getItem('user'))
   const { user, comment, id } = data;
   const response = await axios.put(
-    `http://localhost:5000/bugs/leaveComment/${id}`,
+    `/bugs/leaveComment/${id}`,
     { user, comment },
     {
       headers: {

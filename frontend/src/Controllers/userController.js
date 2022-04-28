@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const fetchUsers = async () => {
     const token = JSON.parse(localStorage.getItem('user'))
-    const response = await axios.get('auth/', {
+    const response = await axios.get('/auth/', {
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
