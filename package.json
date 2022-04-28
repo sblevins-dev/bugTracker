@@ -1,0 +1,22 @@
+{
+  "name": "bugtracker",
+  "version": "1.0.0",
+  "description": "Bug Tracker",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node backend/server.js",
+    "client": "npm start --prefix frontend",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scb4377/bugTracker.git"
+  },
+  "author": "Stephen Blevins",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/scb4377/bugTracker/issues"
+  },
+  "homepage": "https://github.com/scb4377/bugTracker#readme"
+}
