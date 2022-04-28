@@ -88,7 +88,7 @@ route
   // Get users
   .get("/", protect, async (req, res) => {
     let userArr = [];
-    let users = await userModel.find().select("-password -__v");
+    let users = await userModel.find({name: {$not: {$eq: 'Administrator'}}}).select("-password -__v");
 
     if (!users) {
       res.status(400).send("There was an error fetching users");
