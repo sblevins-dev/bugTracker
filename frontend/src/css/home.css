@@ -79,6 +79,7 @@
 @media (max-width: 500px) {
     .statistics-wrapper {
         width: 100%;
+        padding-top: 10px;
     }
     .home-wrapper .search-wrapper {
         width: 100%;
@@ -89,10 +90,14 @@
         font-size: 1rem;
         display: none;
     }
+    .bugs-wrapper {
+        padding: 5px;
+    }
     .bug-container {
         flex-wrap: wrap;
         position: relative;
-        height: 100px;
+        min-height: 120px;
+        height: auto;
     }
     .bug-container .bug-container-date-wrapper {
         position: absolute;
@@ -103,10 +108,16 @@
     .bug-container .bug-container-name-wrapper {
         width: 100%;
         align-items: flex-start;
-        padding-top: 15px;
+        padding-bottom: 20px;
+    }
+    .bug-container .bug-container-name-wrapper h1 {
+        font-size: 1.2rem;
     }
     .bug-container .bug-container-name-wrapper .comments {
+        position: absolute;
+        bottom: 9px;
         padding-top: 10px;
+        padding-bottom: 0px;
     }
     .bug-container .bug-container-date-wrapper .bug-date {
         padding: 10px;
@@ -116,16 +127,26 @@
     .bug-container .bug-container-author-wrapper {
         position: absolute;
         right: 5px;
-        bottom: 7px;
+        bottom: 9px;
+    }
+    .bug-container .bug-container-author-wrapper div {
+        font-size: 1.2rem;
     }
     .bug-container .bug-container-status-wrapper {
         position: absolute;
+        left: 50%;
+        transform: translate(-50%);
         bottom: 9px;
+        width: 60px;
     }
     .bug-container .bug-container-status-wrapper div {
         width: 100%;
         font-size: .9rem;
         padding: 1px;
+    }
+    .results {
+        padding-top: 20px;
+        padding-left: 5px;
     }
     /* .home-wrapper .search-wrapper .form-wrapper {
         padding: 10px;

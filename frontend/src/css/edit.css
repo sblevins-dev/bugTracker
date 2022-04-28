@@ -62,7 +62,6 @@
 
 .edit-bug-wrapper .status {
     display: flex;
-    width: 350px;
     justify-content: space-between;
     align-items: center;
 }
@@ -160,9 +159,31 @@
 
 @media (max-width: 500px) {
     .edit-page-wrapper {
-        padding: 100px 10px 10px;
+        padding: 80px 10px 10px;
     }
     .edit {
         z-index: 3;
+    }
+    .status {
+        width: 100%;
+        display: block;
+        overflow: hidden;
+        padding: 10px 0px;
+    }
+    .status div:first-child {
+        margin: 0px;
+    }
+    .status .marks div {
+        width: 100%;
+    }
+    .steps {
+        width: 100%;
+    }
+    .steps input {
+        margin-right: 10px;
+        width: 100%;
+    }
+    .add-step {
+        width: 100%;
     }
 }

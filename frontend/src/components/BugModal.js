@@ -10,15 +10,6 @@ export const BugModal = ({ bug, dateFunction }) => {
 
   useEffect(() => {}, [bug]);
 
-  // // Date format
-  // const formatDate = () => {
-  //   let tempDate = createdAt.split('T')
-  //   let tempDate2 = tempDate[0].split('-')
-  //   let newDate = tempDate2[1] + '-' + tempDate2[2] + '-' + tempDate2[0]
-
-  //   return newDate
-  // }
-
   // Present bug view on click
   const handleClick = (e) => {
     e.preventDefault();
