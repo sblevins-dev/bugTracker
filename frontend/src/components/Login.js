@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { loginFunc } from "../Controllers/authController";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
+import bug from "../images/favicon.png";
 import "../css/login.css";
 
 export const Login = () => {
@@ -23,18 +24,22 @@ export const Login = () => {
   // dispatch to auth controller
   const handleLogin = (e) => {
     e.preventDefault();
-    if (formInput.name !== '' || formInput.password !== '') {
+    if (formInput.name !== "" || formInput.password !== "") {
       dispatch(loginFunc(formInput));
     } else {
-      toast.error('Please enter valid information', {
-        position: toast.POSITION.BOTTOM_RIGHT
-      })
+      toast.error("Please enter valid information", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
     }
   };
 
   return (
     <div className="login-wrapper">
       <form className="form">
+        <div className="header">
+          <img src={bug} className="bug-img"></img>
+          <h2>Bug Tracker</h2>
+        </div>
         <h1>Login</h1>
         <div className="form-group">
           <label className="username">Username:</label>

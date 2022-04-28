@@ -1,4 +1,5 @@
 .bugview-page-wrapper {
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -351,5 +352,28 @@
     }
     .comment-wrapper .comment-box {
         width: 100%;
+    }
+}
+
+@media (max-height: 500px) {
+    .first-sec .bug-title {
+        height: 100%;
+    }
+    .second-sec {
+        height: 400px;
+        padding: 10px;
+    }
+    .author, .assigned, .status, .priority {
+        font-size: 1.1rem;
+    }
+    .priority {
+        height: 100%;
+    }
+    .second-sec .bug-status .status {
+        justify-content: center;
+    }
+    .second-sec .bug-author, .bug-assigned, .bug-status, .bug-priority {
+        font-size: 1rem;
+        line-height: 1.2rem;
     }
 }

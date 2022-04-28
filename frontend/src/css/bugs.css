@@ -107,3 +107,9 @@
 .no-bugs {
     color: var(--secondary-color);
 }
+
+@media (max-width: 400px) {
+    .bug-container-author-wrapper .bug-author {
+        font-size: .2rem;
+    }
+}

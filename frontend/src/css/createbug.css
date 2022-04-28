@@ -136,3 +136,9 @@
     padding: 0;
   }
 }
+
+@media (max-height: 500px) {
+  .create-bug-wrapper label, select, button {
+    margin-bottom: 10px;
+  }
+}
