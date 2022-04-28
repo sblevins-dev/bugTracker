@@ -1,12 +1,13 @@
 const route = require("express").Router();
 const Bug = require("../../Models/bugModel");
 const Request = require("../../Models/requestModel");
+const { protect } = require("../../middleware/authMiddleware")
 const bodyParser = require("body-parser");
 
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 // Send request
-route.post("/sendRequest", async (req, res) => {
+route.post("/sendRequest", protect, async (req, res) => {
   if (!req.body) {
     res.status(400);
     throw new Error("Please add text fields");
@@ -50,7 +51,7 @@ route.get("/getRequests", async (req, res) => {
 });
 
 // Create bug
-route.post("/createBug", async (req, res) => {
+route.post("/createBug", protect, async (req, res) => {
   if (!req.body) {
     res.status(400);
     throw new Error("Please add text to fields");
@@ -72,7 +73,7 @@ route.post("/createBug", async (req, res) => {
 });
 
 // Add comment
-route.put("/leaveComment/:id", async (req, res) => {
+route.put("/leaveComment/:id", protect, async (req, res) => {
   const today = new Date();
   // console.log(today.format('dd-m-yy'))
   // Destructure from body
@@ -99,10 +100,13 @@ route.put("/leaveComment/:id", async (req, res) => {
 
 // Update bug
 route
-  .put("/updateBug/:id", async (req, res) => {
+  .put("/updateBug/:id", protect, async (req, res) => {
     const { name, status, details, steps, assigned, author } = req.body;
+    
     let stepsArr;
+    
     steps ? (stepsArr = Object.values(steps)) : stepsArr;
+    
     const bug = await Bug.findById(req.params.id);
 
     if (!bug) {
@@ -121,6 +125,7 @@ route
 
       return tempBug;
     };
+    
     let updatedBug = null;
 
     if (name || details || author || assigned || status || steps) {
@@ -138,7 +143,7 @@ route
   });
 
 // Delete bug
-route.delete("/:id", async (req, res) => {
+route.delete("/:id", protect, async (req, res) => {
   const bug = await Bug.findByIdAndDelete(req.params.id);
 
   if (!bug) {

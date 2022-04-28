@@ -2,8 +2,12 @@ import axios from "axios";
 
 // sending a request bug
 const sendBug = async (data) => {
-  console.log(data)
-  const response = await axios.post("/bugs/sendRequest", data)
+  const token = JSON.parse(localStorage.getItem('user'))
+  const response = await axios.post("/bugs/sendRequest", data, {
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  })
 
   return response.data
 }
@@ -17,20 +21,29 @@ const getBugs = async () => {
 
 // creating a bug
 const addBug = async (data) => {
-  const response = await axios.post("/bugs/createBug", data);
+  const token = JSON.parse(localStorage.getItem('user'))
+  const response = await axios.post("/bugs/createBug", data, {
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  });
 
   return response.data;
 };
 
 // updating bug
 const updateBug = async (data) => {
+  const token = JSON.parse(localStorage.getItem('user'))
+
   const {foreign_id, name, assigned, author, status, steps, details} = data;
+  
   const response = await axios.put(
     `http://localhost:5000/bugs/updateBug/${foreign_id}`,
     {name, assigned, author, status, steps, details},
     {
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${token}`
       }
     }
   )
@@ -40,6 +53,7 @@ const updateBug = async (data) => {
 
 // leave a comment
 const leaveComm = async (data) => {
+  const token = JSON.parse(localStorage.getItem('user'))
   const { user, comment, id } = data;
   const response = await axios.put(
     `http://localhost:5000/bugs/leaveComment/${id}`,
@@ -47,6 +61,7 @@ const leaveComm = async (data) => {
     {
       headers: {
         "Content-Type": "application/json",
+        'Authorization': `Bearer ${token}`
       },
     }
   );

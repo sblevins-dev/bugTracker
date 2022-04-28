@@ -46,6 +46,7 @@ export const Requests = () => {
       if (data.reason === 'create') {
         await dispatch(postBug(bugData))
       } else if (data.reason === 'edit') {
+        bugData.status = data.status
         await dispatch(editBug(bugData))
       }
       
