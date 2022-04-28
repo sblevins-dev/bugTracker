@@ -1,7 +1,7 @@
 const route = require("express").Router();
 const Bug = require("../../Models/bugModel");
 const Request = require("../../Models/requestModel");
-const { protect } = require("../../middleware/authMiddleware")
+const { protect } = require("../../middleware/authMiddleware");
 const bodyParser = require("body-parser");
 
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
@@ -12,7 +12,6 @@ route.post("/sendRequest", protect, async (req, res) => {
     res.status(400);
     throw new Error("Please add text fields");
   }
-  console.log(req.body);
 
   const { id, name, reason, status, details, assigned, author, comments } =
     req.body;
@@ -102,11 +101,11 @@ route.put("/leaveComment/:id", protect, async (req, res) => {
 route
   .put("/updateBug/:id", protect, async (req, res) => {
     const { name, status, details, steps, assigned, author } = req.body;
-    
+
     let stepsArr;
-    
+
     steps ? (stepsArr = Object.values(steps)) : stepsArr;
-    
+
     const bug = await Bug.findById(req.params.id);
 
     if (!bug) {
@@ -125,7 +124,7 @@ route
 
       return tempBug;
     };
-    
+
     let updatedBug = null;
 
     if (name || details || author || assigned || status || steps) {

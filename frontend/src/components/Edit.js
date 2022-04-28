@@ -27,7 +27,7 @@ export const Edit = ({ user }) => {
   const initialState = {
     id: bug._id,
     name: bug.name,
-    reason: 'edit',
+    reason: "edit",
     assigned: bug.assigned,
     author: user,
     status: bug.status,
@@ -42,18 +42,18 @@ export const Edit = ({ user }) => {
   );
 
   // delete step
-  const deleteStep =  (key) => {
-    let newSteps = filteredSteps.filter((step) => step[0] !== key[0])
+  const deleteStep = (key) => {
+    let newSteps = filteredSteps.filter((step) => step[0] !== key[0]);
     setFilteredSteps(newSteps);
-    let obj = {}
-     console.log(filteredSteps)
+    let obj = {};
+    console.log(filteredSteps);
     newSteps.map((step, i) => {
-      obj[`step ${i + 1}`] = step[1]
-    })
+      obj[`step ${i + 1}`] = step[1];
+    });
     setFormData({
       ...formData,
-      steps: obj
-    })
+      steps: obj,
+    });
   };
 
   // checked if logged in
@@ -162,9 +162,8 @@ export const Edit = ({ user }) => {
         position: toast.POSITION.BOTTOM_RIGHT,
       });
     } else {
-      console.log(formData)
       await dispatch(sendRequest(formData));
-      await navigate('/')
+      await navigate("/");
     }
   };
 

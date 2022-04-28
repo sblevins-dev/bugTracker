@@ -7,7 +7,6 @@ export const sendRequest = createAsyncThunk(
   "/bugs/sendRequest",
   async (bug, thunkAPI) => {
     try {
-      console.log(bug)
       return await bugController.sendBug(bug);
     } catch (error) {
       const message =
@@ -105,7 +104,7 @@ const initialState = {
   isSuccess: false,
   isLoading: false,
   message: "",
-  requests: {}
+  requests: {},
 };
 
 const slice = createSlice({
@@ -189,20 +188,20 @@ const slice = createSlice({
         state.isLoading = true;
       })
       .addCase(sendRequest.fulfilled, (state, action) => {
-        state.isLoading = false
-        state.isSuccess = true
+        state.isLoading = false;
+        state.isSuccess = true;
         toast.success("Sent bug request!", {
-          position: toast.POSITION.BOTTOM_RIGHT
-        })
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
       })
       .addCase(sendRequest.rejected, (state, action) => {
-        state.isError = true
-        state.isLoading = false
-        state.message = action.payload
+        state.isError = true;
+        state.isLoading = false;
+        state.message = action.payload;
         toast.error(state.message, {
-          position: toast.POSITION.BOTTOM_RIGHT
-        })
-      })
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
+      });
   },
 });
 
