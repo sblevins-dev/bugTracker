@@ -99,12 +99,21 @@ export const Home = () => {
     setFilteredBugs(bugsList);
   };
 
+  // filter for open status bugs
   const handleOpen = () => {
     setFilteredBugs(bugsList.filter((bug) => bug.status === "open"));
   };
 
+  // filter for closed status bugs
   const handleClose = () => {
     setFilteredBugs(bugsList.filter((bug) => bug.status === "closed"));
+  };
+
+  // filter for priority level bugs
+  const handlePriority = (level) => {
+    setFilteredBugs(
+      bugsList.filter((bug) => bug.priority === level.toLowerCase())
+    );
   };
 
   return (
@@ -114,6 +123,7 @@ export const Home = () => {
         open={handleOpen}
         all={handleAll}
         close={handleClose}
+        priority={handlePriority}
       />
       <div className="search-wrapper">
         <form className="form-wrapper">
