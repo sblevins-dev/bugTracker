@@ -43,7 +43,7 @@ export const BugView = ({ user }) => {
   const [comment, setComment] = useState("");
 
   // Destructure bug
-  const { name, status, details, steps, assigned, author, comments } =
+  const { name, priority, status, details, steps, assigned, author, comments } =
     selectedBug[0];
 
   // if (comments.length > 5) {
@@ -205,7 +205,19 @@ export const BugView = ({ user }) => {
           </div>
           <div className="bug-priority">
             <div className="priority-title">Priority:</div>
-            <div className="priority">{status}</div>
+            <div
+              className={
+                priority === "high"
+                  ? "priority high"
+                  : priority === "medium"
+                  ? "priority medium"
+                  : priority === "low"
+                  ? "priority low"
+                  : "priority"
+              }
+            >
+              {priority}
+            </div>
           </div>
         </div>
       </div>

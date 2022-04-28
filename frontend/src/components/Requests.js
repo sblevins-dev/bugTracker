@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 
 export const Requests = () => {
   const { admin } = useSelector((state) => state.auth);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [requests, setRequests] = useState([]);
 
   const navigate = useNavigate();
@@ -40,39 +40,40 @@ export const Requests = () => {
       steps: data.steps,
       details: data.details,
       author: data.author,
-    }
+      priority: data.priority,
+    };
 
-    if (admin && data.name !== '') {
-      if (data.reason === 'create') {
-        await dispatch(postBug(bugData))
-      } else if (data.reason === 'edit') {
-        bugData.status = data.status
-        await dispatch(editBug(bugData))
+    if (admin && data.name !== "") {
+      if (data.reason === "create") {
+        await dispatch(postBug(bugData));
+      } else if (data.reason === "edit") {
+        bugData.status = data.status;
+        await dispatch(editBug(bugData));
       }
-      
-      await axios.delete(`/bugs/request/${bugData.id}`)
-      await getRequests()
+
+      await axios.delete(`/bugs/request/${bugData.id}`);
+      await getRequests();
     } else {
-      toast.error('Oops, Something went wrong!', {
-        position: toast.POSITION.BOTTOM_RIGHT
-      })
+      toast.error("Oops, Something went wrong!", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
     }
-  }
+  };
 
   // reject bug
   const handleReject = async (id) => {
     if (!admin || !id) {
-      toast.error('Something went Wrong!', {
-        position: toast.POSITION.BOTTOM_RIGHT
-      })
+      toast.error("Something went Wrong!", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
     } else {
-      let response = await axios.delete(`/bugs/request/${id}`)
-      await getRequests()
+      let response = await axios.delete(`/bugs/request/${id}`);
+      await getRequests();
       toast.success(response.data, {
-        position: toast.POSITION.BOTTOM_RIGHT
-      })
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
     }
-  }
+  };
 
   return (
     <div className="requests-page-wrapper">
@@ -83,8 +84,16 @@ export const Requests = () => {
             <div key={req._id} className="request-wrapper">
               <div className="bug-details">
                 <div className="form-group">
+                  <label>Id: </label>
+                  {req._id}
+                </div>
+                <div className="form-group">
                   <label>Bug Name:</label>
                   {req.name}
+                </div>
+                <div className="form-group">
+                  <label>Priority: </label>
+                  {req.priority}
                 </div>
                 <div className="form-group">
                   <label>Author:</label>
@@ -112,8 +121,18 @@ export const Requests = () => {
                 </div>
               </div>
               <div className="btns">
-                <FontAwesomeIcon className="approve" icon={faCheck} size="2x" onClick={() => handleApprove(req)} />
-                <FontAwesomeIcon className="reject" icon={faX} size="2x" onClick={() => handleReject(req._id)} />
+                <FontAwesomeIcon
+                  className="approve"
+                  icon={faCheck}
+                  size="2x"
+                  onClick={() => handleApprove(req)}
+                />
+                <FontAwesomeIcon
+                  className="reject"
+                  icon={faX}
+                  size="2x"
+                  onClick={() => handleReject(req._id)}
+                />
               </div>
             </div>
           ))

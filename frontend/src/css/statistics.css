@@ -26,9 +26,21 @@
     font-weight: bold;
     cursor: pointer;
     transition: all .2s ease-in-out;
-    margin: 0 10px;
+    margin: 10px;
     text-align: center;
     padding: 30px;
+}
+
+.all-bug-card h1 {
+    color: #FEFAE5;
+}
+
+.open-bug-card h1 {
+    color: #3B817D;
+}
+
+.closed-bug-card h1 {
+    color: #D34E4B;
 }
 
 .statistics-wrapper .card h1 {
@@ -73,7 +85,7 @@
     color: var(--secondary-color);
     position: absolute;
     left: 50%;
-    top: 5px;
+    top: 10px;
     transform: translate(-50%);
     text-transform: uppercase;
 }
@@ -84,6 +96,15 @@
 
 .pie-chart .pie {
     cursor: pointer;
+}
+
+@media (max-width: 1024px) {
+    .statistics-wrapper {
+        height: 100%;
+        padding: 5px;
+        justify-content: center;
+        padding-bottom: 20px;
+    }
 }
 
 
@@ -103,7 +124,7 @@
     .priority-card {
         height: 200px;
         width: 200px;
-        margin: 0;
+        margin: 0px;
         padding: 5px;
         align-self: center;
     }
@@ -113,5 +134,11 @@
     .statistics-wrapper .card div {
         font-size: 1rem;
         padding: 0;
+    }
+}
+
+@media (max-width: 400px) {
+    .priority-card {
+        width: 300px;
     }
 }

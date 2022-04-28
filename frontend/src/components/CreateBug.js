@@ -19,6 +19,7 @@ export const CreateBug = ({ user }) => {
     steps: {},
     details: "",
     author: user,
+    priority: 'high'
   };
 
   // set form to initial state
@@ -125,6 +126,17 @@ export const CreateBug = ({ user }) => {
                 {user.name}
               </option>
             ))}
+        </select>
+        <label>Priority: </label>
+        <select
+          className="priority-dropdown-content"
+          name="priority"
+          value={formData.priority}
+          onChange={setForm}
+        >
+          <option defaultValue={'high'} >High</option>
+          <option value='medium' >Medium</option>
+          <option value='low' >Low</option>
         </select>
         <label>Steps:</label>
         {Array.from(Array(counter)).map((c, i) => {

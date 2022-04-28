@@ -33,6 +33,7 @@ export const Edit = ({ user }) => {
     status: bug.status,
     steps: setSteps(),
     details: bug.details,
+    priority: bug.priority,
   };
 
   // set formData
@@ -167,6 +168,23 @@ export const Edit = ({ user }) => {
     }
   };
 
+  // used if need to change priority
+  const renderPriority = () => {
+    let arr = ["high", "medium", "low"];
+    let newArr = arr.filter((option) => option !== formData.priority);
+
+    return (
+      <>
+        <option defaultValue>{formData.priority}</option>
+        {newArr.map((option) => (
+          <option key={option} value={option}>
+            {option}
+          </option>
+        ))}
+      </>
+    );
+  };
+
   return (
     <div className="edit-page-wrapper">
       <form className="edit-bug-wrapper">
@@ -178,6 +196,15 @@ export const Edit = ({ user }) => {
           placeholder="Please add a name..."
           onChange={setForm}
         />
+        <label>Priority: </label>
+        <select
+          className="priority-dropdown-content"
+          name="priority"
+          value={formData.priority}
+          onChange={setForm}
+        >
+          {renderPriority()}
+        </select>
         <label>Status:</label>
         <div className="status">
           {bug.status === "open" ? (

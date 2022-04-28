@@ -184,12 +184,12 @@
 }
 
 .second-sec .bug-status .open {
-    background-color: green;
+    background-color: #3B817D;
     width: 55px;
 }
 
 .second-sec .bug-status .closed {
-    background-color: red;
+    background-color: #D34E4B;
 }
 
 .author, .assigned, .status, .priority {
@@ -276,6 +276,25 @@
 
 .no-comments-message {
     padding-top: 10px;
+}
+
+.priority {
+    border-radius: 10px;
+    font-weight: bold;
+    height: 40px;
+    text-transform: uppercase;
+}
+
+.high {
+    color: #D34E4B;
+}
+
+.medium {
+    color: #F9B780;
+}
+
+.low {
+    color: #FEFAE5;
 }
 
 @media (max-width: 500px) {

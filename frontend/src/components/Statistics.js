@@ -10,13 +10,13 @@ export const Statistics = ({ bugs, all, open, close, priority }) => {
   }
 
   let data = [
-    { name: "High", value: 0, fill: "red" },
-    { name: "Medium", value: 0, fill: "orange" },
-    { name: "Low", value: 0, fill: "yellow" },
+    { name: "High", value: 0, fill: "#D34E4B" },
+    { name: "Medium", value: 0, fill: "#F9B780" },
+    { name: "Low", value: 0, fill: "#FEFAE5" },
   ];
 
   const countPriority = () => {
-    bugs.forEach((bug) => {
+    bugs && bugs.forEach((bug) => {
       if (bug.priority === "high") {
         data[0].value += 1;
       } else if (bug.priority === "medium") {

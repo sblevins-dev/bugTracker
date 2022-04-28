@@ -64,6 +64,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 300px;
 }
 
 .status div:first-child {
@@ -156,6 +157,13 @@
     background-color: red;
 }
 
+.priority-dropdown-content {
+    width: 100px;
+    cursor: pointer;
+    padding: 5px;
+    margin: 10px 0px;
+}
+
 
 @media (max-width: 500px) {
     .edit-page-wrapper {
@@ -164,9 +172,8 @@
     .edit {
         z-index: 3;
     }
-    .status {
+    .edit-bug-wrapper .status {
         width: 100%;
-        display: block;
         overflow: hidden;
         padding: 10px 0px;
     }

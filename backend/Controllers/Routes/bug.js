@@ -13,7 +13,7 @@ route.post("/sendRequest", protect, async (req, res) => {
     throw new Error("Please add text fields");
   }
 
-  const { id, name, reason, status, details, assigned, author, comments } =
+  const { id, name, priority, reason, status, details, assigned, author, comments } =
     req.body;
   const steps = req.body.steps && Object.values(req.body.steps);
   const bug = await Request.create({
@@ -26,6 +26,7 @@ route.post("/sendRequest", protect, async (req, res) => {
     assigned,
     author,
     comments,
+    priority
   });
 
   res.status(200).json(bug);
@@ -56,7 +57,7 @@ route.post("/createBug", protect, async (req, res) => {
     throw new Error("Please add text to fields");
   }
 
-  const { name, status, details, assigned, author, comments } = req.body;
+  const { name, priority, status, details, assigned, author, comments } = req.body;
   const steps = Object.values(req.body.steps);
   const bug = await Bug.create({
     name,
@@ -66,6 +67,7 @@ route.post("/createBug", protect, async (req, res) => {
     assigned,
     author,
     comments,
+    priority
   });
 
   res.status(200).json(bug);
@@ -100,8 +102,7 @@ route.put("/leaveComment/:id", protect, async (req, res) => {
 // Update bug
 route
   .put("/updateBug/:id", protect, async (req, res) => {
-    const { name, status, details, steps, assigned, author } = req.body;
-
+    const { name, priority, status, details, steps, assigned, author } = req.body;
     let stepsArr;
 
     steps ? (stepsArr = Object.values(steps)) : stepsArr;
@@ -118,7 +119,7 @@ route
 
       tempBug = Bug.findByIdAndUpdate(
         req.params.id,
-        { name, details, status, assigned, author, steps: stepsArr },
+        { name, priority, details, status, assigned, author, steps: stepsArr },
         { new: true }
       );
 

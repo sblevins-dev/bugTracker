@@ -35,11 +35,11 @@ const addBug = async (data) => {
 const updateBug = async (data) => {
   const token = JSON.parse(localStorage.getItem('user'))
 
-  const {foreign_id, name, assigned, author, status, steps, details} = data;
+  const {foreign_id, priority, name, assigned, author, status, steps, details} = data;
   
   const response = await axios.put(
     `/bugs/updateBug/${foreign_id}`,
-    {name, assigned, author, status, steps, details},
+    {name, priority, assigned, author, status, steps, details},
     {
       headers: {
         "Content-Type": "application/json",

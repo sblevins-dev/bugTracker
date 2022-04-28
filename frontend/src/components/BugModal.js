@@ -44,8 +44,8 @@ export const BugModal = ({ bug, dateFunction }) => {
         <div
           style={
             status === "open"
-              ? { backgroundColor: "green" }
-              : { backgroundColor: "red" }
+              ? { backgroundColor: "#3B817D" }
+              : { backgroundColor: "#D34E4B" }
           }
         >
           {status}
