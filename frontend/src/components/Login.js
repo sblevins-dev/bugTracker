@@ -33,11 +33,16 @@ export const Login = () => {
     }
   };
 
+  const handleDemo = (e) => {
+    e.preventDefault();
+    dispatch(loginFunc({ name: "Robert Sanchez" }));
+  };
+
   return (
     <div className="login-wrapper">
       <form className="form">
         <div className="header">
-          <img src={bug} className="bug-img"></img>
+          <img src={bug} alt="font awesome bug" className="bug-img"></img>
           <h2>Bug Tracker</h2>
         </div>
         <h1>Login</h1>
@@ -61,9 +66,14 @@ export const Login = () => {
             value={formInput.password}
           ></input>
         </div>
-        <button type="submit" onClick={handleLogin}>
-          Login
-        </button>
+        <div className="btn-wrapper">
+          <button type="submit" onClick={handleLogin}>
+            Login
+          </button>
+          <button type="submit" className="demo" onClick={handleDemo}>
+            Demo
+          </button>
+        </div>
       </form>
     </div>
   );

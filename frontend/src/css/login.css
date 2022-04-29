@@ -71,6 +71,15 @@
     background-color: var(--fourth-color);
 }
 
+.login-wrapper .form .btn-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.login-wrapper .form .btn-wrapper .demo {
+    margin-left: 20px;
+}
+
 @media (max-width: 500px) {
     .login-wrapper {
         padding: 15px;
