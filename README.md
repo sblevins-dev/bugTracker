@@ -1,4 +1,7 @@
 # Bug Tracker
+
+Live version: https://bug-tracker-react-node.herokuapp.com/
+
 You can start out by using the demo login
 
 ![image](https://user-images.githubusercontent.com/61333980/167727484-913b2654-f564-4fa2-a21f-9e625c2dc5ef.png)
