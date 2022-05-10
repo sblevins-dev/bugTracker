@@ -10,6 +10,7 @@
     height: 180px;
     display: flex;
     align-items: center;
+    justify-content: space-evenly;
     cursor: pointer;
     color: var(--secondary-color);
     background-color: var(--third-color);
@@ -66,6 +67,17 @@
     cursor: pointer;
     color: var(--fifth-color);
     transition: all .2s ease-in-out;
+}
+
+.bug-container .delete {
+    position: absolute;
+    right: 0;
+    padding-right: 15px;
+    color: red;
+}
+
+.bug-container .delete:hover {
+    transform: scale(1.1);
 }
 
 .bug-container .edit:hover {

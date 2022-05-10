@@ -51,6 +51,25 @@ const updateBug = async (data) => {
   return response.data
 }
 
+// delete bug
+const deleteBug = async (data) => {
+  const token = JSON.parse(localStorage.getItem('user'))
+
+  const {_id} = data;
+  
+  const response = await axios.delete(
+    `/bugs/${_id}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${token}`
+      }
+    }
+  )
+
+  return response.data
+}
+
 // leave a comment
 const leaveComm = async (data) => {
   const token = JSON.parse(localStorage.getItem('user'))
@@ -74,7 +93,8 @@ const bugController = {
   getBugs,
   leaveComm,
   updateBug,
-  sendBug
+  sendBug,
+  deleteBug
 };
 
 export default bugController;

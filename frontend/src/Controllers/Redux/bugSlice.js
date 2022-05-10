@@ -97,6 +97,25 @@ export const leaveComment = createAsyncThunk(
   }
 );
 
+// send comment to backend
+export const delBug = createAsyncThunk(
+  "/bugs/delete",
+  async (bug, thunkAPI) => {
+    try {
+      return await bugController.deleteBug(bug);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 // set intitial state in slice
 const initialState = {
   bugsList: null,
@@ -201,7 +220,25 @@ const slice = createSlice({
         toast.error(state.message, {
           position: toast.POSITION.BOTTOM_RIGHT,
         });
-      });
+      })
+      .addCase(delBug.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(delBug.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        toast.success("Bug Deleted", {
+          position: toast.POSITION.BOTTOM_RIGHT
+        })
+      })
+      .addCase(delBug.rejected, (state, action) => {
+        state.isError = true;
+        state.isLoading = false;
+        state.message = action.payload;
+        toast.error(state.message, {
+          position: toast.POSITION.BOTTOM_RIGHT
+        })
+      })
   },
 });
 
