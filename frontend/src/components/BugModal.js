@@ -18,7 +18,18 @@ export const BugModal = ({ bug, dateFunction }) => {
   // Present bug view on click
   const handleClick = (e) => {
     e.preventDefault();
-    if (!ref.current.contains(e.target) && !deleteRef.current.contains(e.target)) {
+    if (admin) {
+      if (
+        !ref.current.contains(e.target) &&
+        !deleteRef.current.contains(e.target)
+      ) {
+        navigate("/bugView", {
+          state: {
+            bug: bug,
+          },
+        });
+      }
+    } else if (!ref.current.contains(e.target)) {
       navigate("/bugView", {
         state: {
           bug: bug,
@@ -28,15 +39,23 @@ export const BugModal = ({ bug, dateFunction }) => {
   };
 
   const handleDelete = () => {
-    dispatch(delBug(bug))
-  }
+    dispatch(delBug(bug));
+  };
 
   return (
     <div className="bug-container" onClick={handleClick}>
       <Link to="/edit" ref={ref} state={bug}>
         <FontAwesomeIcon icon={faPencil} className="edit" />
       </Link>
-      {admin && <div ref={deleteRef} className="delete"><FontAwesomeIcon icon={faX} className="delete" onClick={handleDelete}/></div>}
+      {admin && (
+        <div ref={deleteRef} className="delete">
+          <FontAwesomeIcon
+            icon={faX}
+            className="delete"
+            onClick={handleDelete}
+          />
+        </div>
+      )}
       <div className="bug-container-name-wrapper">
         <h1>{name}</h1>
         <div className="comments">
