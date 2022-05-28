@@ -81,11 +81,11 @@
 }
 
 .status .open {
-    background-color: green;
+    background-color: rgb(59, 129, 125);
 }
 
 .status .closed {
-    background-color: red;
+    background-color: rgb(211, 78, 75);
 }
 
 .status .marks div {
@@ -121,16 +121,17 @@
 }
 
 .remove-step {
-    color: red;
+    color: rgb(211, 78, 75);
     cursor: pointer;
     border-radius: 50%;
     background-color: var(--secondary-color);
     transition: all .2s ease-in-out;
+    border: none;
 }
 
 .remove-step:hover {
     color: white;
-    background-color: red;
+    background-color: rgb(211, 78, 75);
 }
 
 .add-step {
@@ -154,7 +155,7 @@
 }
 
 .cancel-btn {
-    background-color: red;
+    background-color: rgb(211, 78, 75);
 }
 
 .priority-dropdown-content {
