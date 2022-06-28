@@ -14,6 +14,8 @@ html, body, #root {
   --sixth-color: #2045AF;
   --seventh-color: #3C516B;
   --toastify-color-dark: var(--fifth-color);
+  --hover-effect: 1px 1px 10px 1px #6586b88b,
+  2px 2px 20px 2px #6586b878;
 }
 
 input[type=text] {

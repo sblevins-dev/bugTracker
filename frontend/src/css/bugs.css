@@ -14,7 +14,7 @@
     cursor: pointer;
     color: var(--secondary-color);
     background-color: var(--third-color);
-    border-radius: 10px;
+    border-radius: 5px;
     transition: all .2s ease-in-out;
 }
 
@@ -35,8 +35,7 @@
 }
 
 .bug-container:hover {
-    box-shadow: 1px 1px 10px 1px var(--fifth-color),
-        2px 2px 20px 2px var(--fifth-color);
+    box-shadow: var(--hover-effect);
 }
 
 .bugs-wrapper .header {
@@ -102,6 +101,10 @@
     justify-content: space-between;
 }
 
+.bug-container .bug-container-name-wrapper .comments .comment-icon {
+    color: var(--fifth-color);
+}
+
 .bug-container .bug-container-date-wrapper {
     width: 25%;
 }
@@ -113,7 +116,7 @@
 .bug-container .bug-container-status-wrapper div {
     width: 60px;
     padding: 7px;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 .no-bugs {

@@ -48,11 +48,10 @@ export const Statistics = ({ bugs, all, open, close, priority }) => {
         <div>Closed Bugs</div>
       </div>
       <div className="priority-card">
-        <h2>Priority</h2>
         <ResponsiveContainer
           className="priority-bug-card"
-          width="100%"
-          height="100%"
+          width="70%"
+          height="70%"
         >
           <PieChart width={200} height={200} className="pie-chart">
             <Pie
@@ -62,13 +61,14 @@ export const Statistics = ({ bugs, all, open, close, priority }) => {
               data={countPriority()}
               cx="50%"
               cy="50%"
-              outerRadius={40}
+              outerRadius={30}
               label
               onClick={handleClick}
             />
             <Tooltip />
           </PieChart>
         </ResponsiveContainer>
+        <h2>Priority</h2>
       </div>
     </div>
   );

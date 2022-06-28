@@ -15,11 +15,12 @@
     background-color: var(--third-color);
     height: 12rem;
     width: 15rem;
+    padding: 5px;
     display: flex;
     flex-shrink: 2;
-    border-radius: 10px;
+    border-radius: 5px;
     color: var(--secondary-color);
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
     flex-direction: column;
     text-transform: uppercase;
@@ -28,7 +29,6 @@
     transition: all .2s ease-in-out;
     margin: 10px;
     text-align: center;
-    padding: 30px;
 }
 
 .all-bug-card h1 {
@@ -44,19 +44,21 @@
 }
 
 .statistics-wrapper .card h1 {
-    min-height: 50%;
+    height: 70%;
+    width: 70%;
     font-size: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .statistics-wrapper .card div {
-    min-height: 50%;
     font-size: 1.5rem;
     padding-top: 20px;
 }
 
 .statistics-wrapper .card:hover {
-    box-shadow: 1px 1px 10px 1px var(--fifth-color),
-        2px 2px 20px 2px var(--fifth-color);
+    box-shadow: var(--hover-effect);
 }
 
 .statistics-wrapper .card:last-child {
@@ -69,30 +71,34 @@
 
 .priority-card {
     background-color: var(--third-color);
-    border-radius: 10px;
+    border-radius: 5px;
     height: 12rem;
     width: 15rem;
     margin: 0px 10px;
+    padding: 5px;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .priority-card:hover {
-    box-shadow: 1px 1px 10px 1px var(--fifth-color),
-        2px 2px 20px 2px var(--fifth-color);
+    box-shadow: var(--hover-effect);
 }
 
 .priority-card h2 {
     color: var(--secondary-color);
-    position: absolute;
+    /* position: absolute;
     left: 50%;
     top: 10px;
-    transform: translate(-50%);
+    transform: translate(-50%); */
     text-transform: uppercase;
 }
 
-.priority-bug-card {
+/* .priority-bug-card {
     padding-top: 20px;
-}
+} */
 
 .pie-chart .pie {
     cursor: pointer;
