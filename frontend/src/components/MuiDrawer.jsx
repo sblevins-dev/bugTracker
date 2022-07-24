@@ -12,17 +12,25 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBug } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
-const useStyles = makeStyles({
-  drawer: {
-    // width: "250px",
-    // backgroundColor: "black"
+const useStyles = makeStyles(theme => ({
+  title: {
+    display: 'none',
+    [theme.breakpoints.up('sm')]: {
+      display: 'block'
+    }
   },
-  iconWrapper: {
+  icon: {
+    color: "lightblue", 
+    [theme.breakpoints.up('sm')]: {
+      display: 'none'
+    }
+  },
+  hamWrapper: {
     position: "relative",
     color: "inherit",
     height: "50px",
   },
-  icon: {
+  ham: {
     position: "fixed",
     zIndex: "400",
     top: "10px",
@@ -34,18 +42,25 @@ const useStyles = makeStyles({
     marginLeft: "20px",
     transition: "all 0.4s ease-in-out",
     "&:hover": {
-        color: "lightblue"
-    }
+      color: "lightblue",
+    },
   },
   linkContainer: {
     backgroundColor: "#232830",
-    width: "250px",
+    width: "150px",
     height: "100%",
+    [theme.breakpoints.up('sm')]: {
+      width: "200px"
+    }
   },
   links: {
     display: "flex",
     flexDirection: "column",
+    alignItems: 'left',
     paddingTop: "20px",
+    // [theme.breakpoints.up('sm')]: {
+    //   alignItems: 'center' 
+    // }
   },
   link: {
     textDecoration: "none",
@@ -55,38 +70,23 @@ const useStyles = makeStyles({
     height: "100%",
     transition: "all 0.4s ease-in-out",
     "&:hover": {
-    //   backgroundColor: "white",
       color: "lightblue",
     },
   },
-});
+}));
 
 export const MuiDrawer = () => {
   const [open, setOpen] = useState(false);
 
-    const { admin } = useSelector((state) => state.auth);
-    
-    const dispatch = useDispatch();
+  const { admin } = useSelector((state) => state.auth);
 
-    const handleLogout = () => {
-        dispatch(signOut())
-    }
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(signOut());
+  };
 
   const classes = useStyles();
-
-  // const handleDrawerToggle = () => {
-  //     setMobileOpen(!mobileOpen)
-  // }
-
-  // const drawer = (
-  //     <div>
-  //         <Toolbar />
-  //         <Divider />
-
-  //     </div>
-  // )
-
-  // const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
     <>
@@ -95,9 +95,9 @@ export const MuiDrawer = () => {
         edge="start"
         aria-label="logo"
         onClick={() => setOpen(true)}
-        className={classes.iconWrapper}
+        className={classes.hamWrapper}
       >
-        <MenuIcon className={classes.icon} />
+        <MenuIcon className={classes.ham} />
       </IconButton>
       <Drawer
         anchor="left"
@@ -109,16 +109,16 @@ export const MuiDrawer = () => {
           style={{
             backgroundColor: "#1B1F28",
             height: "50px",
-            padding: "30px 0",
+            padding: "30px 10px",
             textAlign: "center",
             display: "flex",
             alignItems: "center",
-            justifyContent: "space-evenly",
+            justifyContent: "space-between",
             color: "white",
           }}
         >
-          <FontAwesomeIcon icon={faBug} style={{ color: "lightblue" }} />
-          <h2>Bug Tracker</h2>
+          <FontAwesomeIcon icon={faBug} className={classes.icon} />
+          <h2 className={classes.title}>Bug Tracker</h2>
           <KeyboardArrowLeftIcon
             style={{ color: "lightblue", cursor: "pointer" }}
             onClick={() => setOpen(false)}
@@ -135,15 +135,14 @@ export const MuiDrawer = () => {
               Home
             </Link>
             <Link to="/createBug" className={classes.link}>
-              Create Bug
+              Create
             </Link>
             {admin && <Link to="/requests">Requests</Link>}
-            <Link to="/" className={classes.link} onClick={handleLogout} >Sign Out</Link>
+            <Link to="/" className={classes.link} onClick={handleLogout}>
+              Sign Out
+            </Link>
           </Stack>
         </Typography>
-        {/* <Box p={2} width="250px" BackdropProps={{ invisible: true }} height="100%" textAlign="center" role="presentation" className={classes.linkContainer}>
-          Side panel
-        </Box> */}
       </Drawer>
     </>
   );

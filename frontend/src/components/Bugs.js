@@ -7,15 +7,20 @@ const useStyles = makeStyles((theme) => ({
   header: {
     marginBottom: "20px",
     padding: "20px 20px 0px",
+    textTransform: "uppercase",
     [theme.breakpoints.down("sm")]: {
       display: "flex",
       justifyContent: "space-between",
+      padding: "20px 40px",
+      marginBottom: "10px"
     },
   },
   mobileHeaderItem: {
     textAlign: "center",
     fontSize: "2rem",
     color: "white",
+    textTransform: "uppercase",
+    fontSize: "1.5rem",
     [theme.breakpoints.up("sm")]: {
       display: "none",
     },
@@ -26,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "2rem",
     color: "white",
     display: "none",
+    fontSize: "1.5rem",
     [theme.breakpoints.up("sm")]: {
       display: "block",
     },

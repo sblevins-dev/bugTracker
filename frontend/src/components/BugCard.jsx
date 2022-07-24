@@ -13,6 +13,9 @@ const useStyles = makeStyles((theme) => ({
     padding: "20px",
     cursor: "pointer",
     minHeight: "100px",
+    "&:hover": {
+      backgroundColor: "var(--fifth-color)",
+    },
     [theme.breakpoints.down("sm")]: {
       justifyContent: "space-between",
       padding: "10px 5px",
@@ -20,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
   header: {
     width: "25%",
+    textAlign: 'center',
     color: "white",
     [theme.breakpoints.down("sm")]: {
       width: "40%",
@@ -53,6 +57,10 @@ const useStyles = makeStyles((theme) => ({
   badge: {
     position: "absolute",
     bottom: "10px",
+    left: "5px",
+    [theme.breakpoints.up('md')]: {
+      left: "20px"
+    }
   },
   icon: {
     position: "absolute",
@@ -79,14 +87,14 @@ export const BugCard = ({ bug, dateFunction }) => {
     <Grid item xs={12}>
       <Paper
         className={classes.card}
-        sx={{ backgroundColor: "var(--third-color)" }}
+        sx={{ backgroundColor: "var(--third-color)", transition: "all 0.3s ease-in-out" }}
         onClick={handleViewClick}
       >
         <h2 className={classes.header}>{name}</h2>
         <Badge
           badgeContent={comments.length}
           className={classes.badge}
-          color="primary"
+          color="warning"
         >
           <CommentIcon className={classes.icon} fontSize="small" />
         </Badge>

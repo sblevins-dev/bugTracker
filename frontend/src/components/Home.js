@@ -92,7 +92,9 @@ export const Home = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    setFilteredBugs(filterBugs(bugsList));
+    if (keyword !== '') {
+      setFilteredBugs(filterBugs(bugsList));
+    }
   };
 
   const handleAll = () => {
@@ -118,13 +120,13 @@ export const Home = () => {
 
   return (
     <div className="home-wrapper">
-      <Statistics
+      {/* <Statistics
         bugs={bugsList}
         open={handleOpen}
         all={handleAll}
         close={handleClose}
         priority={handlePriority}
-      />
+      /> */}
       <div className="search-wrapper">
         <form className="form-wrapper">
           <h1>Search</h1>
@@ -139,6 +141,8 @@ export const Home = () => {
                 <option defaultValue>--Select--</option>
                 <option value="15">15 Days</option>
                 <option value="30">30 Days</option>
+                <option value="90">90 Days</option>
+                <option value="365">1 Year</option>
               </select>
             </div>
           </div>
@@ -147,6 +151,13 @@ export const Home = () => {
           </button>
         </form>
       </div>
+      <Statistics
+        bugs={bugsList}
+        open={handleOpen}
+        all={handleAll}
+        close={handleClose}
+        priority={handlePriority}
+      />
       <div className="results">
         {bugsList &&
         filteredBugs &&
