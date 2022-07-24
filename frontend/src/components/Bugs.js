@@ -1,20 +1,61 @@
-import { BugModal } from "./BugModal";
 import "../css/bugs.css";
+import { BugCard } from "./BugCard";
+import Grid from "@mui/material/Grid";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  header: {
+    marginBottom: "20px",
+    padding: "20px 20px 0px",
+    [theme.breakpoints.down("sm")]: {
+      display: "flex",
+      justifyContent: "space-between",
+    },
+  },
+  mobileHeaderItem: {
+    textAlign: "center",
+    fontSize: "2rem",
+    color: "white",
+    [theme.breakpoints.up("sm")]: {
+      display: "none",
+    },
+  },
+  headerItem: {
+    width: "25%",
+    textAlign: "center",
+    fontSize: "2rem",
+    color: "white",
+    display: "none",
+    [theme.breakpoints.up("sm")]: {
+      display: "block",
+    },
+  },
+}));
 
 export const Bugs = ({ bugs, dateFunction }) => {
+  const classes = useStyles();
+
   return (
     <div className="bugs-wrapper">
-      <div className="header">
-        <div className="bug-header-name">Bug</div>
-        <div className="bug-header-created">Created</div>
-        <div className="bug-header-creator">Creator</div>
-        <div className="bug-header-status">Status</div>
-      </div>
-      {bugs && bugs[0] !== "nothing" ? (
-        bugs.map((bug) => <BugModal key={bug._id} bug={bug} dateFunction={dateFunction} />)
-      ) : (
-        <div className="no-bugs">No Bugs Found</div>
-      )}
+      <Grid container spacing={2} className={classes.header}>
+        <div className={classes.headerItem}>Title</div>
+        <div className={classes.headerItem}>Created</div>
+        <div className={classes.headerItem}>Creator</div>
+        <div className={classes.headerItem}>Status</div>
+      </Grid>
+      <Grid container spacing={2} className={classes.header}>
+        <div className={classes.mobileHeaderItem}>Title</div>
+        <div className={classes.mobileHeaderItem}>Status</div>
+      </Grid>
+      <Grid container spacing={2}>
+        {bugs && bugs[0] !== "nothing" ? (
+          bugs.map((bug) => (
+            <BugCard key={bug._id} bug={bug} dateFunction={dateFunction} />
+          ))
+        ) : (
+          <div className="no-bugs">No Bugs Found</div>
+        )}
+      </Grid>
     </div>
   );
 };
