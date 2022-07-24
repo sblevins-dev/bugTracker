@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchUsers } from "./Controllers/Redux/userSlice";
 import { Nav } from "./components/Nav";
+import { MuiDrawer } from "./components/MuiDrawer";
 import { Login } from "./components/Login";
 import { Home } from "./components/Home";
 import { BugView } from "./components/BugView";
@@ -58,13 +59,16 @@ function App() {
 
   return (
     <div className="app" ref={navRef} onClick={handleRefClick}>
+      <MuiDrawer />
       <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </Router>
+      {/* <Router>
+        <MuiDrawer />
         {auth.loggedIn ? (
           <>
-            <Nav navShown={navShown} />
-            <div className="hamburger" onClick={handleClick}>
-              <FontAwesomeIcon icon={faBars} size="2x" />
-            </div>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/edit" element={<Edit user={user} />} />
@@ -78,7 +82,7 @@ function App() {
             <Route path="/" element={<Login />} />
           </Routes>
         )}
-      </Router>
+      </Router> */}
       <ToastContainer
         className="toast-container"
         theme="colored"
