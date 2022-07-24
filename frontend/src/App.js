@@ -1,8 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useState, useRef, useEffect } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchUsers } from "./Controllers/Redux/userSlice";
-import { Nav } from "./components/Nav";
 import { MuiDrawer } from "./components/MuiDrawer";
 import { Login } from "./components/Login";
 import { Home } from "./components/Home";
@@ -10,14 +9,11 @@ import { BugView } from "./components/BugView";
 import { CreateBug } from "./components/CreateBug";
 import { Edit } from "./components/Edit";
 import { Requests } from "./components/Requests";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
 import "./App.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
-  const navRef = useRef();
 
   // define whether logged in
   const { auth } = useSelector((state) => state);
@@ -28,28 +24,6 @@ function App() {
   // pull current user
   const user = useSelector((state) => state.auth.user);
 
-  const [navShown, setNavShown] = useState(false);
-
-  // show navigation
-  const handleClick = () => {
-    setNavShown(!navShown);
-  };
-
-  // check for click outside menu
-  const handleRefClick = (e) => {
-    let str = e.target.className;
-    if (
-      (navShown &&
-        str &&
-        typeof str === "string" &&
-        !str.includes("active") &&
-        !str.includes("hamburger")) ||
-      (navShown && str === "")
-    ) {
-      setNavShown(!navShown);
-    }
-  };
-
   // fetch users when login takes place
   useEffect(() => {
     if (auth.loggedIn) {
@@ -58,17 +32,12 @@ function App() {
   }, [auth.loggedIn]);
 
   return (
-    <div className="app" ref={navRef} onClick={handleRefClick}>
-      <MuiDrawer />
+    <div className="app" >
       <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-        </Routes>
-      </Router>
-      {/* <Router>
-        <MuiDrawer />
+        
         {auth.loggedIn ? (
           <>
+          <MuiDrawer />
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/edit" element={<Edit user={user} />} />
@@ -82,7 +51,7 @@ function App() {
             <Route path="/" element={<Login />} />
           </Routes>
         )}
-      </Router> */}
+      </Router>
       <ToastContainer
         className="toast-container"
         theme="colored"
