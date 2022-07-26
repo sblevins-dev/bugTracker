@@ -16,6 +16,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBugs, leaveComment } from "../Controllers/Redux/bugSlice";
 import { toast } from "react-toastify";
+import {BugUpdate} from './BugUpdate'
 
 const useStyles = makeStyles((theme) => ({
   bugContainer: {
@@ -26,9 +27,9 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     margin: "10px",
     gap: "20px",
-    [theme.breakpoints.down('sm')]: {
-        flexDirection: 'column-reverse',
-    }
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: "column-reverse",
+    },
   },
   leftSide: {
     flex: 2,
@@ -41,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "var(--third-color)",
     padding: "20px",
     borderRadius: "5px",
+    position: 'relative'
   },
   stepsWrapper: {
     listStyle: "none",
@@ -67,12 +69,8 @@ const useStyles = makeStyles((theme) => ({
     cursor: "pointer",
   },
   commentInput: {
-    color: "white",
     backgroundColor: "var(--secondary-color)",
     borderRadius: "5px",
-  },
-  inputColor: {
-    color: "white",
   },
   commentBtn: {
     paddingTop: "30px",
@@ -87,40 +85,47 @@ const useStyles = makeStyles((theme) => ({
   },
   bugDetailsWrapper: {
     listStyle: "none",
+    border: "0.5px solid rgb(64, 65, 65)",
     // minWidth: "350px",
   },
   li: {
     display: "flex",
     justifyContent: "space-between",
-    padding: "10px",
-    border: "0.5px solid white",
+    "&.span": {
+      padding: "10px",
+    },
   },
   h3: {
-    borderRight: "0.5px solid white",
+    borderRight: "0.5px solid rgb(64, 65, 65)",
     width: "100px",
     height: "100%",
+    padding: "10px",
+    fontWeight: '400'
+  },
+  span: {
+    padding: "10px",
   },
   open: {
     backgroundColor: "#3B817D",
-    padding: '2px 5px',
+    padding: "2px 5px",
   },
   closed: {
     backgroundColor: "#D34E4B",
-    padding: '2px 5px',
+    padding: "2px 5px",
   },
   high: {
     backgroundColor: "#D34E4B",
-    padding: '2px 5px'
+    padding: "2px 5px",
   },
   mid: {
     backgroundColor: "#F9B780",
-    color: 'red',
-    padding: '2px 5px'
+    color: "red",
+    padding: "2px 5px",
   },
   low: {
     backgroundColor: "#F4DE88",
-    color: 'black',
-    padding: '2px 5px'
+    color: "black",
+    padding: "2px 5px",
   },
   btnGroup: {
     padding: "20px",
@@ -151,6 +156,7 @@ const BugView2 = ({ user }) => {
   const [clicked, setClicked] = useState(false);
 
   const [open, setOpen] = useState(false);
+  const [stepsOpen, setStepsOpen] = useState(false);
 
   // Set comment to leave
   const [comment, setComment] = useState("");
@@ -175,7 +181,7 @@ const BugView2 = ({ user }) => {
     }
 
     if (comment !== "") {
-        let temp = !clicked
+      let temp = !clicked;
       dispatch(leaveComment(obj))
         .then(() => setClicked(temp))
         .then(() => setComment(""));
@@ -226,47 +232,70 @@ const BugView2 = ({ user }) => {
               backgroundColor: "var(--third-color)",
               padding: "20px",
               borderRadius: "5px",
+              fontWeight: "400",
             }}
           >
             {name}
           </h1>
+
           <div className={classes.stepsContainer}>
             <h2
               style={{
                 marginBottom: "20px",
                 paddingBottom: "10px",
-                borderBottom: "0.5px solid white",
+                borderBottom: "0.5px solid rgb(64, 65, 65)",
+                fontWeight: "400",
               }}
             >
               Steps Performed
             </h2>
-            <ul className={classes.stepsWrapper}>
-              {steps.map((step, i) => (
-                <li>
-                  {i + 1}. {step}
-                </li>
-              ))}
-            </ul>
+            {stepsOpen ? (
+              <ArrowDropUpIcon
+                className={classes.arrow}
+                fontSize="large"
+                onClick={() => setStepsOpen(!stepsOpen)}
+              />
+            ) : (
+              <ArrowDropDownIcon
+                className={classes.arrow}
+                fontSize="large"
+                onClick={() => setStepsOpen(!stepsOpen)}
+              />
+            )}
+            {!stepsOpen ? <p style={{fontSize: '12px', fontWeight: '400', textAlign: 'right', paddingRight: '10px'}}>{steps.length} steps collapsed</p> : <p style={{fontSize: '12px', fontWeight: '400', textAlign: 'right', paddingRight: '10px', height: '14px'}}></p>}
+            <Collapse in={stepsOpen} variant='vertical'>
+              <ul className={classes.stepsWrapper}>
+                {steps.map((step, i) => (
+                  <li style={{padding: '10px 0 10px', width: 'max-content'}}>
+                    {i + 1}. {step}
+                  </li>
+                ))}
+              </ul>
+            </Collapse>
           </div>
+
           <div className={classes.detail}>
             <h2
               style={{
                 marginBottom: "20px",
                 paddingBottom: "10px",
-                borderBottom: "0.5px solid white",
+                borderBottom: "0.5px solid rgb(64, 65, 65)",
+                fontWeight: "400",
               }}
             >
               Information
             </h2>
             <p>{details}</p>
           </div>
+          <BugUpdate bug={bug} />
           <List className={classes.commentList} sx={{ padding: "20px" }}>
             <h2
               style={{
                 width: "100%",
                 marginBottom: "20px",
                 paddingBottom: "10px",
-                borderBottom: "0.5px solid white",
+                borderBottom: "0.5px solid rgb(64, 65, 65)",
+                fontWeight: "400",
               }}
             >
               Comments
@@ -301,6 +330,7 @@ const BugView2 = ({ user }) => {
                 onClick={() => setOpen(!open)}
               />
             )}
+            {!open ? <p style={{fontSize: '12px', fontWeight: '400', textAlign: 'right', paddingRight: '10px'}}>{comments.length} comments collpsed</p> : <p style={{height: '14px'}}></p>}
             <Collapse in={open} orientation="vertical">
               {comments.map((comment) => (
                 <>
@@ -325,7 +355,7 @@ const BugView2 = ({ user }) => {
                       }
                     />
                   </ListItem>
-                  <Divider />
+                  <Divider sx={{bgcolor: "rgb(64, 65, 65)"}} />
                 </>
               ))}
             </Collapse>
@@ -336,7 +366,8 @@ const BugView2 = ({ user }) => {
             style={{
               marginBottom: "20px",
               paddingBottom: "10px",
-              borderBottom: "0.5px solid white",
+              borderBottom: "0.5px solid rgb(64, 65, 65)",
+              fontWeight: "400",
             }}
           >
             Bug Details
@@ -344,29 +375,49 @@ const BugView2 = ({ user }) => {
           <ul className={classes.bugDetailsWrapper}>
             <li className={classes.li}>
               <h3 className={classes.h3}>Creator</h3>
-              <span style={{textAlign: 'right'}}>{author}</span>
+              <span style={{ textAlign: "right", padding: "10px" }}>
+                {author}
+              </span>
             </li>
             <li className={classes.li}>
               <h3 className={classes.h3}>Assignee</h3>
-              <span style={{textAlign: 'right'}}>{assigned}</span>
+              <span style={{ textAlign: "right", padding: "10px" }}>
+                {assigned}
+              </span>
             </li>
             <li className={classes.li}>
               <h3 className={classes.h3}>Status</h3>
-              <span className={status === 'open' ? classes.open : classes.closed}>{status}</span>
+              <span
+                className={status === "open" ? classes.open : classes.closed}
+                style={{ margin: "10px" }}
+              >
+                {status}
+              </span>
             </li>
             <li className={classes.li}>
               <h3 className={classes.h3}>Priority</h3>
-              <span className={priority === 'high' ? classes.high : priority === 'medium' ? classes.mid : classes.low}>{priority}</span>
+              <span
+                className={
+                  priority === "high"
+                    ? classes.high
+                    : priority === "medium"
+                    ? classes.mid
+                    : classes.low
+                }
+                style={{ margin: "10px" }}
+              >
+                {priority}
+              </span>
             </li>
             <li className={classes.li}>
               <h3 className={classes.h3}>Created</h3>
-              <span>
+              <span className={classes.span}>
                 {createdAt && createdAt !== undefined && formatDate(createdAt)}
               </span>
             </li>
             <li className={classes.li}>
               <h3 className={classes.h3}>Updated</h3>
-              <span>
+              <span className={classes.span}>
                 {updatedAt && updatedAt !== undefined && formatDate(updatedAt)}
               </span>
             </li>
