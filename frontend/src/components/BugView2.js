@@ -287,7 +287,7 @@ const BugView2 = ({ user }) => {
             </h2>
             <p>{details}</p>
           </div>
-          <BugUpdate bug={bug} />
+          <BugUpdate bug={bug} user={user} />
           <List className={classes.commentList} sx={{ padding: "20px" }}>
             <h2
               style={{

@@ -5,6 +5,7 @@ import Select from "@material-ui/core/Select";
 import Checkbox from '@mui/material/Checkbox';
 import { makeStyles } from "@material-ui/core/styles";
 import { MenuItem } from "@mui/material";
+import { toast } from "react-toastify";
 
 
 const useStyles = makeStyles(theme => ({
@@ -64,12 +65,15 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-export const BugUpdate = ({bug}) => {
+export const BugUpdate = ({bug, user}) => {
+
+    console.log(bug.steps)
 
     const initialState = {
-        title: "",
-        steps: [],
-        info: "",
+        name: "",
+        reason: 'edit',
+        steps: bug.steps,
+        details: "",
         status: bug.status,
         priority: bug.priority,
     }
@@ -84,6 +88,40 @@ export const BugUpdate = ({bug}) => {
     }
 
     const classes = useStyles();
+
+    const handleUpdate = async (e) => {
+
+        if (!user) {
+            toast.error("Oops, something went wrong!", {
+              position: toast.POSITION.BOTTOM_RIGHT,
+            });
+          } else if (
+            name === "" ||
+            assigned === "" ||
+            author === "" ||
+            status === "" ||
+            details === ""
+          ) {
+            toast.error("Please enter bug information", {
+              position: toast.POSITION.BOTTOM_RIGHT,
+            });
+          } else if (assigned === "--Select a User--") {
+            toast.error("Please assign to a user", {
+              position: toast.POSITION.BOTTOM_RIGHT,
+            });
+          } else if (Object.values(steps).includes("")) {
+            toast.error("Please add or remove empty step", {
+              position: toast.POSITION.BOTTOM_RIGHT,
+            });
+          } else if (formData === initialState) {
+            toast.warning("Nothing to update!", {
+              position: toast.POSITION.BOTTOM_RIGHT,
+            });
+          } else {
+            await dispatch(sendRequest(formData));
+            await navigate("/");
+          }
+    }
 
     
   return (
@@ -106,7 +144,7 @@ export const BugUpdate = ({bug}) => {
         Update
       </h2>
       <div className={classes.updateWrapper}>
-        <TextField id="titleInput" className={classes.inputs} name="title" sx={{ sm: 300, md: 400}} variant="filled" label="Title" type="text" value={formInput.title} onChange={handleFormInput} />
+        <TextField id="nameInput" className={classes.inputs} name="name" sx={{ sm: 300, md: 400}} variant="filled" label="Title" type="text" value={formInput.title} onChange={handleFormInput} />
         <div className={classes.markWrapper}>
             <label>Mark Complete</label>
         <Checkbox sx={{ color: 'white'}} />
@@ -119,7 +157,7 @@ export const BugUpdate = ({bug}) => {
                 <MenuItem key="high" value="high">High</MenuItem>
             </Select>
         </FormControl>
-        <TextField id="infoInput" className={classes.inputs} name="info" sx={{ flex: '12' }} variant="filled" label="Information" type="text" value={formInput.info} onChange={handleFormInput} multiline fullWidth/>
+        <TextField id="detailsInput" className={classes.inputs} name="details" sx={{ flex: '12' }} variant="filled" label="Information" type="text" value={formInput.details} onChange={handleFormInput} multiline fullWidth/>
       </div>
     </div>
   );
