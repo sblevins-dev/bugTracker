@@ -20,12 +20,15 @@ import { toast } from "react-toastify";
 const useStyles = makeStyles((theme) => ({
   bugContainer: {
     minHeight: "100vh",
-    padding: "20px 50px",
+    padding: "30px 50px",
   },
   bugWrapper: {
     display: "flex",
     margin: "10px",
     gap: "20px",
+    [theme.breakpoints.down('sm')]: {
+        flexDirection: 'column-reverse',
+    }
   },
   leftSide: {
     flex: 2,
@@ -84,7 +87,7 @@ const useStyles = makeStyles((theme) => ({
   },
   bugDetailsWrapper: {
     listStyle: "none",
-    minWidth: "350px",
+    // minWidth: "350px",
   },
   li: {
     display: "flex",
@@ -147,7 +150,7 @@ const BugView2 = ({ user }) => {
   // Used to fetch bugs after a comment is added
   const [clicked, setClicked] = useState(false);
 
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   // Set comment to leave
   const [comment, setComment] = useState("");
@@ -172,8 +175,9 @@ const BugView2 = ({ user }) => {
     }
 
     if (comment !== "") {
+        let temp = !clicked
       dispatch(leaveComment(obj))
-        .then(() => setClicked(!clicked))
+        .then(() => setClicked(temp))
         .then(() => setComment(""));
     } else {
       toast.warn("Please enter text", {
@@ -185,7 +189,7 @@ const BugView2 = ({ user }) => {
   // Fetch bugs after comment is sent for the bug to re-render
   useEffect(() => {
     dispatch(fetchBugs());
-  }, [clicked, dispatch]);
+  }, [clicked]);
 
   // format date
   const formatDate = (dateToFormat) => {
@@ -340,11 +344,11 @@ const BugView2 = ({ user }) => {
           <ul className={classes.bugDetailsWrapper}>
             <li className={classes.li}>
               <h3 className={classes.h3}>Creator</h3>
-              <span>{author}</span>
+              <span style={{textAlign: 'right'}}>{author}</span>
             </li>
             <li className={classes.li}>
               <h3 className={classes.h3}>Assignee</h3>
-              <span>{assigned}</span>
+              <span style={{textAlign: 'right'}}>{assigned}</span>
             </li>
             <li className={classes.li}>
               <h3 className={classes.h3}>Status</h3>
