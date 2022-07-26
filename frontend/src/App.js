@@ -5,6 +5,7 @@ import { fetchUsers } from "./Controllers/Redux/userSlice";
 import { MuiDrawer } from "./components/MuiDrawer";
 import { Login } from "./components/Login";
 import { Home } from "./components/Home";
+import BugView2 from "./components/BugView2"
 import { BugView } from "./components/BugView";
 import { CreateBug } from "./components/CreateBug";
 import { Edit } from "./components/Edit";
@@ -42,7 +43,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/edit" element={<Edit user={user} />} />
               <Route path="/createBug" element={<CreateBug user={user} />} />
-              <Route path="/bugView" element={<BugView user={user} />} />
+              <Route path="/bugView" element={<BugView2 user={user} />} />
               {auth.admin && <Route path="/requests" element={<Requests />} />}
             </Routes>
           </>
