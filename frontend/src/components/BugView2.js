@@ -14,9 +14,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { sendRequest } from "../Controllers/Redux/bugSlice";
 import { fetchBugs, leaveComment } from "../Controllers/Redux/bugSlice";
 import { toast } from "react-toastify";
-import {BugUpdate} from './BugUpdate'
+import { BugUpdate } from "./BugUpdate";
 
 const useStyles = makeStyles((theme) => ({
   bugContainer: {
@@ -29,6 +30,8 @@ const useStyles = makeStyles((theme) => ({
     gap: "20px",
     [theme.breakpoints.down("sm")]: {
       flexDirection: "column-reverse",
+      padding: "0",
+      margin: "0",
     },
   },
   leftSide: {
@@ -42,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "var(--third-color)",
     padding: "20px",
     borderRadius: "5px",
-    position: 'relative'
+    position: "relative",
   },
   stepsWrapper: {
     listStyle: "none",
@@ -100,7 +103,7 @@ const useStyles = makeStyles((theme) => ({
     width: "100px",
     height: "100%",
     padding: "10px",
-    fontWeight: '400'
+    fontWeight: "400",
   },
   span: {
     padding: "10px",
@@ -195,7 +198,7 @@ const BugView2 = ({ user }) => {
   // Fetch bugs after comment is sent for the bug to re-render
   useEffect(() => {
     dispatch(fetchBugs());
-  }, [clicked]);
+  }, [clicked, dispatch]);
 
   // format date
   const formatDate = (dateToFormat) => {
@@ -221,6 +224,59 @@ const BugView2 = ({ user }) => {
 
   const handleClick = () => {
     navigate("/");
+  };
+
+  const setSteps = () => {
+    let obj = {};
+    bug.steps.map((step, i) => (obj[`step ${i + 1}`] = step));
+
+    return obj;
+  };
+
+  const initialState = {
+    id: bug._id,
+    name: bug.name,
+    author: bug.author,
+    assigned: bug.assigned,
+    reason: "edit",
+    steps: setSteps(),
+    details: bug.details,
+    status: bug.status,
+    priority: bug.priority,
+  };
+
+  const [formInput, setFormInput] = useState(initialState);
+
+  const updateFunction = async () => {
+    const { name, reason, steps, details, status, priority } = formInput;
+
+    if (!user) {
+      toast.error("Oops, something went wrong!", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+    } else if (
+      name === "" ||
+      status === "" ||
+      details === "" ||
+      priority === "" ||
+      reason === "" ||
+      steps === ""
+    ) {
+      toast.error("Please enter bug information", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+    } else if (Object.values(steps).includes("")) {
+      toast.error("Please add or remove empty step", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+    } else if (formInput === initialState) {
+      toast.warning("Nothing to update!", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+    } else {
+      await dispatch(sendRequest(formInput));
+      await navigate("/");
+    }
   };
 
   return (
@@ -262,11 +318,35 @@ const BugView2 = ({ user }) => {
                 onClick={() => setStepsOpen(!stepsOpen)}
               />
             )}
-            {!stepsOpen ? <p style={{fontSize: '12px', fontWeight: '400', textAlign: 'right', paddingRight: '10px'}}>{steps.length} steps collapsed</p> : <p style={{fontSize: '12px', fontWeight: '400', textAlign: 'right', paddingRight: '10px', height: '14px'}}></p>}
-            <Collapse in={stepsOpen} variant='vertical'>
+            {!stepsOpen ? (
+              <p
+                style={{
+                  fontSize: "12px",
+                  fontWeight: "400",
+                  textAlign: "right",
+                  paddingRight: "10px",
+                }}
+              >
+                {steps.length} steps collapsed
+              </p>
+            ) : (
+              <p
+                style={{
+                  fontSize: "12px",
+                  fontWeight: "400",
+                  textAlign: "right",
+                  paddingRight: "10px",
+                  height: "14px",
+                }}
+              ></p>
+            )}
+            <Collapse in={stepsOpen} variant="vertical">
               <ul className={classes.stepsWrapper}>
                 {steps.map((step, i) => (
-                  <li style={{padding: '10px 0 10px', width: 'max-content'}}>
+                  <li
+                    key={i}
+                    style={{ padding: "10px 0 10px", width: "max-content" }}
+                  >
                     {i + 1}. {step}
                   </li>
                 ))}
@@ -287,7 +367,14 @@ const BugView2 = ({ user }) => {
             </h2>
             <p>{details}</p>
           </div>
-          <BugUpdate bug={bug} user={user} />
+          <BugUpdate
+            bug={bug}
+            user={user}
+            initialState={initialState}
+            formInput={formInput}
+            setFormInput={setFormInput}
+            updateFunction={updateFunction}
+          />
           <List className={classes.commentList} sx={{ padding: "20px" }}>
             <h2
               style={{
@@ -330,7 +417,20 @@ const BugView2 = ({ user }) => {
                 onClick={() => setOpen(!open)}
               />
             )}
-            {!open ? <p style={{fontSize: '12px', fontWeight: '400', textAlign: 'right', paddingRight: '10px'}}>{comments.length} comments collpsed</p> : <p style={{height: '14px'}}></p>}
+            {!open ? (
+              <p
+                style={{
+                  fontSize: "12px",
+                  fontWeight: "400",
+                  textAlign: "right",
+                  paddingRight: "10px",
+                }}
+              >
+                {comments.length} comments collpsed
+              </p>
+            ) : (
+              <p style={{ height: "14px" }}></p>
+            )}
             <Collapse in={open} orientation="vertical">
               {comments.map((comment) => (
                 <>
@@ -355,7 +455,7 @@ const BugView2 = ({ user }) => {
                       }
                     />
                   </ListItem>
-                  <Divider sx={{bgcolor: "rgb(64, 65, 65)"}} />
+                  <Divider sx={{ bgcolor: "rgb(64, 65, 65)" }} />
                 </>
               ))}
             </Collapse>
@@ -423,7 +523,9 @@ const BugView2 = ({ user }) => {
             </li>
           </ul>
           <div className={classes.btnGroup}>
-            <Button variant="contained">Update Bug</Button>
+            <Button variant="contained" onClick={updateFunction}>
+              Update Bug
+            </Button>
             <Button variant="contained" color="secondary" onClick={handleClick}>
               Back
             </Button>
