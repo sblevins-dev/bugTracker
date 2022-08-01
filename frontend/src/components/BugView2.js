@@ -23,9 +23,9 @@ const useStyles = makeStyles((theme) => ({
   bugContainer: {
     minHeight: "100vh",
     padding: "30px 50px",
-    [theme.breakpoints.down('md')]: {
-      padding: '0'
-    }
+    [theme.breakpoints.down("md")]: {
+      padding: "0",
+    },
   },
   bugWrapper: {
     display: "flex",
@@ -282,7 +282,7 @@ const BugView2 = ({ user }) => {
   };
 
   return (
-    <Container className={classes.bugContainer} >
+    <Container className={classes.bugContainer}>
       <Box className={classes.bugWrapper}>
         <Box className={classes.leftSide}>
           <h1
@@ -295,6 +295,20 @@ const BugView2 = ({ user }) => {
           >
             {name}
           </h1>
+
+          <div className={classes.detail}>
+            <h2
+              style={{
+                marginBottom: "20px",
+                paddingBottom: "10px",
+                borderBottom: "0.5px solid rgb(64, 65, 65)",
+                fontWeight: "400",
+              }}
+            >
+              Information
+            </h2>
+            <p>{details}</p>
+          </div>
 
           <div className={classes.stepsContainer}>
             <h2
@@ -356,19 +370,6 @@ const BugView2 = ({ user }) => {
             </Collapse>
           </div>
 
-          <div className={classes.detail}>
-            <h2
-              style={{
-                marginBottom: "20px",
-                paddingBottom: "10px",
-                borderBottom: "0.5px solid rgb(64, 65, 65)",
-                fontWeight: "400",
-              }}
-            >
-              Information
-            </h2>
-            <p>{details}</p>
-          </div>
           <BugUpdate
             bug={bug}
             user={user}

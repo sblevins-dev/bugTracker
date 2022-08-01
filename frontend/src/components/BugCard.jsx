@@ -13,6 +13,8 @@ const useStyles = makeStyles((theme) => ({
     padding: "20px",
     cursor: "pointer",
     minHeight: "100px",
+    maxHeight: "100px",
+    overflow: 'hidden',
     "&:hover": {
       backgroundColor: "var(--fifth-color)",
     },
@@ -25,8 +27,13 @@ const useStyles = makeStyles((theme) => ({
     width: "25%",
     textAlign: 'center',
     color: "white",
+    fontWeight: '400',
+    fontSize: '1.2rem',
+    overflow: 'hidden',
+    maxHeight: '100%',
+    padding: '5px',
     [theme.breakpoints.down("sm")]: {
-      width: "40%",
+      width: "60%",
     },
   },
   p: {
@@ -53,14 +60,14 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "2px",
     minWidth: "60px",
     display: "block",
+    [theme.breakpoints.down('md')]: {
+      marginRight: '50px'
+    }
   },
   badge: {
     position: "absolute",
-    bottom: "10px",
-    left: "5px",
-    [theme.breakpoints.up('md')]: {
-      left: "20px"
-    }
+    top: "20px",
+    right: "30px",
   },
   icon: {
     position: "absolute",
