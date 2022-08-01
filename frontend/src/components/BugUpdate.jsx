@@ -114,6 +114,30 @@ export const BugUpdate = ({
     console.log(formInput.steps);
   };
 
+  const handleChecked = (e) => {
+    let isChecked = e.target.checked;
+    let open = "open";
+    let closed = "closed";
+    let tempStatus = bug.status;
+
+    const checkStatus = () => {
+      tempStatus === open && isChecked
+        ? (tempStatus = closed)
+        : tempStatus === open && !isChecked
+        ? (tempStatus = open)
+        : tempStatus === closed && isChecked
+        ? (tempStatus = open)
+        : (tempStatus = closed);
+
+      return tempStatus;
+    };
+
+    setFormInput({
+      ...formInput,
+      status: checkStatus(),
+    });
+  };
+
   // const handleUpdate = async (e) => {
   //   const { name, reason, steps, details, status, priority } = formInput;
 
@@ -178,8 +202,13 @@ export const BugUpdate = ({
           onChange={handleFormInput}
         />
         <div className={classes.markWrapper}>
-          <label>Mark Complete</label>
-          <Checkbox sx={{ color: "white" }} />
+          {bug.status === "closed" ? (
+            <label>Re-Open Ticket</label>
+          ) : (
+            <label>Mark Complete</label>
+          )}
+
+          <Checkbox sx={{ color: "white" }} onChange={handleChecked} />
         </div>
         <FormControl className={classes.priorityWrapper}>
           <label>Priority</label>

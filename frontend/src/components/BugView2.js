@@ -23,6 +23,9 @@ const useStyles = makeStyles((theme) => ({
   bugContainer: {
     minHeight: "100vh",
     padding: "30px 50px",
+    [theme.breakpoints.down('md')]: {
+      padding: '0'
+    }
   },
   bugWrapper: {
     display: "flex",
@@ -31,7 +34,6 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("sm")]: {
       flexDirection: "column-reverse",
       padding: "0",
-      margin: "0",
     },
   },
   leftSide: {
@@ -280,7 +282,7 @@ const BugView2 = ({ user }) => {
   };
 
   return (
-    <Container className={classes.bugContainer}>
+    <Container className={classes.bugContainer} >
       <Box className={classes.bugWrapper}>
         <Box className={classes.leftSide}>
           <h1
