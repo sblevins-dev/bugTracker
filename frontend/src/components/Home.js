@@ -3,6 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchBugs } from "../Controllers/Redux/bugSlice";
 import { Bugs } from "./Bugs";
 import { Statistics } from "./Statistics";
+import IconButton from "@mui/material/IconButton";
+import TextField from "@mui/material/TextField";
+import MenuIcon from "@mui/icons-material/Menu";
+import SearchIcon from "@mui/icons-material/Search";
+import InputAdornment from "@material-ui/core/InputAdornment";
 import "../css/home.css";
 
 export const Home = () => {
@@ -78,10 +83,10 @@ export const Home = () => {
           )
         : bugsList;
 
-    tempBugs =
-      minDate !== null && minDate !== "--Select--" && tempBugs !== undefined
-        ? compareDates(tempBugs)
-        : tempBugs;
+    // tempBugs =
+    //   minDate !== null && minDate !== "--Select--" && tempBugs !== undefined
+    //     ? compareDates(tempBugs)
+    //     : tempBugs;
 
     if (tempBugs.length === 0) {
       tempBugs = ["nothing"];
@@ -90,10 +95,11 @@ export const Home = () => {
     return tempBugs;
   };
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    if (keyword !== '') {
+  const handleSearch = () => {
+    if (keyword !== "") {
       setFilteredBugs(filterBugs(bugsList));
+    } else {
+      setFilteredBugs(bugsList)
     }
   };
 
@@ -120,37 +126,6 @@ export const Home = () => {
 
   return (
     <div className="home-wrapper">
-      {/* <Statistics
-        bugs={bugsList}
-        open={handleOpen}
-        all={handleAll}
-        close={handleClose}
-        priority={handlePriority}
-      /> */}
-      <div className="search-wrapper">
-        <form className="form-wrapper">
-          <h1>Search</h1>
-          <div className="form-group">
-            <label>Keywords: </label>
-            <input type="text" onChange={handleKeywordChange}></input>
-          </div>
-          <div className="form-group dropdown-wrapper">
-            <div className="dropdown-group">
-              <label className="min-age-label">Min-Age: </label>
-              <select id="min-age" onChange={(e) => setMinDate(e.target.value)}>
-                <option defaultValue>--Select--</option>
-                <option value="15">15 Days</option>
-                <option value="30">30 Days</option>
-                <option value="90">90 Days</option>
-                <option value="365">1 Year</option>
-              </select>
-            </div>
-          </div>
-          <button className="search-btn" onClick={handleSearch}>
-            Search
-          </button>
-        </form>
-      </div>
       <Statistics
         bugs={bugsList}
         open={handleOpen}
@@ -158,7 +133,23 @@ export const Home = () => {
         close={handleClose}
         priority={handlePriority}
       />
-      <div className="results">
+      <TextField
+          id='Search-Input'
+          label="Search"
+          variant="filled"
+          value={keyword}
+          onChange={handleKeywordChange}
+          sx={{ backgroundColor: 'var(--secondary-color)', borderRadius: '5px', width: '300px', margin: '10px' }}
+          InputProps={{
+            endAdornment: (
+              <IconButton type="submit" sx={{ p: "10px" }} aria-label="search" onClick={handleSearch}>
+                <SearchIcon  />
+              </IconButton>
+            ),
+          }}
+        ></TextField>
+        <div style={{minHeight: '20px', width: '100%', position: 'relative'}}>
+        <div className="results">
         {bugsList &&
         filteredBugs &&
         filteredBugs !== null &&
@@ -169,6 +160,8 @@ export const Home = () => {
           : filteredBugs.length}{" "}
         Results
       </div>
+        </div>
+      
       <Bugs
         bugs={
           bugsList && filteredBugs !== null && filteredBugs.length === 0

@@ -435,10 +435,10 @@ const BugView2 = ({ user }) => {
               <p style={{ height: "14px" }}></p>
             )}
             <Collapse in={open} orientation="vertical">
-              {comments.map((comment) => (
+              {comments.map((comment, i) => (
                 <>
                   <ListItem
-                    key={bug._id}
+                    key={i}
                     sx={{ width: "100%", marginBottom: "50px", padding: "0px" }}
                   >
                     <ListItemText
