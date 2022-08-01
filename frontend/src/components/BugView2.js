@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     minHeight: "100vh",
     padding: "30px 50px",
     [theme.breakpoints.down("md")]: {
-      padding: "0",
+      padding: "40px 0 0 0",
     },
   },
   bugWrapper: {

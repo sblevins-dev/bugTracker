@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { signOut } from "../Controllers/Redux/authSlice";
 import Divider from "@mui/material/Divider";
@@ -6,24 +6,31 @@ import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+import HomeIcon from "@mui/icons-material/Home";
+import AddBoxIcon from "@mui/icons-material/AddBox";
+import AddTaskIcon from "@mui/icons-material/AddTask";
+import LogoutIcon from "@mui/icons-material/Logout";
 import { makeStyles } from "@material-ui/core/styles";
 import { Stack, Typography } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBug } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
+  drawer: {
+    width: '100px'
+  },
   title: {
-    display: 'none',
-    [theme.breakpoints.up('sm')]: {
-      display: 'block'
-    }
+    display: "none",
+    [theme.breakpoints.up("sm")]: {
+      display: "block",
+    },
   },
   icon: {
-    color: "lightblue", 
-    [theme.breakpoints.up('sm')]: {
-      display: 'none'
-    }
+    color: "lightblue",
+    [theme.breakpoints.up("sm")]: {
+      display: "none",
+    },
   },
   hamWrapper: {
     position: "relative",
@@ -44,22 +51,27 @@ const useStyles = makeStyles(theme => ({
     "&:hover": {
       color: "lightblue",
     },
+    [theme.breakpoints.down('sm')]: {
+      color: 'var(--fourth-color)'
+    }
   },
   linkContainer: {
     backgroundColor: "#232830",
     width: "150px",
     height: "100%",
-    [theme.breakpoints.up('sm')]: {
-      width: "200px"
-    }
+    [theme.breakpoints.up("sm")]: {
+      width: "170px",
+    },
   },
   links: {
     display: "flex",
     flexDirection: "column",
-    alignItems: 'left',
+    alignItems: "left",
     paddingTop: "20px",
+    width: '100%',
+    fontWeight: '400'
     // [theme.breakpoints.up('sm')]: {
-    //   alignItems: 'center' 
+    //   alignItems: 'center'
     // }
   },
   link: {
@@ -68,6 +80,15 @@ const useStyles = makeStyles(theme => ({
     paddingLeft: "10px",
     color: "white",
     height: "100%",
+    width: "100%",
+    // [theme.breakpoints.up('sm')]: {
+    //   width: '80%'
+    // },
+    textAlign: "left",
+    padding: "10px",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
     transition: "all 0.4s ease-in-out",
     "&:hover": {
       color: "lightblue",
@@ -87,6 +108,10 @@ export const MuiDrawer = () => {
   };
 
   const classes = useStyles();
+
+  const handleClick = () => {
+    setOpen(false)
+  }
 
   return (
     <>
@@ -109,7 +134,7 @@ export const MuiDrawer = () => {
           style={{
             backgroundColor: "#1B1F28",
             height: "50px",
-            padding: "30px 10px",
+            padding: "10px 10px",
             textAlign: "center",
             display: "flex",
             alignItems: "center",
@@ -118,7 +143,7 @@ export const MuiDrawer = () => {
           }}
         >
           <FontAwesomeIcon icon={faBug} className={classes.icon} />
-          <h2 className={classes.title}>Bug Tracker</h2>
+          <h2 className={classes.title}>Zapper</h2>
           <KeyboardArrowLeftIcon
             style={{ color: "lightblue", cursor: "pointer" }}
             onClick={() => setOpen(false)}
@@ -131,15 +156,23 @@ export const MuiDrawer = () => {
           className={classes.linkContainer}
         >
           <Stack spacing={3} className={classes.links}>
-            <Link to="/" className={classes.link}>
-              Home
+            <Link to="/" className={classes.link} onClick={handleClick}>
+              <HomeIcon />
+              <p style={{width: '100px'}}>Home</p>
             </Link>
-            <Link to="/createBug" className={classes.link}>
-              Create
+            <Link to="/createBug" className={classes.link} onClick={handleClick}>
+              <AddBoxIcon />
+              <p style={{width: '100px'}}>Create</p>
             </Link>
-            {admin && <Link to="/requests">Requests</Link>}
+            {admin && (
+              <Link to="/requests" className={classes.link} onClick={handleClick}>
+                <AddTaskIcon />
+                <p style={{width: '100px'}}>Requests</p>
+              </Link>
+            )}
             <Link to="/" className={classes.link} onClick={handleLogout}>
-              Sign Out
+              <LogoutIcon />
+              <p style={{width: '100px'}}>Sign Out</p>
             </Link>
           </Stack>
         </Typography>
