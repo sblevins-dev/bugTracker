@@ -70,7 +70,6 @@ const useStyles = makeStyles((theme) => ({
     right: "30px",
   },
   icon: {
-    position: "absolute",
     color: "white",
   },
 }));
@@ -98,13 +97,6 @@ export const BugCard = ({ bug, dateFunction }) => {
         onClick={handleViewClick}
       >
         <h2 className={classes.header}>{name}</h2>
-        <Badge
-          badgeContent={comments.length}
-          className={classes.badge}
-          color="warning"
-        >
-          <CommentIcon className={classes.icon} fontSize="small" />
-        </Badge>
         <p className={classes.p}>{dateFunction(createdAt)}</p>
         <p className={classes.p}>{author}</p>
         <div className={classes.statusP}>
@@ -119,6 +111,13 @@ export const BugCard = ({ bug, dateFunction }) => {
             {status}
           </div>
         </div>
+        <Badge
+          badgeContent={comments.length}
+          className={classes.badge}
+          color="warning"
+        >
+          <CommentIcon className={classes.icon} fontSize="small" />
+        </Badge>
       </Paper>
     </Grid>
   );

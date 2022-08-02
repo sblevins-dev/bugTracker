@@ -99,7 +99,7 @@ export const Home = () => {
     if (keyword !== "") {
       setFilteredBugs(filterBugs(bugsList));
     } else {
-      setFilteredBugs(bugsList)
+      setFilteredBugs(bugsList);
     }
   };
 
@@ -134,34 +134,44 @@ export const Home = () => {
         priority={handlePriority}
       />
       <TextField
-          id='Search-Input'
-          label="Search"
-          variant="filled"
-          value={keyword}
-          onChange={handleKeywordChange}
-          sx={{ backgroundColor: 'var(--secondary-color)', borderRadius: '5px', width: '300px', margin: '10px' }}
-          InputProps={{
-            endAdornment: (
-              <IconButton type="submit" sx={{ p: "10px" }} aria-label="search" onClick={handleSearch}>
-                <SearchIcon  />
-              </IconButton>
-            ),
-          }}
-        ></TextField>
-        <div style={{minHeight: '20px', width: '100%', position: 'relative'}}>
+        id="Search-Input"
+        label="Search"
+        variant="filled"
+        value={keyword}
+        onChange={handleKeywordChange}
+        sx={{
+          backgroundColor: "var(--secondary-color)",
+          borderRadius: "5px",
+          width: "300px",
+          margin: "10px",
+        }}
+        InputProps={{
+          endAdornment: (
+            <IconButton
+              type="submit"
+              sx={{ p: "10px" }}
+              aria-label="search"
+              onClick={handleSearch}
+            >
+              <SearchIcon />
+            </IconButton>
+          ),
+        }}
+      ></TextField>
+      <div style={{ minHeight: "20px", width: "100%", maxWidth: '1500px', position: "relative" }}>
         <div className="results">
-        {bugsList &&
-        filteredBugs &&
-        filteredBugs !== null &&
-        filteredBugs.length === 0
-          ? bugsList.length
-          : filteredBugs[0] === "nothing"
-          ? "0"
-          : filteredBugs.length}{" "}
-        Results
-      </div>
+          {bugsList &&
+          filteredBugs &&
+          filteredBugs !== null &&
+          filteredBugs.length === 0
+            ? bugsList.length
+            : filteredBugs[0] === "nothing"
+            ? "0"
+            : filteredBugs.length}{" "}
+          Results
         </div>
-      
+      </div>
+
       <Bugs
         bugs={
           bugsList && filteredBugs !== null && filteredBugs.length === 0

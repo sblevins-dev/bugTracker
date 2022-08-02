@@ -79,9 +79,9 @@
 
 .results {
     color: var(--secondary-color);
+    max-width: 1500px;
     text-align: left;
     position: absolute;
-    left: 20px;
 }
 
 @media (max-width: 500px) {

@@ -4,6 +4,15 @@ import Grid from "@mui/material/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
+  bugWrapper: {
+    width: '100%',
+    [theme.breakpoints.up('md')]: {
+      maxWidth: '1500px',
+    },
+    [theme.breakpoints.down('md')]: {
+      minWidth: '70%'
+    }
+  },
   header: {
     marginBottom: "20px",
     padding: "20px 20px 0px",
@@ -42,7 +51,7 @@ export const Bugs = ({ bugs, dateFunction }) => {
   const classes = useStyles();
 
   return (
-    <div className="bugs-wrapper">
+    <div className={classes.bugWrapper}>
       <Grid container spacing={2} className={classes.header}>
         <div className={classes.headerItem}>Title</div>
         <div className={classes.headerItem}>Created</div>
