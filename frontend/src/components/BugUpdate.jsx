@@ -220,7 +220,7 @@ export const BugUpdate = ({
             sx={
               formInput.priority === "high"
                 ? { backgroundColor: "red" }
-                : formInput.priority === "mid"
+                : formInput.priority === 'medium'
                 ? { backgroundColor: "orange" }
                 : { backgroundColor: "yellow" }
             }
@@ -228,7 +228,7 @@ export const BugUpdate = ({
             <MenuItem key="low" value="low">
               Low
             </MenuItem>
-            <MenuItem key="mid" value="mid">
+            <MenuItem key="medium" value="medium">
               Mid
             </MenuItem>
             <MenuItem key="high" value="high">

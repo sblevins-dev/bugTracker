@@ -122,7 +122,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#D34E4B",
     padding: "2px 5px",
   },
-  mid: {
+  medium: {
     backgroundColor: "#F9B780",
     color: "red",
     padding: "2px 5px",
@@ -504,7 +504,7 @@ const BugView2 = ({ user }) => {
                   priority === "high"
                     ? classes.high
                     : priority === "medium"
-                    ? classes.mid
+                    ? classes.medium
                     : classes.low
                 }
                 style={{ margin: "10px" }}

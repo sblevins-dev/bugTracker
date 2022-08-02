@@ -19,7 +19,7 @@ export const Statistics = ({ bugs, all, open, close, priority }) => {
     bugs && bugs.forEach((bug) => {
       if (bug.priority === "high") {
         data[0].value += 1;
-      } else if (bug.priority === "medium") {
+      } else if (bug.priority === 'medium') {
         data[1].value += 1;
       } else if (bug.priority === "low") {
         data[2].value += 1;
