@@ -63,7 +63,7 @@ export const Bugs = ({ bugs, dateFunction }) => {
         <div className={classes.mobileHeaderItem}>Title</div>
         <div className={classes.mobileHeaderItem}>Status</div>
       </Grid>
-      <Grid container spacing={2}>
+      <Grid container spacing={2} sx={{marginLeft: '-16px'}} m="0">
         {bugs && bugs[0] !== "nothing" ? (
           bugs.map((bug) => (
             <BugCard key={bug._id} bug={bug} dateFunction={dateFunction} />

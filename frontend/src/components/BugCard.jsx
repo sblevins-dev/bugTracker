@@ -65,9 +65,8 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   badge: {
-    position: "absolute",
     top: "20px",
-    right: "30px",
+    right: "20px",
   },
   icon: {
     color: "white",
@@ -115,6 +114,7 @@ export const BugCard = ({ bug, dateFunction }) => {
           badgeContent={comments.length}
           className={classes.badge}
           color="warning"
+          sx={{position: 'absolute'}}
         >
           <CommentIcon className={classes.icon} fontSize="small" />
         </Badge>

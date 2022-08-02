@@ -119,12 +119,9 @@
     cursor: pointer;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
     .statistics-wrapper {
-        height: 100%;
-        padding: 5px;
         justify-content: center;
-        padding-bottom: 20px;
     }
 }
 
@@ -132,7 +129,7 @@
 @media (max-width: 500px) {
     .statistics-wrapper {
         padding: 5px;
-        justify-content: center;
+        max-height: max-content;
         padding-bottom: 20px;
     }
     .statistics-wrapper .card {
