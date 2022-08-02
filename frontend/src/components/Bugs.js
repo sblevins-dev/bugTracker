@@ -6,6 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
   bugWrapper: {
     width: '100%',
+    minHeight: '525px',
     [theme.breakpoints.up('md')]: {
       maxWidth: '1500px',
     },

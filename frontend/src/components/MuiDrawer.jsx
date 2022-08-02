@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "left",
     paddingTop: "20px",
     width: '100%',
-    fontWeight: '400'
+    fontWeight: '400',
     // [theme.breakpoints.up('sm')]: {
     //   alignItems: 'center'
     // }
@@ -157,21 +157,21 @@ export const MuiDrawer = () => {
         >
           <Stack spacing={3} className={classes.links}>
             <Link to="/" className={classes.link} onClick={handleClick}>
-              <HomeIcon />
+              <HomeIcon sx={{width: '25px'}} />
               <p style={{width: '100px'}}>Home</p>
             </Link>
-            <Link to="/createBug" className={classes.link} onClick={handleClick}>
-              <AddBoxIcon />
+            <Link to="/createBug" className={classes.link} style={{margin: '0'}} onClick={handleClick}>
+              <AddBoxIcon sx={{width: '25px'}} />
               <p style={{width: '100px'}}>Create</p>
             </Link>
             {admin && (
-              <Link to="/requests" className={classes.link} onClick={handleClick}>
-                <AddTaskIcon />
+              <Link to="/requests" className={classes.link} style={{margin: '0'}} onClick={handleClick}>
+                <AddTaskIcon sx={{width: '25px'}} />
                 <p style={{width: '100px'}}>Requests</p>
               </Link>
             )}
-            <Link to="/" className={classes.link} onClick={handleLogout}>
-              <LogoutIcon />
+            <Link to="/" className={classes.link} style={{margin: '0'}} onClick={handleLogout}>
+              <LogoutIcon sx={{width: '25px'}} />
               <p style={{width: '100px'}}>Sign Out</p>
             </Link>
           </Stack>
