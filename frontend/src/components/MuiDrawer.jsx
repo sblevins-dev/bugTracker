@@ -18,7 +18,8 @@ import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
-    width: '100px'
+    width: '100px',
+    height: '50px',
   },
   title: {
     display: "none",
@@ -33,19 +34,23 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   hamWrapper: {
-    position: "relative",
+    position: "absolute",
     color: "inherit",
-    height: "50px",
+    maxHeight: '50px',
+    
+    top: "10px",
+    left: "20px",
   },
   ham: {
-    position: "fixed",
+    // position: "absolute",
     zIndex: "400",
-    top: "10px",
-    left: "10px",
+    // top: "10px",
+    // left: "10px",
     padding: "0px",
     color: "white",
-    width: "40px",
-    height: "40px",
+    // width: "40px",
+    // height: "40px",
+    padding: '0',
     transition: "all 0.4s ease-in-out",
     "&:hover": {
       color: "lightblue",
@@ -58,6 +63,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#232830",
     width: "150px",
     height: "100%",
+    borderRight: '.5px solid var(--primary-color)',
     [theme.breakpoints.up("sm")]: {
       width: "170px",
     },
@@ -113,13 +119,14 @@ export const MuiDrawer = () => {
   }
 
   return (
-    <>
+    <div style={{position: 'absolute', height: '50px'}}>
       <IconButton
         size="inherit"
         edge="start"
         aria-label="logo"
         onClick={() => setOpen(true)}
         className={classes.hamWrapper}
+        sx={{padding: '0'}}
       >
         <MenuIcon className={classes.ham} />
       </IconButton>
@@ -139,6 +146,7 @@ export const MuiDrawer = () => {
             alignItems: "center",
             justifyContent: "space-between",
             color: "white",
+            borderRight: '.5px solid var(--primary-color)'
           }}
         >
           <FontAwesomeIcon icon={faBug} className={classes.icon} />
@@ -176,6 +184,6 @@ export const MuiDrawer = () => {
           </Stack>
         </Typography>
       </Drawer>
-    </>
+    </div>
   );
 };

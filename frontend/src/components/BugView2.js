@@ -25,12 +25,12 @@ const useStyles = makeStyles((theme) => ({
     minHeight: "100vh",
     padding: "30px 50px",
     [theme.breakpoints.down("md")]: {
-      padding: "40px 0 0 0",
+      padding: "40px 5px",
+      paddingLeft: '5px'
     },
   },
   bugWrapper: {
     display: "flex",
-    margin: "10px",
     gap: "20px",
     [theme.breakpoints.down("sm")]: {
       flexDirection: "column-reverse",
@@ -287,7 +287,7 @@ const BugView2 = ({ user }) => {
   };
 
   return (
-    <Container className={classes.bugContainer}>
+    <Container className={classes.bugContainer} disableGutters>
       <Box className={classes.bugWrapper}>
         <Box className={classes.leftSide}>
           <h1
