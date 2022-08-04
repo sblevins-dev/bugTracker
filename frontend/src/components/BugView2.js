@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   bugWrapper: {
     display: "flex",
     gap: "20px",
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("md")]: {
       flexDirection: "column-reverse",
       padding: "0",
     },
@@ -92,6 +92,7 @@ const useStyles = makeStyles((theme) => ({
   bugDetailsWrapper: {
     listStyle: "none",
     border: "0.5px solid rgb(64, 65, 65)",
+    minWidth: '285px',
     // minWidth: "350px",
   },
   li: {
@@ -249,7 +250,7 @@ const BugView2 = ({ user }) => {
     steps: setSteps(),
     details: bug.details,
     status: bug.status,
-    priority: bug.priority,
+    priority: bug.priority !== '' && bug.priority !== undefined ? bug.priority : 'low',
   };
 
   const [formInput, setFormInput] = useState(initialState);
@@ -315,7 +316,7 @@ const BugView2 = ({ user }) => {
             <p>{details}</p>
           </div>
 
-          <div className={classes.stepsContainer}>
+          {steps.length > 0 && <div className={classes.stepsContainer}>
             <h2
               style={{
                 marginBottom: "20px",
@@ -366,14 +367,15 @@ const BugView2 = ({ user }) => {
                 {steps.map((step, i) => (
                   <li
                     key={i}
-                    style={{ padding: "10px 0 10px", width: "max-content" }}
+                    style={{ padding: "10px 0 10px", width: "100%", wordWrap: 'break-word' }}
                   >
                     {i + 1}. {step}
                   </li>
                 ))}
               </ul>
             </Collapse>
-          </div>
+          </div>}
+          
 
           <BugUpdate
             bug={bug}

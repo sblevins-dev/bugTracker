@@ -7,6 +7,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import { MenuItem } from "@mui/material";
 import { InputAdornment } from "@material-ui/core";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useState } from "react";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+import Collapse from "@mui/material/Collapse";
 
 const useStyles = makeStyles((theme) => ({
   updateWrapper: {
@@ -14,11 +18,17 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: "wrap",
     flexGrow: 1,
     gap: "20px",
+    flexDirection: 'row',
     justifyContent: "space-between",
     [theme.breakpoints.down("md")]: {
       alignItems: "left",
     },
-    textAlign: "center",
+  },
+  arrow: {
+    position: "absolute",
+    top: "20px",
+    right: "25px",
+    cursor: "pointer",
   },
   inputs: {
     backgroundColor: "var(--secondary-color)",
@@ -30,23 +40,29 @@ const useStyles = makeStyles((theme) => ({
   markWrapper: {
     display: "flex",
     alignItems: "center",
-    justifyContent: "center",
     textAlign: "center",
-    flex: "2",
-    maxWidth: "200px",
+    flex: 2,
+    width: '325px',
+    margin: '0',
+    marginTop: '20px',
+    justifyContent: 'space-between',
     [theme.breakpoints.down("md")]: {
-      justifyContent: "space-between",
+      width: '100%',
+      maxWidth: '325px'
     },
   },
   priorityWrapper: {
-    width: "200px",
+    width: "325px",
     height: "50px",
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+    marginBottom: "20px",
     gap: "20px",
+    flex: '2',
     maxWidth: "450px",
+    textAlign: 'center',
     [theme.breakpoints.up("md")]: {
       maxWidth: "500px",
     },
@@ -98,6 +114,8 @@ export const BugUpdate = ({
 
   const classes = useStyles();
 
+  const [updateOpen, setUpdateOpen] = useState(false);
+
   // delete step
   const deleteStep = (key) => {
     let newSteps = Object.entries(formInput.steps).filter(
@@ -138,38 +156,6 @@ export const BugUpdate = ({
     });
   };
 
-  // const handleUpdate = async (e) => {
-  //   const { name, reason, steps, details, status, priority } = formInput;
-
-  //   if (!user) {
-  //     toast.error("Oops, something went wrong!", {
-  //       position: toast.POSITION.BOTTOM_RIGHT,
-  //     });
-  //   } else if (
-  //     name === "" ||
-  //     status === "" ||
-  //     details === "" ||
-  //     priority === "" ||
-  //     reason === "" ||
-  //     steps === ""
-  //   ) {
-  //     toast.error("Please enter bug information", {
-  //       position: toast.POSITION.BOTTOM_RIGHT,
-  //     });
-  //   } else if (Object.values(steps).includes("")) {
-  //     toast.error("Please add or remove empty step", {
-  //       position: toast.POSITION.BOTTOM_RIGHT,
-  //     });
-  //   } else if (formInput === initialState) {
-  //     toast.warning("Nothing to update!", {
-  //       position: toast.POSITION.BOTTOM_RIGHT,
-  //     });
-  //   } else {
-  //     await dispatch(sendRequest(formInput));
-  //     await navigate("/");
-  //   }
-  // };
-
   return (
     <div
       style={{
@@ -177,6 +163,7 @@ export const BugUpdate = ({
         backgroundColor: "var(--third-color)",
         padding: "20px",
         borderRadius: "5px",
+        position: "relative",
       }}
     >
       <h2
@@ -189,19 +176,37 @@ export const BugUpdate = ({
       >
         Update
       </h2>
-      <div className={classes.updateWrapper}>
+      {updateOpen ? (
+        <ArrowDropUpIcon
+          className={classes.arrow}
+          fontSize="large"
+          onClick={() => setUpdateOpen(!updateOpen)}
+        />
+      ) : (
+        <ArrowDropDownIcon
+          className={classes.arrow}
+          fontSize="large"
+          onClick={() => setUpdateOpen(!updateOpen)}
+        />
+      )}
+      <Collapse
+        in={updateOpen}
+        variant="vertical"
+        className={classes.updateWrapper}
+      >
         <TextField
           id="nameInput"
           className={classes.inputs}
           name="name"
-          sx={{ sm: 300, md: 400 }}
+          sx={{ sm: 300, md: 400, flex: '2', marginBottom: '20px' }}
           variant="filled"
           label="Title"
           type="text"
+          fullWidth
           value={formInput.name}
           onChange={handleFormInput}
         />
-        <div className={classes.markWrapper}>
+        <div className={classes.markWrapper} style={{marginRight: '0'}}>
           {bug.status === "closed" ? (
             <label>Re-Open Ticket</label>
           ) : (
@@ -220,7 +225,7 @@ export const BugUpdate = ({
             sx={
               formInput.priority === "high"
                 ? { backgroundColor: "red" }
-                : formInput.priority === 'medium'
+                : formInput.priority === "medium"
                 ? { backgroundColor: "orange" }
                 : { backgroundColor: "yellow" }
             }
@@ -252,6 +257,7 @@ export const BugUpdate = ({
         <Box sx={{ width: "100%", alignItems: "flex-start" }}>
           <h2
             style={{
+              marginTop: "20px",
               marginBottom: "20px",
               paddingBottom: "10px",
               borderBottom: "0.5px solid rgb(64, 65, 65)",
@@ -288,7 +294,7 @@ export const BugUpdate = ({
             />
           ))}
         </Box>
-      </div>
+      </Collapse>
     </div>
   );
 };
