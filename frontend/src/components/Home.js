@@ -143,7 +143,6 @@ export const Home = () => {
           backgroundColor: "var(--secondary-color)",
           borderRadius: "5px",
           width: "300px",
-          margin: "10px",
         }}
         InputProps={{
           endAdornment: (
@@ -158,7 +157,7 @@ export const Home = () => {
           ),
         }}
       ></TextField>
-      <div style={{ minHeight: "20px", width: "100%", maxWidth: '1500px', position: "relative" }}>
+      <div style={{ minHeight: "max-content", width: "100%", maxWidth: '1500px' }}>
         <div className="results">
           {bugsList &&
           filteredBugs &&

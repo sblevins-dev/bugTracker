@@ -12,9 +12,11 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     padding: "20px",
     cursor: "pointer",
+    width: '100%',
     minHeight: "100px",
     maxHeight: "100px",
     overflow: 'hidden',
+    margin: '0',
     "&:hover": {
       backgroundColor: "var(--fifth-color)",
     },
@@ -89,7 +91,6 @@ export const BugCard = ({ bug, dateFunction }) => {
   };
 
   return (
-    <Grid item xs={12}>
       <Paper
         className={classes.card}
         sx={{ backgroundColor: "var(--third-color)", transition: "all 0.3s ease-in-out" }}
@@ -119,6 +120,5 @@ export const BugCard = ({ bug, dateFunction }) => {
           <CommentIcon className={classes.icon} fontSize="small" />
         </Badge>
       </Paper>
-    </Grid>
   );
 };

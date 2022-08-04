@@ -10,6 +10,7 @@ import Collapse from "@mui/material/Collapse";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import TextField from "@mui/material/TextField";
+import { useTheme } from "@mui/material/styles"; 
 import { makeStyles } from "@material-ui/core/styles";
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -138,9 +139,13 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     gap: "20px",
   },
+  // btn: {
+  //   color: theme.main
+  // }
 }));
 
 const BugView2 = ({ user }) => {
+  const theme = useTheme()
   const classes = useStyles();
 
   const dispatch = useDispatch();

@@ -4,7 +4,7 @@
     align-items: center;
     width: 100%;
     background-image: var(--primary-color);
-    padding: 35px 10px 10px;
+    padding: 35px 5px 5px;
     min-height: 100vh;
 }
 
@@ -81,7 +81,6 @@
     color: var(--secondary-color);
     max-width: 1500px;
     text-align: left;
-    position: absolute;
 }
 
 @media (max-width: 500px) {

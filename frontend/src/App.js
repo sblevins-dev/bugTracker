@@ -6,15 +6,27 @@ import { MuiDrawer } from "./components/MuiDrawer";
 import { Login } from "./components/Login";
 import { Home } from "./components/Home";
 import BugView2 from "./components/BugView2"
-import { BugView } from "./components/BugView";
 import { CreateBug } from "./components/CreateBug";
 import { Edit } from "./components/Edit";
 import { Requests } from "./components/Requests";
 import "./App.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { makeStyles } from "@material-ui/core/styles"
 
 function App() {
+
+  const useStyles = makeStyles({
+    app: {
+      display: 'flex',
+      maxWidth: '100vw',
+      overflow: 'hidden',
+      background: 'var(--primary-color)',
+      position: 'relative',
+    }
+  })
+
+  const classes = useStyles()
 
   // define whether logged in
   const { auth } = useSelector((state) => state);
@@ -33,7 +45,7 @@ function App() {
   }, [auth.loggedIn]);
 
   return (
-    <div className="app" >
+      <div className={classes.app} >
       <Router>
         
         {auth.loggedIn ? (
@@ -58,6 +70,7 @@ function App() {
         theme="colored"
       ></ToastContainer>
     </div>
+    
   );
 }
 

@@ -41,12 +41,11 @@ const useStyles = makeStyles((theme) => ({
     position: "fixed",
     zIndex: "400",
     top: "10px",
-    left: "-10px",
+    left: "10px",
     padding: "0px",
     color: "white",
     width: "40px",
     height: "40px",
-    marginLeft: "20px",
     transition: "all 0.4s ease-in-out",
     "&:hover": {
       color: "lightblue",
