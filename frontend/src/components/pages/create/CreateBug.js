@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { sendRequest } from "../Controllers/Redux/bugSlice";
-import "../css/createbug.css";
+import { sendRequest } from "../../../Controllers/Redux/bugSlice";
+import "./css/createbug.css";
 import { toast } from "react-toastify";
 
 export const CreateBug = ({ user }) => {
@@ -19,7 +19,7 @@ export const CreateBug = ({ user }) => {
     steps: {},
     details: "",
     author: user,
-    priority: 'high'
+    priority: "high",
   };
 
   // set form to initial state
@@ -134,9 +134,9 @@ export const CreateBug = ({ user }) => {
           value={formData.priority}
           onChange={setForm}
         >
-          <option defaultValue={'high'} >High</option>
-          <option value='medium' >Medium</option>
-          <option value='low' >Low</option>
+          <option defaultValue={"high"}>High</option>
+          <option value="medium">Medium</option>
+          <option value="low">Low</option>
         </select>
         <label>Steps:</label>
         {Array.from(Array(counter)).map((c, i) => {

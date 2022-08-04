@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import "../css/requests.css";
+import "./css/requests.css";
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faX } from "@fortawesome/free-solid-svg-icons";
-import { editBug, postBug } from "../Controllers/Redux/bugSlice";
+import { editBug, postBug } from "../../../Controllers/Redux/bugSlice";
 import { toast } from "react-toastify";
 
 export const Requests = () => {

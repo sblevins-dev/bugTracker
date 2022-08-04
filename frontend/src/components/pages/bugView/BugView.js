@@ -10,144 +10,17 @@ import Collapse from "@mui/material/Collapse";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import TextField from "@mui/material/TextField";
-import { useTheme } from "@mui/material/styles"; 
-import { makeStyles } from "@material-ui/core/styles";
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { sendRequest } from "../Controllers/Redux/bugSlice";
-import { fetchBugs, leaveComment } from "../Controllers/Redux/bugSlice";
+import { sendRequest } from "../../../Controllers/Redux/bugSlice";
+import { fetchBugs, leaveComment } from "../../../Controllers/Redux/bugSlice";
 import { toast } from "react-toastify";
-import { BugUpdate } from "./BugUpdate";
+import { BugUpdate } from "../../bugList/bugUpdate/BugUpdate";
+import { bugViewStyles } from "./bugViewStyles";
 
-const useStyles = makeStyles((theme) => ({
-  bugContainer: {
-    minHeight: "100vh",
-    padding: "30px 50px",
-    [theme.breakpoints.down("md")]: {
-      padding: "40px 5px",
-      paddingLeft: '5px'
-    },
-  },
-  bugWrapper: {
-    display: "flex",
-    gap: "20px",
-    [theme.breakpoints.down("md")]: {
-      flexDirection: "column-reverse",
-      padding: "0",
-    },
-  },
-  leftSide: {
-    flex: 2,
-    color: "white",
-    display: "flex",
-    flexDirection: "column",
-    gap: "20px",
-  },
-  stepsContainer: {
-    backgroundColor: "var(--third-color)",
-    padding: "20px",
-    borderRadius: "5px",
-    position: "relative",
-  },
-  stepsWrapper: {
-    listStyle: "none",
-    display: "flex",
-    flexDirection: "column",
-    gap: "20px",
-  },
-  detail: {
-    backgroundColor: "var(--third-color)",
-    padding: "20px",
-    borderRadius: "5px",
-  },
-  commentList: {
-    backgroundColor: "var(--third-color)",
-    padding: "20px",
-    borderRadius: "5px",
-    maxWidth: "750px",
-    position: "relative",
-  },
-  arrow: {
-    position: "absolute",
-    top: "20px",
-    right: "25px",
-    cursor: "pointer",
-  },
-  commentInput: {
-    backgroundColor: "var(--secondary-color)",
-    borderRadius: "5px",
-  },
-  commentBtn: {
-    paddingTop: "30px",
-  },
-  rightSide: {
-    padding: "20px",
-    flex: 1,
-    backgroundColor: "var(--third-color)",
-    color: "white",
-    borderRadius: "5px",
-    height: "max-content",
-  },
-  bugDetailsWrapper: {
-    listStyle: "none",
-    border: "0.5px solid rgb(64, 65, 65)",
-    minWidth: '285px',
-    // minWidth: "350px",
-  },
-  li: {
-    display: "flex",
-    justifyContent: "space-between",
-    "&.span": {
-      padding: "10px",
-    },
-  },
-  h3: {
-    borderRight: "0.5px solid rgb(64, 65, 65)",
-    width: "100px",
-    height: "100%",
-    padding: "10px",
-    fontWeight: "400",
-  },
-  span: {
-    padding: "10px",
-  },
-  open: {
-    backgroundColor: "#3B817D",
-    padding: "2px 5px",
-  },
-  closed: {
-    backgroundColor: "#D34E4B",
-    padding: "2px 5px",
-  },
-  high: {
-    backgroundColor: "#D34E4B",
-    padding: "2px 5px",
-  },
-  medium: {
-    backgroundColor: "#F9B780",
-    color: "red",
-    padding: "2px 5px",
-  },
-  low: {
-    backgroundColor: "#F4DE88",
-    color: "black",
-    padding: "2px 5px",
-  },
-  btnGroup: {
-    padding: "20px",
-    display: "flex",
-    flexDirection: "column",
-    gap: "20px",
-  },
-  // btn: {
-  //   color: theme.main
-  // }
-}));
-
-const BugView2 = ({ user }) => {
-  const theme = useTheme()
-  const classes = useStyles();
+export const BugView = ({ user }) => {
+  const classes = bugViewStyles();
 
   const dispatch = useDispatch();
 
@@ -250,7 +123,8 @@ const BugView2 = ({ user }) => {
     steps: setSteps(),
     details: bug.details,
     status: bug.status,
-    priority: bug.priority !== '' && bug.priority !== undefined ? bug.priority : 'low',
+    priority:
+      bug.priority !== "" && bug.priority !== undefined ? bug.priority : "low",
   };
 
   const [formInput, setFormInput] = useState(initialState);
@@ -316,66 +190,71 @@ const BugView2 = ({ user }) => {
             <p>{details}</p>
           </div>
 
-          {steps.length > 0 && <div className={classes.stepsContainer}>
-            <h2
-              style={{
-                marginBottom: "20px",
-                paddingBottom: "10px",
-                borderBottom: "0.5px solid rgb(64, 65, 65)",
-                fontWeight: "400",
-              }}
-            >
-              Steps Performed
-            </h2>
-            {stepsOpen ? (
-              <ArrowDropUpIcon
-                className={classes.arrow}
-                fontSize="large"
-                onClick={() => setStepsOpen(!stepsOpen)}
-              />
-            ) : (
-              <ArrowDropDownIcon
-                className={classes.arrow}
-                fontSize="large"
-                onClick={() => setStepsOpen(!stepsOpen)}
-              />
-            )}
-            {!stepsOpen ? (
-              <p
+          {steps.length > 0 && (
+            <div className={classes.stepsContainer}>
+              <h2
                 style={{
-                  fontSize: "12px",
+                  marginBottom: "20px",
+                  paddingBottom: "10px",
+                  borderBottom: "0.5px solid rgb(64, 65, 65)",
                   fontWeight: "400",
-                  textAlign: "right",
-                  paddingRight: "10px",
                 }}
               >
-                {steps.length} steps collapsed
-              </p>
-            ) : (
-              <p
-                style={{
-                  fontSize: "12px",
-                  fontWeight: "400",
-                  textAlign: "right",
-                  paddingRight: "10px",
-                  height: "14px",
-                }}
-              ></p>
-            )}
-            <Collapse in={stepsOpen} variant="vertical">
-              <ul className={classes.stepsWrapper}>
-                {steps.map((step, i) => (
-                  <li
-                    key={i}
-                    style={{ padding: "10px 0 10px", width: "100%", wordWrap: 'break-word' }}
-                  >
-                    {i + 1}. {step}
-                  </li>
-                ))}
-              </ul>
-            </Collapse>
-          </div>}
-          
+                Steps Performed
+              </h2>
+              {stepsOpen ? (
+                <ArrowDropUpIcon
+                  className={classes.arrow}
+                  fontSize="large"
+                  onClick={() => setStepsOpen(!stepsOpen)}
+                />
+              ) : (
+                <ArrowDropDownIcon
+                  className={classes.arrow}
+                  fontSize="large"
+                  onClick={() => setStepsOpen(!stepsOpen)}
+                />
+              )}
+              {!stepsOpen ? (
+                <p
+                  style={{
+                    fontSize: "12px",
+                    fontWeight: "400",
+                    textAlign: "right",
+                    paddingRight: "10px",
+                  }}
+                >
+                  {steps.length} steps collapsed
+                </p>
+              ) : (
+                <p
+                  style={{
+                    fontSize: "12px",
+                    fontWeight: "400",
+                    textAlign: "right",
+                    paddingRight: "10px",
+                    height: "14px",
+                  }}
+                ></p>
+              )}
+              <Collapse in={stepsOpen} variant="vertical">
+                <ul className={classes.stepsWrapper}>
+                  {steps.map((step, i) => (
+                    <li
+                      key={i}
+                      style={{
+                        padding: "10px 0 10px",
+                        width: "100%",
+                        wordWrap: "break-word",
+                      }}
+                    >
+                      {i + 1}. {step}
+                    </li>
+                  ))}
+                </ul>
+              </Collapse>
+            </div>
+          )}
 
           <BugUpdate
             bug={bug}
@@ -545,5 +424,3 @@ const BugView2 = ({ user }) => {
     </Container>
   );
 };
-
-export default BugView2;

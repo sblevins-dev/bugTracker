@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { loginFunc } from "../Controllers/authController";
+import { loginFunc } from "../../../Controllers/authController";
 import { toast } from "react-toastify";
-import bug from "../images/favicon.png";
-import "../css/login.css";
+import bug from "../../../images/favicon.png";
+import "./css/login.css";
 
 export const Login = () => {
   const dispatch = useDispatch();

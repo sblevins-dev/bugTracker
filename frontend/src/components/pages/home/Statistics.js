@@ -1,4 +1,4 @@
-import "../css/statistics.css";
+import "./css/statistics.css";
 import { PieChart, Pie, Tooltip, ResponsiveContainer } from "recharts";
 
 export const Statistics = ({ bugs, all, open, close, priority }) => {
@@ -16,22 +16,23 @@ export const Statistics = ({ bugs, all, open, close, priority }) => {
   ];
 
   const countPriority = () => {
-    bugs && bugs.forEach((bug) => {
-      if (bug.priority === "high") {
-        data[0].value += 1;
-      } else if (bug.priority === 'medium') {
-        data[1].value += 1;
-      } else if (bug.priority === "low") {
-        data[2].value += 1;
-      }
-    });
+    bugs &&
+      bugs.forEach((bug) => {
+        if (bug.priority === "high") {
+          data[0].value += 1;
+        } else if (bug.priority === "medium") {
+          data[1].value += 1;
+        } else if (bug.priority === "low") {
+          data[2].value += 1;
+        }
+      });
 
     return data;
   };
 
   const handleClick = (e) => {
-    priority(e.name)
-  }
+    priority(e.name);
+  };
 
   return (
     <div className="statistics-wrapper">

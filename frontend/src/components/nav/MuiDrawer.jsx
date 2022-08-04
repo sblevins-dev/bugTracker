@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { signOut } from "../Controllers/Redux/authSlice";
+import { signOut } from "../../Controllers/Redux/authSlice";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
@@ -10,96 +10,11 @@ import HomeIcon from "@mui/icons-material/Home";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import AddTaskIcon from "@mui/icons-material/AddTask";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { makeStyles } from "@material-ui/core/styles";
 import { Stack, Typography } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBug } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-
-const useStyles = makeStyles((theme) => ({
-  drawer: {
-    width: '100px',
-    height: '50px',
-  },
-  title: {
-    display: "none",
-    [theme.breakpoints.up("sm")]: {
-      display: "block",
-    },
-  },
-  icon: {
-    color: "lightblue",
-    [theme.breakpoints.up("sm")]: {
-      display: "none",
-    },
-  },
-  hamWrapper: {
-    position: "absolute",
-    color: "inherit",
-    maxHeight: '50px',
-    
-    top: "10px",
-    left: "20px",
-  },
-  ham: {
-    // position: "absolute",
-    zIndex: "400",
-    // top: "10px",
-    // left: "10px",
-    padding: "0px",
-    color: "white",
-    // width: "40px",
-    // height: "40px",
-    padding: '0',
-    transition: "all 0.4s ease-in-out",
-    "&:hover": {
-      color: "lightblue",
-    },
-    [theme.breakpoints.down('sm')]: {
-      color: 'var(--fourth-color)'
-    }
-  },
-  linkContainer: {
-    backgroundColor: "#232830",
-    width: "150px",
-    height: "100%",
-    borderRight: '.5px solid var(--primary-color)',
-    [theme.breakpoints.up("sm")]: {
-      width: "170px",
-    },
-  },
-  links: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "left",
-    paddingTop: "20px",
-    width: '100%',
-    fontWeight: '400',
-    // [theme.breakpoints.up('sm')]: {
-    //   alignItems: 'center'
-    // }
-  },
-  link: {
-    textDecoration: "none",
-    textTransform: "uppercase",
-    paddingLeft: "10px",
-    color: "white",
-    height: "100%",
-    width: "100%",
-    // [theme.breakpoints.up('sm')]: {
-    //   width: '80%'
-    // },
-    textAlign: "left",
-    padding: "10px",
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    transition: "all 0.4s ease-in-out",
-    "&:hover": {
-      color: "lightblue",
-    },
-  },
-}));
+import { drawerStyles } from "./drawerStyles";
 
 export const MuiDrawer = () => {
   const [open, setOpen] = useState(false);
@@ -112,7 +27,7 @@ export const MuiDrawer = () => {
     dispatch(signOut());
   };
 
-  const classes = useStyles();
+  const classes = drawerStyles();
 
   const handleClick = () => {
     setOpen(false)

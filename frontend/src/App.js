@@ -2,31 +2,29 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchUsers } from "./Controllers/Redux/userSlice";
-import { MuiDrawer } from "./components/MuiDrawer";
-import { Login } from "./components/Login";
-import { Home } from "./components/Home";
-import BugView2 from "./components/BugView2"
-import { CreateBug } from "./components/CreateBug";
-import { Edit } from "./components/Edit";
-import { Requests } from "./components/Requests";
+import { MuiDrawer } from "./components/nav/MuiDrawer";
+import { Login } from "./components/pages/login/Login";
+import { Home } from "./components/pages/home/Home";
+import { BugView } from "./components/pages/bugView/BugView";
+import { CreateBug } from "./components/pages/create/CreateBug";
+import { Requests } from "./components/pages/requests/Requests";
 import "./App.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { makeStyles } from "@material-ui/core/styles"
+import { makeStyles } from "@material-ui/core/styles";
 
 function App() {
-
   const useStyles = makeStyles({
     app: {
-      display: 'flex',
-      maxWidth: '100vw',
-      overflow: 'hidden',
-      background: 'var(--primary-color)',
-      position: 'relative',
-    }
-  })
+      display: "flex",
+      maxWidth: "100vw",
+      overflow: "hidden",
+      background: "var(--primary-color)",
+      position: "relative",
+    },
+  });
 
-  const classes = useStyles()
+  const classes = useStyles();
 
   // define whether logged in
   const { auth } = useSelector((state) => state);
@@ -45,17 +43,15 @@ function App() {
   }, [auth.loggedIn]);
 
   return (
-      <div className={classes.app} >
+    <div className={classes.app}>
       <Router>
-        
         {auth.loggedIn ? (
           <>
-          <MuiDrawer />
+            <MuiDrawer />
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/edit" element={<Edit user={user} />} />
               <Route path="/createBug" element={<CreateBug user={user} />} />
-              <Route path="/bugView" element={<BugView2 user={user} />} />
+              <Route path="/bugView" element={<BugView user={user} />} />
               {auth.admin && <Route path="/requests" element={<Requests />} />}
             </Routes>
           </>
@@ -70,7 +66,6 @@ function App() {
         theme="colored"
       ></ToastContainer>
     </div>
-    
   );
 }
 

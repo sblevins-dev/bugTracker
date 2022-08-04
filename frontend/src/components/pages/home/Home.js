@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchBugs } from "../Controllers/Redux/bugSlice";
-import { Bugs } from "./Bugs";
+import { fetchBugs } from "../../../Controllers/Redux/bugSlice";
+import { Bugs } from "../../bugList/bugs/Bugs";
 import { Statistics } from "./Statistics";
 import IconButton from "@mui/material/IconButton";
 import TextField from "@mui/material/TextField";
-import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import "../css/home.css";
+import "./css/home.css";
 
 export const Home = () => {
   // Redux
@@ -20,9 +18,6 @@ export const Home = () => {
 
   // set bug list to filtered list
   const [filteredBugs, setFilteredBugs] = useState([]);
-
-  // set for minimum date search choice
-  const [minDate, setMinDate] = useState(null);
 
   // call when bugs length is less than 1
   useEffect(() => {
@@ -41,32 +36,6 @@ export const Home = () => {
     let newDate = tempDate2[1] + "-" + tempDate2[2] + "-" + tempDate2[0];
 
     return newDate;
-  };
-
-  // compare dates
-  const compareDates = (tempBugs) => {
-    let dateToCheck, newDate, difference, filteredBugs;
-
-    // create date to compare
-    let todaysDate = new Date();
-
-    // filter according to search selection
-    filteredBugs = tempBugs.filter((bug) => {
-      dateToCheck = formatDate(bug.createdAt).split("-");
-      newDate = new Date(
-        Number(dateToCheck[2]),
-        Number(dateToCheck[0]) - 1,
-        Number(dateToCheck[1])
-      );
-
-      difference =
-        Math.abs(newDate.getTime() - todaysDate.getTime()) /
-        (1000 * 60 * 60 * 24.0);
-
-      return difference < minDate && bug;
-    });
-
-    return filteredBugs;
   };
 
   // filter bug list by search terms
@@ -157,7 +126,9 @@ export const Home = () => {
           ),
         }}
       ></TextField>
-      <div style={{ minHeight: "max-content", width: "100%", maxWidth: '1500px' }}>
+      <div
+        style={{ minHeight: "max-content", width: "100%", maxWidth: "1500px" }}
+      >
         <div className="results">
           {bugsList &&
           filteredBugs &&

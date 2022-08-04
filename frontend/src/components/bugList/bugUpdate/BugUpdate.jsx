@@ -3,7 +3,6 @@ import TextField from "@material-ui/core/TextField";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Checkbox from "@mui/material/Checkbox";
-import { makeStyles } from "@material-ui/core/styles";
 import { MenuItem } from "@mui/material";
 import { InputAdornment } from "@material-ui/core";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -11,87 +10,12 @@ import { useState } from "react";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import Collapse from "@mui/material/Collapse";
-
-const useStyles = makeStyles((theme) => ({
-  updateWrapper: {
-    display: "flex",
-    flexWrap: "wrap",
-    flexGrow: 1,
-    gap: "20px",
-    flexDirection: 'row',
-    justifyContent: "space-between",
-    [theme.breakpoints.down("md")]: {
-      alignItems: "left",
-    },
-  },
-  arrow: {
-    position: "absolute",
-    top: "20px",
-    right: "25px",
-    cursor: "pointer",
-  },
-  inputs: {
-    backgroundColor: "var(--secondary-color)",
-    borderRadius: "5px",
-    [theme.breakpoints.down("sm")]: {
-      width: "100%",
-    },
-  },
-  markWrapper: {
-    display: "flex",
-    alignItems: "center",
-    textAlign: "center",
-    flex: 2,
-    width: '325px',
-    margin: '0',
-    marginTop: '20px',
-    justifyContent: 'space-between',
-    [theme.breakpoints.down("md")]: {
-      width: '100%',
-      maxWidth: '325px'
-    },
-  },
-  priorityWrapper: {
-    width: "325px",
-    height: "50px",
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    marginBottom: "20px",
-    gap: "20px",
-    flex: '2',
-    maxWidth: "450px",
-    textAlign: 'center',
-    [theme.breakpoints.up("md")]: {
-      maxWidth: "500px",
-    },
-    [theme.breakpoints.down("sm")]: {
-      width: "100%",
-      maxWidth: "400px",
-    },
-  },
-  dropDown: {
-    backgroundColor: "var(--secondary-color)",
-    borderRadius: "5px",
-    paddingLeft: "5px",
-    flex: "1",
-    marginBottom: "10px",
-    maxWidth: "150px",
-  },
-  steps: {
-    backgroundColor: "var(--secondary-color)",
-    borderRadius: "5px",
-    marginBottom: "20px",
-  },
-}));
+import { bugUpdateStyles } from "./bugUpdateStyles";
 
 export const BugUpdate = ({
   bug,
-  user,
   formInput,
   setFormInput,
-  initialState,
 }) => {
   const handleFormInput = (e) => {
     // console.log(formInput.steps)
@@ -112,7 +36,7 @@ export const BugUpdate = ({
     }
   };
 
-  const classes = useStyles();
+  const classes = bugUpdateStyles();
 
   const [updateOpen, setUpdateOpen] = useState(false);
 
@@ -198,7 +122,7 @@ export const BugUpdate = ({
           id="nameInput"
           className={classes.inputs}
           name="name"
-          sx={{ sm: 300, md: 400, flex: '2', marginBottom: '20px' }}
+          sx={{ sm: 300, md: 400, flex: "2", marginBottom: "20px" }}
           variant="filled"
           label="Title"
           type="text"
@@ -206,7 +130,7 @@ export const BugUpdate = ({
           value={formInput.name}
           onChange={handleFormInput}
         />
-        <div className={classes.markWrapper} style={{marginRight: '0'}}>
+        <div className={classes.markWrapper} style={{ marginRight: "0" }}>
           {bug.status === "closed" ? (
             <label>Re-Open Ticket</label>
           ) : (
