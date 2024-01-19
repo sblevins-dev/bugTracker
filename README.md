@@ -2,37 +2,32 @@
 
 Live version: https://bug-tracker-react-node.herokuapp.com/
 
+Simple bug tracking software to keep track of important issues. Personnell can share information to a database.
+
 You can start out by using the demo login
 
-![image](https://user-images.githubusercontent.com/61333980/167727484-913b2654-f564-4fa2-a21f-9e625c2dc5ef.png)
+<img src="https://github.com/sblevins-dev/bugTracker/assets/61333980/5444a221-b31d-41fa-92dc-b3da007dfd0c" width="600" />
 
-This is the hompage
+Homepage
 
-![Screenshot (108)](https://user-images.githubusercontent.com/61333980/167727418-5d7ec6da-c9a9-43c3-b662-23a55e6707a4.png)
+<img src="https://github.com/sblevins-dev/bugTracker/assets/61333980/f809a646-502a-4b8b-9d44-f2d56e354532" width="600" />
 
-You can quick sort the bugs using these modals
+Company Personell
 
-![image](https://user-images.githubusercontent.com/61333980/167727640-4c784d3b-9db0-4b2f-9aa1-797142548fde.png)
+<img src="https://github.com/sblevins-dev/bugTracker/assets/61333980/bce12662-ea47-4490-a819-d5f3f70da80a" width="600" />
 
-And or use the search modal
+Update Profile
 
-![image](https://user-images.githubusercontent.com/61333980/167727699-c8a69316-115b-4d15-84b2-8e0b70a3c66e.png)
+<img src="https://github.com/sblevins-dev/bugTracker/assets/61333980/f7a3bc1d-8e62-4f2a-80e6-2eefc3434ef5" width="600" />
 
-When you click on a bug it will take you to a quick view of the bug description
+Create a Bug
 
-![image](https://user-images.githubusercontent.com/61333980/167727786-e5099084-2360-47b5-81b1-b333f2411a15.png)
+<img src="https://github.com/sblevins-dev/bugTracker/assets/61333980/b7e8766b-7a46-4fc4-8981-bce0d7d3d613" width="600" />
 
-If you click the pencil icon it will allow you to send an edit request
 
-![image](https://user-images.githubusercontent.com/61333980/167727860-f77d8ff0-b3e2-4a19-b1b7-e3e8e1ac74f5.png)
+Dark Mode
 
-If you click the hamburger icon it will pull out the navigation
-
-![image](https://user-images.githubusercontent.com/61333980/167727937-9539fafb-8483-4d13-a539-c4dc3c34e175.png)
-
-If you click create bug it will take you to the create bug request page
-
-![image](https://user-images.githubusercontent.com/61333980/167728038-ee724cae-e360-42a9-a89e-41b3b57c26d5.png)
+<img src="https://github.com/sblevins-dev/bugTracker/assets/61333980/a754575e-d08d-46c7-8509-03cc5e664d70" width="600" />
 
 Thank you for visiting my application. If you have anything to add please let me know!
 
